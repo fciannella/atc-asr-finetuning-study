@@ -1,0 +1,679 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-09-30T15:35:00Z",
+  "title": "ATC adaptation study",
+  "metric_contract": "Standalone normalized WER: lowercase, Unicode diacritic fold, punctuation and symbol removal, and whitespace normalization. Lower is better.",
+  "program_policy": {
+    "effective_date": "2026-09-30",
+    "active_atc_source": "ATCO2 human-gold only",
+    "training": "Only the isolated 0.418-hour gold training split may provide ATCO2 supervision.",
+    "development": "The 0.100-hour gold development split is used for checkpoint and recipe selection.",
+    "community_test": "The 2.000-hour community test remains locked and is never used for training or selection.",
+    "general_replay": "General English may be used only as replay data and as a forgetting guardrail.",
+    "silver_status": "Silver ATCO2 is frozen as historical evidence and is excluded from all new training, tuning, and selection decisions."
+  },
+  "summary": {
+    "silver_experiments": 13,
+    "gold_experiments": 6,
+    "refinement_experiments": 8,
+    "silver_control_gold_wer": 0.3028271773825809,
+    "best_gold_wer": 0.1908344733242134,
+    "finalist_development_wer": 0.187726,
+    "finalist_locked_wer": 0.19211126310989513,
+    "best_run": "G3 silver → gold refinement · seed 42 · beam 4",
+    "absolute_gold_gain": 0.1119927040583675,
+    "relative_gold_reduction": 0.3698238217135973
+  },
+  "baselines": [
+    {
+      "model": "Nemotron 3.5 ASR Streaming 0.6B",
+      "checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "atc_set": "Historical human ATC development",
+      "atc_wer": 0.7575167273651224,
+      "general_wer": 0.03522519780888619
+    },
+    {
+      "model": "NVIDIA Parakeet CTC 1.1B",
+      "checkpoint": "nvidia/parakeet-ctc-1.1b",
+      "atc_set": "Historical human ATC development",
+      "atc_wer": 0.6521555009739984,
+      "general_wer": 0.020370511259890443
+    },
+    {
+      "model": "NVIDIA Parakeet TDT 0.6B v3",
+      "checkpoint": "nvidia/parakeet-tdt-0.6b-v3 @ 541d1f99",
+      "atc_set": "Leakage-audited ATC development",
+      "atc_wer": 0.5468546071521796,
+      "general_wer": 0.021682897139379185
+    }
+  ],
+  "silver_experiments": [
+    {
+      "id": "scale-10h-v1",
+      "experiment": "Nemotron scale · 10 h",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "10.0 h silver ATCO2; 100% high-confidence CNET top-1 labels",
+      "steps": "9,791 / 10,000",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.45405268061319554,
+      "general_wer": 0.05456862446743761,
+      "outcome": "The first 10 hours captured most of the early domain gain."
+    },
+    {
+      "id": "scale-50h-v1",
+      "experiment": "Nemotron scale · 50 h",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "50.0 h silver ATCO2; nested superset of the 10 h release",
+      "steps": "24,001 / 25,000",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.44211061234860677,
+      "general_wer": 0.057725958612294584,
+      "outcome": "Only 1.19 points better than 10 h; the scale curve began to plateau."
+    },
+    {
+      "id": "scale-100h-10k-v1",
+      "experiment": "Nemotron scale · 100 h / 10k",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "100.0 h silver ATCO2; nested superset of the 50 h release",
+      "steps": "10,000",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.46184466841704075,
+      "general_wer": 0.05409312233718807,
+      "outcome": "Under-trained at this step budget; scale alone did not improve WER."
+    },
+    {
+      "id": "scale-100h-20k-v1",
+      "experiment": "Nemotron scale · 100 h / 20k",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "Same frozen 100.0 h silver release; only the optimization horizon changed",
+      "steps": "20,000",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.4482086897603117,
+      "general_wer": 0.05738359707851491,
+      "outcome": "Longer training recovered the short-run regression but did not beat 50 h."
+    },
+    {
+      "id": "scale-fullhq-fixed5epoch-v1",
+      "experiment": "Nemotron Full HQ",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "314.7 h silver ATCO2; 396,461 segments; CNET posterior ≥ 0.90",
+      "steps": "62,944",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.4310154992800881,
+      "general_wer": 0.060902312842361535,
+      "outcome": "Best low-LR Nemotron scale result, with measurable English forgetting."
+    },
+    {
+      "id": "nemotron-normalization-preflight-v1",
+      "experiment": "Nemotron normalization probe",
+      "initial_checkpoint": "Nemotron Full HQ · 62,944-step export",
+      "dataset_composition": "No retraining; post-hoc checkpoint clone with global → per-feature normalization",
+      "steps": "0",
+      "learning_rate": "—",
+      "seed": "—",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.8440755484034894,
+      "general_wer": 0.8900258673158856,
+      "outcome": "Incompatible as a checkpoint-only switch; normalization must be trained, not mutated."
+    },
+    {
+      "id": "nemotron-fullhq-lr6e5-normna-20k-v1",
+      "experiment": "Nemotron LR screen · 6e-5",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "314.7 h frozen silver Full HQ release",
+      "steps": "20,000",
+      "learning_rate": "6e-5",
+      "seed": "42",
+      "atc_metric": "35.04% best in-training validation at 19k; no standalone score",
+      "atc_wer": null,
+      "general_wer": null,
+      "outcome": "Completed 20k-step screening arm. The 1e-4 arm won selection, so 6e-5 was deliberately not promoted to standalone ATC or general-English evaluation."
+    },
+    {
+      "id": "nemotron-fullhq-lr1e4-normna-20k-v1",
+      "experiment": "Nemotron LR screen · 1e-4",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "314.7 h frozen silver Full HQ release",
+      "steps": "20,000 · selected 14k",
+      "learning_rate": "1e-4",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.3285339205556026,
+      "general_wer": 0.16880325623858794,
+      "outcome": "Large ATC gain, but severe general-English forgetting."
+    },
+    {
+      "id": "parakeet-ctc-1.1b-fullhq-v1",
+      "experiment": "Parakeet CTC 1.1B · Full HQ",
+      "initial_checkpoint": "nvidia/parakeet-ctc-1.1b",
+      "dataset_composition": "314.7 h silver ATCO2; same frozen Full HQ source",
+      "steps": "88,515 · selected 66,002",
+      "learning_rate": "3e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.26924705683069367,
+      "general_wer": 0.3462796713329276,
+      "outcome": "Strong specialist ATC model with catastrophic general-domain forgetting."
+    },
+    {
+      "id": "nemotron-fullhq-general-replay-1to1-v2",
+      "experiment": "Nemotron replay · 1:1",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "Source pools: 314.721 h silver ATCO2 + 314.721 h LibriSpeech English; sampled 50% / 50%",
+      "steps": "40,000",
+      "learning_rate": "1e-4",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.37850427712374013,
+      "general_wer": 0.03391281192939744,
+      "outcome": "First balanced Nemotron result: strong ATC gain with no measured English loss."
+    },
+    {
+      "id": "nemotron-fullhq-general-replay-2to1-v1",
+      "experiment": "Nemotron replay · 2:1",
+      "initial_checkpoint": "nemotron-3.5-asr-streaming-0.6b.nemo",
+      "dataset_composition": "Source pools: 314.721 h silver ATCO2 + 314.721 h LibriSpeech English; sampled 66.7% / 33.3%",
+      "steps": "40,000",
+      "learning_rate": "1e-4",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.37384602354535446,
+      "general_wer": 0.03393183201460743,
+      "outcome": "Best balanced Nemotron result; slightly better ATC than 1:1 with tied English quality."
+    },
+    {
+      "id": "parakeet-ctc-1.1b-replay-1to1-lr1e5-v1",
+      "experiment": "Parakeet CTC 1.1B · replay",
+      "initial_checkpoint": "nvidia/parakeet-ctc-1.1b",
+      "dataset_composition": "Source pools: 314.721 h silver ATCO2 + 314.721 h LibriSpeech English; sampled 50% / 50%",
+      "steps": "56,250 · selected 54,002",
+      "learning_rate": "1e-5",
+      "seed": "42",
+      "atc_metric": "Historical ATC dev",
+      "atc_wer": 0.33344626069280936,
+      "general_wer": 0.02153073645769933,
+      "outcome": "Best balanced model in the earlier silver study."
+    },
+    {
+      "id": "parakeet-tdt-v3-jacktol-transfer-v1",
+      "experiment": "Parakeet TDT 0.6B · silver transfer",
+      "initial_checkpoint": "nvidia/parakeet-tdt-0.6b-v3 @ 541d1f99",
+      "dataset_composition": "Source pools: 314.716 h leakage-audited silver ATCO2 + 314.721 h LibriSpeech English; sampled 80% / 20%",
+      "steps": "20,000 · selected 9,001",
+      "learning_rate": "1e-4",
+      "seed": "42",
+      "atc_metric": "Locked ATCO2 community gold",
+      "atc_wer": 0.3028271773825809,
+      "general_wer": 0.021777997565429093,
+      "outcome": "Silver precursor for the gold study; 24.88% Jacktol and 35.30% UWB WER."
+    }
+  ],
+  "silver_retrospective": {
+    "campaign": "silver-gold-retrospective-v1",
+    "status": "complete",
+    "scoring_contract": "All rows use the same normalized-WER implementation. Frozen checkpoints were evaluated without retraining or checkpoint selection; Nemotron streaming inputs were materialized into zero-offset clips.",
+    "community_test": {
+      "name": "ATCO2 locked community test",
+      "records": 1908,
+      "hours": 2.0004411111111076,
+      "manifest_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+    },
+    "jacktol_disjoint": {
+      "name": "ATCO2 test · confirmed Jacktol overlap removed",
+      "records": 1695,
+      "hours": 1.749386666666667,
+      "removed_records": 213,
+      "removed_hours": 0.25105444444444447
+    },
+    "results": [
+      {
+        "id": "nemotron_base",
+        "experiment": "Nemotron base",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.7575167273651224,
+        "atco2_community_test_wer": 0.755677154583,
+        "atco2_jacktol_disjoint_wer": 0.762646118362,
+        "general_wer": 0.03522519780888619,
+        "note": "Untouched reference model."
+      },
+      {
+        "id": "nemotron_10h",
+        "experiment": "Nemotron · 10 h silver",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.45405268061319554,
+        "atco2_community_test_wer": 0.440218878249,
+        "atco2_jacktol_disjoint_wer": 0.446139330083,
+        "general_wer": 0.05456862446743761,
+        "note": "Most of the low-LR domain gain arrived in the first 10 hours."
+      },
+      {
+        "id": "nemotron_50h",
+        "experiment": "Nemotron · 50 h silver",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.44211061234860677,
+        "atco2_community_test_wer": 0.427131782946,
+        "atco2_jacktol_disjoint_wer": 0.433978088798,
+        "general_wer": 0.057725958612294584,
+        "note": "Best low-LR scale point before the full-data run."
+      },
+      {
+        "id": "nemotron_100h_10k",
+        "experiment": "Nemotron · 100 h / 10k",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.46184466841704075,
+        "atco2_community_test_wer": 0.447742818057,
+        "atco2_jacktol_disjoint_wer": 0.45379252503,
+        "general_wer": 0.05409312233718807,
+        "note": "A shorter 100-hour budget underperformed the 50-hour run."
+      },
+      {
+        "id": "nemotron_100h_20k",
+        "experiment": "Nemotron · 100 h / 20k",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.4482086897603117,
+        "atco2_community_test_wer": 0.436297309622,
+        "atco2_jacktol_disjoint_wer": 0.443203858049,
+        "general_wer": 0.05738359707851491,
+        "note": "More optimization recovered the 100-hour regression, but did not beat 50 hours."
+      },
+      {
+        "id": "nemotron_fullhq_3e5",
+        "experiment": "Nemotron · Full HQ / 3e-5",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.4310154992800881,
+        "atco2_community_test_wer": 0.417920656635,
+        "atco2_jacktol_disjoint_wer": 0.424542642973,
+        "general_wer": 0.060902312842361535,
+        "note": "Full silver data improves modestly over 50 hours at the original learning rate."
+      },
+      {
+        "id": "nemotron_fullhq_1e4",
+        "experiment": "Nemotron · Full HQ / 1e-4",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.3285339205556026,
+        "atco2_community_test_wer": 0.321249430005,
+        "atco2_jacktol_disjoint_wer": 0.324422078943,
+        "general_wer": 0.16880325623858794,
+        "note": "Higher LR unlocks ATC accuracy but causes severe general-English forgetting."
+      },
+      {
+        "id": "nemotron_replay_1to1",
+        "experiment": "Nemotron · replay 1:1",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.37850427712374013,
+        "atco2_community_test_wer": 0.365526675787,
+        "atco2_jacktol_disjoint_wer": 0.369607380615,
+        "general_wer": 0.03391281192939744,
+        "note": "English replay restores general ASR while retaining a material ATC gain."
+      },
+      {
+        "id": "nemotron_replay_2to1",
+        "experiment": "Nemotron · replay 2:1",
+        "family": "Nemotron streaming 0.6B",
+        "historical_atc_wer": 0.37384602354535446,
+        "atco2_community_test_wer": 0.35959872321,
+        "atco2_jacktol_disjoint_wer": 0.363264664255,
+        "general_wer": 0.03393183201460743,
+        "note": "Best balanced Nemotron result in this retrospective matrix."
+      },
+      {
+        "id": "parakeet_ctc_base",
+        "experiment": "Parakeet CTC base",
+        "family": "Parakeet CTC 1.1B",
+        "historical_atc_wer": 0.6521555009739984,
+        "atco2_community_test_wer": 0.635111719106,
+        "atco2_jacktol_disjoint_wer": 0.639723226922,
+        "general_wer": 0.020370511259890443,
+        "note": "Untouched CTC reference model."
+      },
+      {
+        "id": "parakeet_ctc_fullhq",
+        "experiment": "Parakeet CTC · Full HQ",
+        "family": "Parakeet CTC 1.1B",
+        "historical_atc_wer": 0.26924705683069367,
+        "atco2_community_test_wer": 0.267806657547,
+        "atco2_jacktol_disjoint_wer": 0.270377942024,
+        "general_wer": 0.3462796713329276,
+        "note": "Lowest ATC WER among silver-only artifacts, with catastrophic English forgetting."
+      },
+      {
+        "id": "parakeet_ctc_replay_1to1",
+        "experiment": "Parakeet CTC · replay 1:1",
+        "family": "Parakeet CTC 1.1B",
+        "historical_atc_wer": 0.33344626069280936,
+        "atco2_community_test_wer": 0.328089375285,
+        "atco2_jacktol_disjoint_wer": 0.334748650207,
+        "general_wer": 0.02153073645769933,
+        "note": "Balanced CTC recipe preserves English while substantially improving ATC."
+      },
+      {
+        "id": "parakeet_tdt_silver_control",
+        "experiment": "Parakeet TDT · silver control",
+        "family": "Parakeet TDT 0.6B v3",
+        "historical_atc_wer": 0.3315061341686244,
+        "atco2_community_test_wer": 0.3028271773825809,
+        "atco2_jacktol_disjoint_wer": 0.3070713424542643,
+        "general_wer": 0.021777997565429093,
+        "note": "Best balanced silver-only artifact and the parent checkpoint for the gold refinement study."
+      }
+    ]
+  },
+  "gold_experiments": [
+    {
+      "id": "g1_gold_only_s1234",
+      "experiment": "G1 gold-only",
+      "initial_checkpoint": "nvidia/parakeet-tdt-0.6b-v3 @ 541d1f99",
+      "dataset_composition": "100% ATCO2 human-gold train (0.418 h; 393 segments)",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 1234,
+      "atco2_gold_wer": 0.2644322845417237,
+      "jacktol_validation_wer": 0.33277771163233716,
+      "jacktol_test_wer": 0.3256169212690952,
+      "uwb_test_wer": 0.4328849028400598,
+      "general_wer": 0.10911822884966525,
+      "outcome": "Gold improved the matching ATCO2 test, but the tiny gold-only recipe forgot English and transferred poorly."
+    },
+    {
+      "id": "g2_gold_replay_s1234",
+      "experiment": "G2 gold + English",
+      "initial_checkpoint": "nvidia/parakeet-tdt-0.6b-v3 @ 541d1f99",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 1234,
+      "atco2_gold_wer": 0.24304605563155496,
+      "jacktol_validation_wer": 0.31468031908560545,
+      "jacktol_test_wer": 0.30399529964747357,
+      "uwb_test_wer": 0.41375186846038864,
+      "general_wer": 0.026723219720024345,
+      "outcome": "English replay controlled forgetting, but training from the untouched base left cross-ATC performance weak."
+    },
+    {
+      "id": "g3_silver_gold_refine_s1234",
+      "experiment": "G3 silver → gold refine",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 1234,
+      "atco2_gold_wer": 0.20510715914272687,
+      "jacktol_validation_wer": 0.22490772711037028,
+      "jacktol_test_wer": 0.2156286721504113,
+      "uwb_test_wer": 0.3251494768310912,
+      "general_wer": 0.024060407790626903,
+      "outcome": "Best strategy family: broad silver adaptation followed by a small, lower-LR gold correction."
+    },
+    {
+      "id": "g3_silver_gold_refine_s42",
+      "experiment": "G3 silver → gold refine",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 42,
+      "atco2_gold_wer": 0.2,
+      "jacktol_validation_wer": 0.22490772711037028,
+      "jacktol_test_wer": 0.2136310223266745,
+      "uwb_test_wer": 0.32234678624813157,
+      "general_wer": 0.023109403530127814,
+      "outcome": "Study champion: 20.00% gold WER with only +0.13 points on LibriSpeech versus the silver control."
+    },
+    {
+      "id": "g4_silver_gold_joint_s1234",
+      "experiment": "G4 silver + gold joint",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 314.716 h silver ATCO2 + 0.418 h human gold + 314.721 h general English; sampled 70% / 15% / 15%",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 1234,
+      "atco2_gold_wer": 0.2744642042863657,
+      "jacktol_validation_wer": 0.24288605786403147,
+      "jacktol_test_wer": 0.2317273795534665,
+      "uwb_test_wer": 0.33998505231689086,
+      "general_wer": 0.02379412659768716,
+      "outcome": "Stable general quality, but continued silver sampling diluted the correction from scarce gold labels."
+    },
+    {
+      "id": "g4_silver_gold_joint_s42",
+      "experiment": "G4 silver + gold joint",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 314.716 h silver ATCO2 + 0.418 h human gold + 314.721 h general English; sampled 70% / 15% / 15%",
+      "steps": 2000,
+      "learning_rate": "1e-5",
+      "seed": 42,
+      "atco2_gold_wer": 0.27378020975832196,
+      "jacktol_validation_wer": 0.24002857483033694,
+      "jacktol_test_wer": 0.23078730904817862,
+      "uwb_test_wer": 0.3372944693572496,
+      "general_wer": 0.022443700547778455,
+      "outcome": "The second seed confirms G4 is stable, but materially weaker than the two-stage G3 recipe."
+    }
+  ],
+  "refinement_experiments": [
+    {
+      "id": "g3-s42-greedy-control",
+      "experiment": "G3 seed 42 · greedy control",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": "2,000",
+      "learning_rate": "1e-5",
+      "seed": "42",
+      "decoding": "Greedy",
+      "evaluation_set": "Locked ATCO2 community test",
+      "atc_wer": 0.2,
+      "general_wer": 0.023109403530127814,
+      "status": "complete",
+      "outcome": "Reference acoustic checkpoint before decoding refinement."
+    },
+    {
+      "id": "g3-s42-beam4",
+      "experiment": "G3 seed 42 · beam 4",
+      "initial_checkpoint": "G3 seed-42 selected checkpoint",
+      "dataset_composition": "No retraining; identical frozen model and evaluation manifests",
+      "steps": "0 new",
+      "learning_rate": "—",
+      "seed": "42",
+      "decoding": "Beam 4",
+      "evaluation_set": "Locked ATCO2 community test",
+      "atc_wer": 0.190834,
+      "general_wer": 0.022805,
+      "status": "complete",
+      "outcome": "Improved the locked gold test by 0.92 points. Paired bootstrap 95% CI: −1.15 to −0.68 points; 0/5,000 resamples favored the greedy control."
+    },
+    {
+      "id": "g3-top3-average",
+      "experiment": "G3 top-3 checkpoint average",
+      "initial_checkpoint": "G3 seed-42 top three validation checkpoints",
+      "dataset_composition": "Checkpoint averaging only; no additional audio or optimizer steps",
+      "steps": "0 new",
+      "learning_rate": "—",
+      "seed": "42",
+      "decoding": "Beam 4",
+      "evaluation_set": "Gold development · locked pass complete",
+      "atc_wer": 0.187726,
+      "general_wer": 0.023243,
+      "status": "selected",
+      "outcome": "Selected before the test was opened. Final standalone WER: 19.21% ATCO2 community, 20.36% Jacktol test, 31.23% UWB, and 2.32% LibriSpeech. It remained 0.13 points behind seed-42 beam-4 on the locked ATCO2 set."
+    },
+    {
+      "id": "g3-repro-s17",
+      "experiment": "G3 reproduction · seed 17",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": "2,000",
+      "learning_rate": "1e-5",
+      "seed": "17",
+      "decoding": "Beam 4",
+      "evaluation_set": "Gold development · selection only",
+      "atc_wer": 0.195848,
+      "general_wer": 0.024136,
+      "status": "complete",
+      "outcome": "Reproduced the gain while preserving general English, but did not beat checkpoint averaging."
+    },
+    {
+      "id": "g3-repro-s73",
+      "experiment": "G3 reproduction · seed 73",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%",
+      "steps": "2,000",
+      "learning_rate": "1e-5",
+      "seed": "73",
+      "decoding": "Beam 4",
+      "evaluation_set": "Gold development · selection only",
+      "atc_wer": 0.190433,
+      "general_wer": 0.022786,
+      "status": "complete",
+      "outcome": "A second independent seed confirmed the recipe is stable and close to the seed-42 frontier."
+    },
+    {
+      "id": "g3-hard-slice-s42",
+      "experiment": "G3 hard-slice reweighting",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.181 h hard gold + 0.237 h remaining gold + 314.721 h general English; sampled 55% / 30% / 15%",
+      "steps": "2,000",
+      "learning_rate": "1e-5",
+      "seed": "42",
+      "decoding": "Beam 4",
+      "evaluation_set": "Gold development · selection only",
+      "atc_wer": 0.203971,
+      "general_wer": 0.023185,
+      "status": "complete",
+      "outcome": "Extra emphasis on the hard slice reduced overall development accuracy; difficulty weighting alone was not the missing lever."
+    },
+    {
+      "id": "g3-radio-proxy-s42",
+      "experiment": "G3 radio-proxy augmentation",
+      "initial_checkpoint": "Parakeet TDT silver control · selected step 9,001",
+      "dataset_composition": "Source pools: 0.418 h ATCO2 human gold + 314.721 h general English; sampled 85% / 15%, with mild gain and white-noise proxy augmentation",
+      "steps": "2,000",
+      "learning_rate": "1e-5",
+      "seed": "42",
+      "decoding": "Beam 4",
+      "evaluation_set": "Gold development · selection only",
+      "atc_wer": 0.196751,
+      "general_wer": 0.022957,
+      "status": "complete",
+      "outcome": "Safe but weaker than the unaugmented averaged finalist; generic noise did not reproduce the remaining channel errors."
+    },
+    {
+      "id": "g3-word-boosting-pilot",
+      "experiment": "ATC phrase boosting pilot",
+      "initial_checkpoint": "Frozen G3 top-3 averaged finalist",
+      "dataset_composition": "200 phrases derived from training text only; no development or test references",
+      "steps": "0 new",
+      "learning_rate": "—",
+      "seed": "—",
+      "decoding": "Beam 4 · boost alpha 0",
+      "evaluation_set": "Gold development · selection only",
+      "atc_wer": 0.18772563176895307,
+      "general_wer": 0.023242544126597688,
+      "status": "complete",
+      "outcome": "Ordinary beam-4 won the controlled sweep. MALSD alpha 0 scored 19.40%; positive boosting weights scored 19.40%, 19.86%, 20.94%, and 24.73%, so phrase boosting was rejected."
+    }
+  ],
+  "refinement_summary": {
+    "final_evaluation": [
+      {
+        "dataset": "Jacktol validation",
+        "seed42_wer": 0.21585903083700442,
+        "finalist_wer": 0.21431122752708656,
+        "delta_points": -0.154780330991786
+      },
+      {
+        "dataset": "Jacktol test",
+        "seed42_wer": 0.2055229142185664,
+        "finalist_wer": 0.2036427732079906,
+        "delta_points": -0.18801410105757954
+      },
+      {
+        "dataset": "UWB test",
+        "seed42_wer": 0.31270553064275036,
+        "finalist_wer": 0.31229446935724964,
+        "delta_points": -0.04110612855007201
+      },
+      {
+        "dataset": "LibriSpeech test-clean",
+        "seed42_wer": 0.022805082166768107,
+        "finalist_wer": 0.023242544126597688,
+        "delta_points": 0.043746195982958105
+      },
+      {
+        "dataset": "ATCO2 community gold",
+        "seed42_wer": 0.1908344733242134,
+        "finalist_wer": 0.19211126310989513,
+        "delta_points": 0.1276789785681749
+      }
+    ],
+    "word_boosting_sweep": [
+      {"decoder": "Beam", "alpha": 0, "development_wer": 0.18772563176895307, "word_errors": 208, "selected": true},
+      {"decoder": "MALSD", "alpha": 0, "development_wer": 0.194043321299639, "word_errors": 215, "selected": false},
+      {"decoder": "MALSD", "alpha": 0.1, "development_wer": 0.194043321299639, "word_errors": 215, "selected": false},
+      {"decoder": "MALSD", "alpha": 0.2, "development_wer": 0.19855595667870035, "word_errors": 220, "selected": false},
+      {"decoder": "MALSD", "alpha": 0.4, "development_wer": 0.20938628158844766, "word_errors": 232, "selected": false},
+      {"decoder": "MALSD", "alpha": 0.8, "development_wer": 0.24729241877256317, "word_errors": 274, "selected": false}
+    ],
+    "beam4_significance": {
+      "comparison": "G3 seed 42 beam-4 minus greedy on locked ATCO2",
+      "delta_points": -0.91655266757866,
+      "ci95_low_points": -1.150372387644479,
+      "ci95_high_points": -0.6831813348395699,
+      "bootstrap_samples": 5000,
+      "resamples_favoring_greedy": 0
+    }
+  },
+  "gold_data_contract": {
+    "train": "0.418 h · 393 segments · 19 airport-day groups",
+    "development": "0.100 h · 100 segments · checkpoint selection only",
+    "community_test": "2.000 h · 1,908 segments · locked until all six artifacts were frozen",
+    "isolation": "Train, development, and community test have zero overlap by airport-date, audio path, record ID, and source-record ID."
+  },
+  "findings": [
+    {
+      "title": "Silver scale plateaued early",
+      "text": "Nemotron improved sharply with the first 10 hours, but 50–314.7 hours stayed near 43–45% WER at the original 3e-5 learning rate."
+    },
+    {
+      "title": "Learning rate unlocked ATC specialization",
+      "text": "Raising Nemotron to 1e-4 reached 32.85% ATC WER, but LibriSpeech deteriorated to 16.88%; optimization and forgetting had to be treated together."
+    },
+    {
+      "title": "English replay protected general ASR",
+      "text": "Balanced replay held LibriSpeech near the untouched baseline for both Nemotron and Parakeet while preserving substantial ATC gains."
+    },
+    {
+      "title": "Architecture mattered",
+      "text": "Parakeet variants learned the ATC domain more effectively than the initial Nemotron scale runs, but ATC-only Parakeet CTC also suffered severe forgetting."
+    },
+    {
+      "title": "Gold was most valuable as a refinement",
+      "text": "Starting from the silver-adapted Parakeet TDT checkpoint and refining on only 0.418 hours of gold plus English reduced locked gold-test WER from 30.28% to 20.00%."
+    },
+    {
+      "title": "The result reproduced across seeds",
+      "text": "G3 reached 20.51% with seed 1234 and 20.00% with seed 42. G4 was similarly stable but consistently weaker, supporting a recipe effect rather than a lucky seed."
+    },
+    {
+      "title": "Beam search delivered a measured final-mile gain",
+      "text": "Beam-4 decoding reduced locked community-test WER from 20.00% to 19.08%. A paired bootstrap interval excluded zero, while LibriSpeech remained effectively unchanged."
+    },
+    {
+      "title": "Averaging beat targeted reweighting and generic noise",
+      "text": "The top-three G3 average reached 18.77% on gold development. Its frozen locked-test pass reached 19.21%, slightly behind seed-42 beam-4 at 19.08%, so averaging improved the selection set but did not establish a new locked-test frontier."
+    },
+    {
+      "title": "Phrase boosting did not help this TDT checkpoint",
+      "text": "A training-text-only 200-phrase sweep selected ordinary beam-4 with alpha 0. MALSD started at 19.40% development WER and degraded monotonically to 24.73% as boosting increased; the unboosted beam result remained 18.77%."
+    }
+  ]
+}

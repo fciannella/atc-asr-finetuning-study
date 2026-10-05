@@ -1,0 +1,45 @@
+# Model and training artifacts
+*.nemo
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.riva
+checkpoints/
+outputs/
+wandb/
+
+# Audio, archives, and datasets
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+data/
+datasets/
+manifests/
+
+# Credentials and local configuration
+.env
+.env.*
+*.key
+*.pem
+*.p12
+credentials*
+secrets*
+
+# Python and local tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Generated local reports
+tmp/
+scratch/
