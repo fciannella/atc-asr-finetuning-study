@@ -1,95 +1,128 @@
 # Fine-Tune ASR for Your Domain with NVIDIA Nemotron Speech Skills
 
-Suppose a speech recognition model transcribes everyday conversation accurately, yet struggles with a pilot reading back a clearance. The model already knows English. What it needs to learn is how English sounds over a radio and how people use it in air traffic control. Fine-tuning lets us teach those differences by updating a pretrained model with examples from the new domain.
+A speech recognition model can understand everyday English yet struggle with an air-traffic-control (ATC) clearance. Radio noise, accents, callsigns, and compressed phraseology change both sound and language. Fine-tuning adapts a pretrained model to those differences while testing whether existing capabilities survive.
 
-The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. Here we follow the experiments from automatically transcribed audio to human annotations and, finally, an n-gram language model. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+Our study used two NVIDIA agent skills to guide data preparation, training, and evaluation. We follow the experiments from automatic labels to human annotations and language-model fusion. Recognition quality is measured with word error rate (WER): substitutions, deletions, and insertions divided by reference words. Lower is better.
 
 ## How the skills guide the work
 
-Think of a skill as a reusable set of instructions for a coding agent. It helps the agent ask the right questions, carry out the work in a sensible order, and collect the evidence needed to judge the result.
+A skill is a reusable instruction set for a coding agent. [`nemotron-asr-finetune`](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) establishes the objective and baseline, then considers word boosting, language-model fusion, or acoustic fine-tuning. [`nemo-speech-asr-finetune`](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune) prepares data, preserves checkpoint contracts, configures training, exports candidates, and evaluates them. Together, they connect each experiment to a measurable objective.
 
-The [`nemotron-asr-finetune`](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) skill organizes the project. It establishes the target domain, available data, quality objective, hardware, latency, and deployment requirements. After measuring the starting model, it helps choose the least expensive customization likely to address the observed errors.
+## Prerequisites
 
-For a handful of unfamiliar names, word boosting or custom vocabulary may be sufficient. When domain phrases cause trouble, an n-gram language model is worth testing. Differences in channel, accent, or noise may call for acoustic fine-tuning. This progression keeps the work proportional to the problem.
+You need a coding agent supporting Agent Skills, Node.js/npm, Git, and a Linux GPU host with NVIDIA drivers, NVIDIA Container Toolkit, and a compatible NeMo ASR environment. Prepare a licensed `.nemo` checkpoint, readable audio, separate training/development/test manifests, and storage for checkpoints. JSONL rows need `audio_filepath`, `duration`, and `text`.
 
-The [`nemo-speech-asr-finetune`](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune) skill handles the NeMo training workflow. It inspects the checkpoint, prepares data with Lhotse, checks transcript conventions, configures training, saves candidate checkpoints, and evaluates the exported model. It also checks that the tokenizer, loss function, and preprocessing remain compatible with the model.
+The linked historical run used eight GPUs, BF16, and NeMo `2.8.0rc0`; that is its recorded setup, not a minimum for every pilot. Pin the software and model versions and check available GPU memory before training. Skills guide the work; they do not provision hardware or install the training environment.
 
-Together, the skills connect experiment planning with execution. Each training run has a reason, a defined dataset, and a test that can tell us whether the change helped.
+## Install and activate the skills
+
+Follow the [NVIDIA skills installation flow](https://github.com/NVIDIA/skills#quickstart):
+
+```bash
+npx skills@latest add NVIDIA/skills --skill nemotron-asr-finetune
+npx skills@latest add NVIDIA-NeMo/Speech --skill nemo-speech-asr-finetune
+npx skills@latest list
+```
+
+Choose your agent and installation scope, then start a fresh agent session and confirm both skills are available.
+
+Explicitly name both in a prompt. This sample is illustrative; replace the paths with your files:
+
+> Use `nemotron-asr-finetune` and `nemo-speech-asr-finetune` to adapt `/models/base.nemo` to ATC. Human-verified training and development manifests are `/data/atc/train.jsonl` and `/data/atc/dev.jsonl`; keep `/data/atc/test.jsonl` locked until selection is complete. English replay is `/data/english/train.jsonl`; the general evaluation is `/data/librispeech/test-clean.jsonl`. Audit transcript style and overlap, inspect the checkpoint and GPUs, and measure baseline WER. If acoustic training is justified, propose a conservative pilot with replay. Preserve tokenizer and preprocessing. Save the effective configuration, manifest hashes, exported model, predictions, and baseline-versus-adapted WER report in `/exp/atc`. Report missing inputs before launching training.
 
 ## Choose the architecture as part of the product decision
 
-Before choosing a recipe, inspect the checkpoint. Its encoder, decoder, tokenizer, feature normalization, and loss function were designed and trained to work together.
-
-| Architecture | Basic idea | Practical implication |
+| Architecture | Basic idea | Training constraint |
 | --- | --- | --- |
-| CTC | Predict frame-level tokens, then collapse blanks and repetitions | Parallelizable decoding and convenient external-LM integration |
-| RNN-T | Combine an acoustic encoder with a prediction and joint network | Streaming-friendly and conditioned on previously emitted tokens |
-| TDT | Extend the transducer family with token-and-duration outputs | Efficient sequence modeling with architecture-specific duration settings |
+| CTC | Frame-level tokens followed by blank/repetition collapse | Preserve head and tokenizer |
+| RNN-T | Acoustic encoder plus prediction and joint networks | Preserve transducer loss and streaming configuration |
+| TDT | Transducer with token-and-duration outputs | Preserve duration vocabulary and decoder settings |
 
-Our experiments used Nemotron 3.5 ASR Streaming 0.6B, Parakeet CTC 1.1B, and Parakeet TDT 0.6B v3. Each required a compatible training recipe. CTC can be attractive for offline decoding and language-model integration, while a streaming transducer may suit an application that must respond as someone speaks. Choose with the intended application in mind, then compare accuracy.
+We tested Nemotron 3.5 ASR Streaming 0.6B, Parakeet CTC 1.1B, and Parakeet TDT 0.6B v3. Parakeet is a separate model family in this comparison. Choose a compatible recipe and the latency/serving mode your application needs.
 
-When adapting within the same language, keeping the pretrained tokenizer is usually the safest starting point. If a replacement is needed, train it only on training text. Input normalization deserves similar care: changing our completed Nemotron checkpoint from global to per-feature normalization without retraining sharply increased WER on both ATC and general speech. The lesson was to preserve the preprocessing the model had learned to expect.
+Keep the pretrained tokenizer and preprocessing for an initial same-language adaptation. Our post-hoc change from global to per-feature normalization sharply worsened Nemotron WER. If replacing a tokenizer, use training text only.
 
-## Why ATC is a demanding adaptation problem
+## Know which data is being released
 
-ATC speech concentrates several ASR challenges in one domain:
+The documented community-release plan covers **two hours of human-annotated ATCO2 evaluation data**, containing 1,908 segments. It does not currently include the study's 0.418-hour Gold training set, 0.100-hour Gold development set, or licensed 314.7-hour Silver training corpus. The download URL, license, and final packaging remain pending release-owner confirmation. Keep the community evaluation data out of training and model selection.
 
-- narrow-band radio, interference, clipping, and variable gain;
-- short, context-dependent transmissions;
-- accents and non-native English;
-- callsigns, runways, headings, altitudes, and frequencies;
-- specialized, compressed phraseology;
-- number or callsign errors that are more consequential than ordinary conversational substitutions.
-
-Both the sound and the language differ from ordinary conversation. An adapted model may nevertheless need to recognize general English too, so we measured those two capabilities throughout the study.
+For a public starting point, the [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) provides official training, validation, and test splits under its dataset-card terms. Alternatively, supply your own licensed recordings. Audit overlap before comparing Jacktol with ATCO2. New data means a new experiment, not reproduction of the historical scores.
 
 ## ATCO2 and Jacktol provide different evidence
 
-The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hours. Filtering for language, duration, confidence, text, and audio quality produced a 314.721-hour English Silver release with 396,461 segments. “Silver” means high-confidence CNET hypotheses rather than human-verified references. The smaller human-Gold pool was assigned to non-overlapping roles:
+Filtering the approximately 4,281.9-hour ATCO2 delivery produced 314.721 hours of English Silver data: 396,461 segments with selected automatic CNET hypotheses. Human-Gold data had separate roles:
 
 | Split | Audio | Segments | Role |
 | --- | ---: | ---: | --- |
-| Gold training | 0.418 h | 393 | Final supervised refinement |
-| Gold development | 0.100 h | 100 | Checkpoint and recipe selection |
-| Gold community test | 2.000 h | 1,908 | Locked final evaluation |
+| Gold training | 0.418 h | 393 | Supervised refinement |
+| Gold development | 0.100 h | 100 | Checkpoint and decoder selection |
+| Gold community test | 2.000 h | 1,908 | Locked evaluation |
 
-The splits had zero overlap by airport-date, audio path, record ID, and source recording. Reserving two hours for evaluation left about 25 minutes for Gold training. That was a deliberate trade-off: we wanted enough held-out speech to assess what the model had learned.
+The splits had no overlap by airport-date, audio path, record ID, or source recording. Public Jacktol supplied a separate comparison and training-only domain text. Its ATCO2-derived material required an acoustic overlap audit. These internal study splits do not expand the planned public release.
 
-The public [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) contains 7.405 hours, including about 5.9 training hours and official validation and test splits. It supplied an external comparison and training-only domain text. Because it includes material derived from public ATCO2 recordings, cross-corpus claims required an acoustic overlap audit.
+## Inspect and run the training configuration
 
-## A reproducible fine-tuning workflow
+The [Nemotron 2:1 replay example](https://github.com/fciannella/atc-asr-finetuning-experiments/tree/main/experiments/nemotron-mixed-2to1) contains an [effective training configuration](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/config.yaml), executable `recipe.sh`, sampling weights, logs, and results. **This repository is currently private; public release is pending.** The container digest and base-checkpoint download link still need to be pinned for release.
 
-### 1. State the objective
+The archived run mixed 314.721 hours of Silver ATCO2 with 314.721 hours of English, sampled 2:1. It used 40,000 optimizer steps, learning rate `1e-4`, and 400 warmup steps. Validation retained the top five checkpoints plus last. The published comparison evaluated the final exported 40,000-step model, separately from the best in-training checkpoint.
 
-Decide what an acceptable result looks like before training. We wanted lower WER on ATCO2 Gold, with a limited increase on LibriSpeech test-clean. LibriSpeech served as our check for catastrophic forgetting, the loss of previously learned recognition ability during adaptation.
+Authorized readers set `NEMO_ROOT`, `BASE_MODEL`, `ATC_TRAIN_MANIFEST`, `GENERAL_TRAIN_MANIFEST`, `ATC_DEV_MANIFEST`, and `OUTPUT_DIR`, then run `bash recipe.sh`. The YAML describes the settings; the shell script executes them. The example README supplies the path-setting commands and checkpoint-resume procedure.
 
-### 2. Inventory and version the data
+This is a historical Silver-data recipe. New ATCO2 development follows the [Gold-only policy](atco2-gold-policy.md). A small Gold pilot needs its own conservative learning rate, batch sizing, and step budget; copying a 40,000-step recipe unchanged would be inappropriate.
 
-For every sample, we recorded its source, label quality, split, and original recording. We checked for missing audio and empty transcripts, inspected duration and token distributions, and made transcript conventions consistent. Related segments stayed together when splitting. We saved hashes of the final manifests so another engineer could verify the exact inputs.
+## Evaluate both models and inspect the outputs
 
-General-English replay means continuing to show the model examples of ordinary English during ATC training. Lhotse sampling weights controlled how often each source appeared. We recorded both the available hours and the sampling ratio, since they describe different aspects of the training data.
+Run standalone inference with the untouched and exported fine-tuned checkpoints on identical domain and general-English manifests. Development selects checkpoints and decoder settings; the locked test is evaluated only after selection. The historical table below uses development data, not the community test.
 
-### 3. Freeze evaluation
+For the Nemotron streaming checkpoint, use the [NeMo inference script](https://github.com/NVIDIA-NeMo/Speech/blob/main/examples/asr/asr_cache_aware_streaming/speech_to_text_cache_aware_streaming_infer.py). In the GPU container, set `NEMO_ROOT`, `BASE_MODEL`, `FINETUNED_MODEL`, `ATC_EVAL_MANIFEST`, and `GENERAL_EVAL_MANIFEST` to real paths. Use the historical ATC development manifest for the linked comparison and LibriSpeech test-clean for general evaluation. Set `STUDY_ROOT` to this study checkout and `EVAL_DIR` to a new output directory. Run in Bash:
 
-Give each split a clear job. Training examples update the weights; development examples help select checkpoints and decoder settings; the held-out test measures the selected configuration. LibriSpeech provides a separate check on general English.
+```bash
+set -euo pipefail
+mkdir -p "$EVAL_DIR"
+for variant in baseline finetuned; do
+  model="$BASE_MODEL"
+  if [ "$variant" = finetuned ]; then model="$FINETUNED_MODEL"; fi
+  for split in atc general; do
+    manifest="$ATC_EVAL_MANIFEST"
+    if [ "$split" = general ]; then manifest="$GENERAL_EVAL_MANIFEST"; fi
+    out="$EVAL_DIR/$variant-$split"
+    mkdir "$out"
+    python "$NEMO_ROOT/examples/asr/asr_cache_aware_streaming/speech_to_text_cache_aware_streaming_infer.py" \
+      model_path="$model" dataset_manifest="$manifest" output_path="$out" \
+      target_lang=en-US att_context_size='[56,3]' decoder_type=rnnt \
+      pad_and_drop_preencoded=true batch_size=8 cuda=0 strip_lang_tags=true \
+      amp=false compute_dtype=float32
+  done
+done
+```
 
-All reported WERs used the same normalizer: lowercase, Unicode diacritic folding, punctuation and symbol removal, and whitespace normalization. In-training validation selected candidates, but final quality came from reloading the exported artifact and running standalone evaluation.
+Materialize segmented audio as clips first. These settings are specific to the historical Nemotron recipe; Parakeet needs its own inference path. `float32` makes the current script's default precision explicit; record it and the software revision. Missing historical environment pins prevent a guarantee of exact numerical reproduction.
 
-### 4. Train conservatively, then diagnose
+For each output directory, score its prediction JSONL (`text` and `pred_text`) using the actual generated filename:
 
-We began conservatively and measured the effect of larger learning rates in later experiments. We saved the best validation checkpoints as well as the final checkpoint, because the best model can appear before training ends.
+```bash
+python "$STUDY_ROOT/scripts/score_wer.py" /actual/predictions.jsonl \
+  --output /actual/wer.json
+```
 
-Where possible, each experiment changed one factor: data volume, learning rate, architecture, replay ratio, Gold refinement, checkpoint averaging, decoding, or language-model weight. This made it easier to understand both improvements and setbacks.
+The [scorer](../scripts/score_wer.py) folds case and diacritics, normalizes symbols while retaining apostrophes, and divides total word edits by total reference words. Use the same implementation for both models and verify matching sample counts.
 
-### 5. Save enough to reproduce the result
+Expected artifacts are configuration and manifest hashes, training logs, retained checkpoints, an exported `.nemo`, and four prediction/score pairs. Each `wer.json` includes utterances, reference words, word errors, and `normalized_wer` as a fraction; multiply by 100 for percentages. Save decoder settings and checkpoint hashes with the report.
 
-Alongside the `.nemo` file, save the starting checkpoint revision, tokenizer, preprocessing, manifest hashes, training configuration, selection rule, and decoder settings. Include the text normalizer and both domain and general-English scores. These details explain what the model is and how its quality was measured.
+## What fine-tuning changed
+
+| Evaluation | Untouched Nemotron | Fine-tuned Nemotron |
+| --- | ---: | ---: |
+| Historical ATC development: 1,007 utterances | 75.75% WER | **37.38% WER** |
+| LibriSpeech test-clean: 2,620 utterances | 3.52% WER | **3.39% WER** |
+
+The [unrounded results](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/results.yaml) show a **38.37-percentage-point reduction**, or **50.65% relative reduction**, in ATC development WER. These are observed results, not promised outcomes. This development comparison is distinct from the later two-hour locked ATCO2 test.
 
 ## Experiment 1: What did additional Silver data teach the model?
 
-We began with `nemotron-3.5-asr-streaming-0.6b.nemo` and a peak learning rate of `3e-5`. The Silver releases were nested, allowing us to change scale without redefining earlier samples.
+We began with `nemotron-3.5-asr-streaming-0.6b.nemo` and a peak learning rate of `3e-5`. The Silver releases were nested. The following retrospective results evaluate surviving checkpoints on the same locked Gold test, separate from the historical development comparison above.
 
-| Training data | Steps | ATCO2 Gold WER | LibriSpeech WER |
+| Training data | Steps | ATCO2 locked Gold test WER | LibriSpeech WER |
 | --- | ---: | ---: | ---: |
 | Untouched model | 0 | 75.57% | 3.52% |
 | 10 h Silver | 9,791 | 44.02% | 5.46% |
@@ -136,33 +169,15 @@ We also averaged the three checkpoints with the best validation scores. The aver
 
 We next tested whether a language model could help resolve the remaining transcription ambiguities.
 
-### Why an n-gram model after acoustic fine-tuning?
+### Add domain text without changing the acoustic model
 
-The ASR model scores candidate transcriptions using the audio and its learned context. An external n-gram language model adds a preference based on short token sequences observed in text. During shallow fusion, the decoder combines the ASR and LM scores. A weight called alpha controls how strongly the external LM influences the choice.
+An external n-gram language model scores short token sequences, helping the decoder choose between acoustically similar phrases. Shallow fusion combines its score with the ASR score; alpha controls its influence. The acoustic weights remain fixed.
 
-Consider the words following a runway clearance. ATC uses a relatively small set of recurring phrases, so some continuations are much more likely than others. An LM can use those patterns to help choose between acoustically similar candidates. It provides additional evidence, although a strong preference for familiar phrases can also steer the decoder away from what was actually said.
+We first trained three-gram and four-gram models using only the 393 Gold training transcripts, with an English-text blend as a control. Development and test transcripts never entered LM training. A 24-configuration sweep selected a Gold-only four-gram at alpha `0.1`: development WER improved from 18.77% for ordinary beam decoding to 17.96%. LibriSpeech reached 2.48%, passing our predefined 2.52% guardrail, before the selected decoder was tested on locked ATCO2.
 
-This is an economical experiment because the ASR checkpoint stays fixed and LM training requires only text. It lets us test an additional source of improvement without running another acoustic fine-tuning job.
+Next we added official Jacktol training text, excluding its validation and test text. Repeating the scarce Gold lines produced a 132,461-token corpus balanced approximately 50:50 between Gold and Jacktol. This changed counts, not unique text. The overlap audit remained part of the data contract.
 
-### Constructing the LM corpora without test leakage
-
-The first corpus contained only the 393 ATCO2 Gold training transcripts: 4,761 normalized tokens. We also constructed an 80% Gold / 20% general-English corpus by token count to test whether an LM replay mixture would preserve ordinary English.
-
-The normalization matched our WER contract: case folding, Unicode diacritic folding, punctuation and symbol removal, and whitespace collapse. Gold development and community-test transcripts were used only for identifier-level isolation checks; their text never entered LM training. Silver ATCO2 was also excluded.
-
-For the second round, we added the official Jacktol training text. After removing unusable rows, it contributed 6,495 lines and 65,807 tokens. Because the ATCO2 Gold corpus was tiny, we repeated its training lines to create a token-balanced corpus rather than allowing Jacktol to dominate. The result contained 132,461 tokens: 50.32% ATCO2 Gold and 49.68% Jacktol. Jacktol validation and test transcripts remained excluded.
-
-Repeating the Gold lines increased their contribution to the n-gram counts; it did not increase the amount of unique text. Recording that distinction matters when describing the corpus and reproducing its balance.
-
-### Selecting order and fusion weight
-
-We trained three-gram and four-gram KenLM models and converted them for offline NeMo TDT decoding. The acoustic model was the frozen, top-three-averaged G3 finalist. Ordinary beam-4 decoding scored 18.77% on Gold development. Switching to the MALSD decoder without an LM scored 19.40%, so every LM candidate first had to recover the cost of changing decoder.
-
-The first sweep evaluated 24 combinations of corpus, n-gram order, and alpha. A Gold-only four-gram with alpha `0.1` scored best at 17.96% development WER, an improvement of 0.81 points over ordinary beam decoding. Before testing that configuration on held-out ATCO2, we checked English: LibriSpeech WER changed from 2.32% to 2.48%, below our predefined 2.52% maximum. The selected Gold-only LM then reached **18.12%** on ATCO2, compared with 19.21% for the frozen acoustic finalist.
-
-With Jacktol text added, we evaluated 20 further configurations against the Gold-only LM. A balanced four-gram at alpha `0.2` produced the lowest ATCO2 development WER, 17.15%, but raised LibriSpeech to 2.80%. That exceeded our accepted regression limit, so we rejected it before final testing.
-
-We stepped down to alpha `0.1`. On Jacktol validation, it improved the Gold-only LM from 21.15% to 19.49%, while LibriSpeech reached 2.43% and passed the guardrail. Only then did we freeze the configuration and run the final tests.
+A second sweep found that alpha `0.2` improved ATCO2 development most, but worsened LibriSpeech to 2.80%. We rejected it before final testing. Alpha `0.1` passed the English guardrail at 2.43% and improved Jacktol validation. We then froze the decoder and evaluated the held-out sets:
 
 | Decoder configuration | ATCO2 locked test | Jacktol test | LibriSpeech test-clean |
 | --- | ---: | ---: | ---: |
@@ -180,30 +195,16 @@ We also verified that our setup could reproduce the public Jacktol benchmark. Ou
 
 ## Learning from the experiments that did not help
 
-Several plausible changes fell short in this study:
+Post-hoc normalization changes, continued Silver mixing during Gold refinement, generic noise augmentation, hard-example oversampling, and phrase boosting failed to improve the selected approach. The strongest domain LM weight also failed the English guardrail. These outcomes narrowed the next experiment; they do not establish that those techniques fail for every dataset.
 
-- post-hoc feature-normalization changes violated the checkpoint contract;
-- increasing Silver scale without changing the recipe plateaued;
-- high-learning-rate and ATC-only runs hid catastrophic forgetting;
-- continuing Silver replay diluted final Gold correction;
-- generic noise did not reproduce the remaining radio errors;
-- hard-example oversampling reduced overall development accuracy;
-- phrase boosting did not help the selected TDT checkpoint;
-- the LM weight giving the lowest development WER exceeded the permitted English regression.
+## Apply the lessons to your own domain
 
-These outcomes helped us decide where to spend the next training or evaluation budget. They also kept the conclusions specific: a technique that failed with this data and checkpoint might still help elsewhere.
+The historical sequence was broad Silver adaptation, English replay, low-learning-rate Gold refinement, then decoder experiments. New ATCO2 work uses the Gold-only policy; the historical Silver results explain the study rather than authorize new Silver training.
 
-## The practical recipe that emerged
+Use development data to choose the next experiment, retain a general-English guardrail, and evaluate the exported artifact. A plateau can reflect label quality, optimization, or decoding. The skills keep the configurations and measurements consistent while you test those explanations.
 
-For a domain with abundant weak labels and scarce trusted references, our evidence supports six steps:
+## Try the workflow
 
-1. Freeze leakage-safe Gold development and test sets, then measure the untouched checkpoint on domain and general speech.
-2. Use Silver data for broad channel adaptation, with general-domain replay when existing capability must be preserved.
-3. Refine the balanced checkpoint on scarce Gold data at a lower learning rate and repeat the recipe across seeds.
-4. Select and export checkpoints before opening the locked test.
-5. Evaluate beam search, averaging, and n-gram fusion as separate controlled stages.
-6. Report domain WER, transfer results, and the forgetting guardrail together.
+Install the [orchestration skill](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) and [training skill](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune), inspect the [example](https://github.com/fciannella/atc-asr-finetuning-experiments/tree/main/experiments/nemotron-mixed-2to1), and start with licensed domain data or [Jacktol](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset). Measure both domain gains and general-English retention.
 
-The judgment in fine-tuning lies in choosing what to investigate next. A plateau may reflect noisy labels, an unsuitable learning rate, or a decoder that needs more domain context. The measurements help distinguish these explanations, and the next experiment should make that distinction clearer.
-
-The skills help carry those decisions through the project. The orchestration skill keeps the objective and evaluation criteria in view; the NeMo skill guides the training and scoring needed to test each idea. That leaves the next engineer with a useful starting point: a model, the evidence behind it, and a clear account of what remains to be learned.
+<!-- Publication handoff: add the approved ATCO2 evaluation dataset URL/license and public example/scoring-code URLs. Confirm the planned evaluation-only scope with the release owner. Nemotron positioning remains with the messaging owner. Before livestream: add “Join the upcoming livestream to walk through the workflow” only with a confirmed event link. After livestream: replace with “Watch the walkthrough” and the recording URL. Do not publish this private-link draft as launch-ready. -->
