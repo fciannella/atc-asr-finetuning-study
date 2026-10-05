@@ -6,7 +6,7 @@ Private working repository for the ATCO2 and Jacktol ASR adaptation study. It co
 
 - [Fine-tuning guide](docs/fine-tuning-guide.md) explains the skill-guided ASR adaptation workflow.
 - [Experiments and results](docs/experiments-and-results.md) follows the study from Silver adaptation through Gold refinement and n-gram fusion.
-- [Editorial blog draft](docs/editorial-blog-draft.md) is the publication-oriented working document.
+- [Fine-tuning blog](docs/fine_tuning_blog.md) is the publication-oriented working document.
 - [ATCO2 Gold and Jacktol comparison](docs/atco2-jacktol-comparison.md) summarizes the two data contracts and the overlap audit.
 - [Experiment narrative](docs/experiment-narrative.md) preserves the longer chronological account.
 
