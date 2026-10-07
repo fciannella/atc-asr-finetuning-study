@@ -65,6 +65,18 @@ Explicitly name both in a prompt. This sample is illustrative; replace the paths
 Use nemotron-asr-finetune and nemo-speech-asr-finetune to adapt /models/base.nemo to ATC. Human-verified training and development manifests are /data/atc/train.jsonl and /data/atc/dev.jsonl; keep /data/atc/test.jsonl locked until selection is complete. English replay is /data/english/train.jsonl; the general evaluation is /data/librispeech/test-clean.jsonl. Audit transcript style and overlap, inspect the checkpoint and GPUs, and measure baseline WER. If acoustic training is justified, propose a conservative pilot with replay. Preserve tokenizer and preprocessing. Save the effective configuration, manifest hashes, exported model, predictions, and baseline-versus-adapted WER report in /exp/atc. Report missing inputs before launching training.
 ```
 
+### **Keep the skills up to date**
+
+Before a new experiment, check for updates, refresh installed skills, and review the installed list:
+
+```sh
+npx skills@latest check
+npx skills@latest update
+npx skills@latest list
+```
+
+Run the update interactively to review prompts about skills removed or merged upstream, including proposed removal of stale local copies. Then start a fresh agent session. See NVIDIA's [Keep Skills Up to Date](https://github.com/NVIDIA/skills#keep-skills-up-to-date) instructions.
+
 ## **Choose the architecture as part of the product decision**
 
 Before choosing a recipe, inspect the checkpoint. Its encoder, decoder, tokenizer, feature normalization, and loss function were designed and trained to work together.
