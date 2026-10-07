@@ -159,7 +159,7 @@ Scores come from the [Parakeet Gold results](../reports/experiment-study.json), 
 
 We had plenty of machine-labeled ATCO2 audio but only about 25 minutes of human-verified training audio. **Should we train directly on those trusted labels, or first adapt on the larger Silver pool? And where does English replay help?**
 
-![Four Gold training paths for Parakeet and Nemotron, with ATCO2 Silver, Gold, and LibriSpeech source-pool hours.](images/comparison-1-gold.svg)
+[![Four Gold training paths for Parakeet and Nemotron, with ATCO2 Silver, Gold, and LibriSpeech source-pool hours.](images/comparison-1-gold.png)](images/comparison-1-gold.svg)
 
 **Read the branches:** G1 vs G2 tests adding replay; G2 vs G3 tests prior Silver adaptation; G3 vs G4 tests keeping Silver during the final correction. We repeat all four strategies for both models, using the same 393 Gold training segments and a 2,000-step refinement budget. Gold development selects checkpoints.
 
@@ -179,7 +179,7 @@ The historical training data remain separate from the planned evaluation-data re
 
 This experiment asks whether **more training on the same small dataset keeps improving ATC recognition—and what it costs in general English.** We start from pretrained Nemotron and use only Jacktol's 5.896-hour training split, with no English replay or other training audio.
 
-![Nemotron training grows from 5k to 30k steps on 5.896 hours of Jacktol, with no English replay.](images/comparison-2-duration.svg)
+[![Nemotron training grows from 5k to 30k steps on 5.896 hours of Jacktol, with no English replay.](images/comparison-2-duration.png)](images/comparison-2-duration.svg)
 
 **Read the progression:** the data stay fixed while training continues. Each extension starts from the previous phase's final weights with a fresh optimizer and schedule; Jacktol validation selects the checkpoint to evaluate at each budget.
 
@@ -199,7 +199,7 @@ The ATCO2 column uses the existing **1,695-segment, 1.749-hour recording-disjoin
 
 Comparison 2 exposed a trade-off: better ATC recognition accompanied worse general English. Here we ask whether **training on broader ATC data first, then focusing on Jacktol while retaining English replay, gives a better balance.** We run this curriculum for both Parakeet and Nemotron.
 
-![Shared curriculum using 5.896 hours of Jacktol, 10.534 hours of UWB, and 100.344 hours of LibriSpeech, with sampling shares for each stage.](images/comparison-3-curriculum.svg)
+[![Shared curriculum using 5.896 hours of Jacktol, 10.534 hours of UWB, and 100.344 hours of LibriSpeech, with sampling shares for each stage.](images/comparison-3-curriculum.png)](images/comparison-3-curriculum.svg)
 
 **Read the stages:** A1–A2 blend two ATC sources with general English. P1–P3 drop UWB and progressively emphasize Jacktol. The source pools contain 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of English; the percentages below are sampling shares, not additional data. Each stage continues from the previous selected export.
 
