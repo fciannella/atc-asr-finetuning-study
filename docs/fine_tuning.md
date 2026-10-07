@@ -59,11 +59,13 @@ npx skills@latest list
 
 Choose your agent and installation scope, then start a fresh agent session and confirm both skills are available.
 
-Explicitly name both in a prompt. This sample is illustrative; replace the paths with your files:
+### **Use the skills with your agent**
 
-```textproto
-Use nemotron-asr-finetune and nemo-speech-asr-finetune to adapt /models/base.nemo to ATC. Human-verified training and development manifests are /data/atc/train.jsonl and /data/atc/dev.jsonl; keep /data/atc/test.jsonl locked until selection is complete. English replay is /data/english/train.jsonl; the general evaluation is /data/librispeech/test-clean.jsonl. Audit transcript style and overlap, inspect the checkpoint and GPUs, and measure baseline WER. If acoustic training is justified, propose a conservative pilot with replay. Preserve tokenizer and preprocessing. Save the effective configuration, manifest hashes, exported model, predictions, and baseline-versus-adapted WER report in /exp/atc. Report missing inputs before launching training.
-```
+Give your coding agent access to the model checkpoint and data manifests, then name the skills and describe your goal:
+
+> Use `nemotron-asr-finetune` and `nemo-speech-asr-finetune` to adapt my ASR model to air traffic control. Inspect my data and GPU environment, measure baseline accuracy, and propose a training plan with English replay. Compare ATC accuracy and general-English retention before and after adaptation, keeping test data out of training and model selection.
+
+The agent uses the skills to identify missing inputs, prepare the experiment, and produce a baseline-versus-adapted WER report.
 
 ### **Keep the skills up to date**
 
