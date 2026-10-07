@@ -1,57 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1285" viewBox="0 0 1800 1285" role="img" aria-labelledby="title"><title id="title">Two skills, one adaptation workflow</title><g font-family="Arial, Helvetica, sans-serif">
-<rect x="0" y="0" width="1800" height="1285" fill="#F3F5F1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1002" viewBox="0 0 1800 1002" role="img" aria-labelledby="title"><title id="title">Two skills, one adaptation workflow</title><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1800" height="1002" fill="#F3F5F1"/>
 <rect x="48" y="35" width="64" height="6" fill="#76B900"/>
 <text x="48.00" y="96" font-size="43" font-weight="700" fill="#182019">Two skills, one adaptation workflow</text>
 <text x="48.00" y="137" font-size="24" font-weight="400" fill="#596555">What you can do with each skill</text>
-<rect x="48" y="170" width="1704" height="85" fill="#182019"/>
-<text x="72.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">nemotron-asr-finetune — plan and coordinate adaptation</text>
-<text x="924.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">nemo-speech-asr-finetune — train and evaluate with NeMo</text>
-<rect x="48" y="254" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="255" width="1704" height="159" fill="#FFFFFF"/>
-<text x="72.00" y="305" font-size="27" font-weight="400" fill="#202A22">Define success: Turn a domain or language request into accuracy</text>
-<text x="72.00" y="342" font-size="27" font-weight="400" fill="#202A22">targets, latency constraints, and a baseline evaluation plan.</text>
-<text x="924.00" y="305" font-size="27" font-weight="400" fill="#202A22">Inspect your model: Identify its architecture, tokenizer, and</text>
-<text x="924.00" y="342" font-size="27" font-weight="400" fill="#202A22">preprocessing, then choose a compatible NeMo recipe and</text>
-<text x="924.00" y="379" font-size="27" font-weight="400" fill="#202A22">environment.</text>
-<rect x="48" y="413" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="414" width="1704" height="159" fill="#F7F9F5"/>
-<text x="72.00" y="464" font-size="27" font-weight="400" fill="#202A22">Choose an approach: Decide whether word boosting, vocabulary</text>
-<text x="72.00" y="501" font-size="27" font-weight="400" fill="#202A22">support, an n-gram language model , or acoustic fine-tuning fits</text>
-<text x="72.00" y="538" font-size="27" font-weight="400" fill="#202A22">the measured errors.</text>
-<text x="924.00" y="464" font-size="27" font-weight="400" fill="#202A22">Prepare training data: Check manifests and transcript</text>
-<text x="924.00" y="501" font-size="27" font-weight="400" fill="#202A22">conventions, configure Lhotse loaders, and mix domain audio with</text>
-<text x="924.00" y="538" font-size="27" font-weight="400" fill="#202A22">general-speech replay.</text>
-<rect x="48" y="572" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="573" width="1704" height="159" fill="#FFFFFF"/>
-<text x="72.00" y="623" font-size="27" font-weight="400" fill="#202A22">Plan resources: Assess available audio, label quality, GPU</text>
-<text x="72.00" y="660" font-size="27" font-weight="400" fill="#202A22">capacity, and time/cost trade-offs; identify missing inputs before</text>
-<text x="72.00" y="697" font-size="27" font-weight="400" fill="#202A22">expensive work.</text>
-<text x="924.00" y="623" font-size="27" font-weight="400" fill="#202A22">Configure and run training: Set learning rate, batch sizing, step</text>
-<text x="924.00" y="660" font-size="27" font-weight="400" fill="#202A22">budget, validation, and checkpoint retention for the chosen model.</text>
-<rect x="48" y="731" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="732" width="1704" height="159" fill="#F7F9F5"/>
-<text x="72.00" y="782" font-size="27" font-weight="400" fill="#202A22">Protect existing capabilities: Define domain and general-speech</text>
-<text x="72.00" y="819" font-size="27" font-weight="400" fill="#202A22">checks so better domain accuracy does not hide catastrophic</text>
-<text x="72.00" y="856" font-size="27" font-weight="400" fill="#202A22">forgetting.</text>
-<text x="924.00" y="782" font-size="27" font-weight="400" fill="#202A22">Measure the result: Evaluate exported checkpoints with</text>
-<text x="924.00" y="819" font-size="27" font-weight="400" fill="#202A22">normalized WER on domain and general speech, independently of</text>
-<text x="924.00" y="856" font-size="27" font-weight="400" fill="#202A22">training logs.</text>
-<rect x="48" y="890" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="891" width="1704" height="159" fill="#FFFFFF"/>
-<text x="72.00" y="941" font-size="27" font-weight="400" fill="#202A22">Choose the next experiment: Use measured errors and</text>
-<text x="72.00" y="978" font-size="27" font-weight="400" fill="#202A22">constraints to prioritize data, training, or decoding changes and</text>
-<text x="72.00" y="1015" font-size="27" font-weight="400" fill="#202A22">route specialist work.</text>
-<text x="924.00" y="941" font-size="27" font-weight="400" fill="#202A22">Refine the model: Adjust replay or curriculum and compare</text>
-<text x="924.00" y="978" font-size="27" font-weight="400" fill="#202A22">individual and averaged checkpoints, keeping changes only when</text>
-<text x="924.00" y="1015" font-size="27" font-weight="400" fill="#202A22">evaluation supports them.</text>
-<rect x="48" y="1049" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="1050" width="1704" height="159" fill="#F7F9F5"/>
-<text x="72.00" y="1100" font-size="27" font-weight="400" fill="#202A22">Coordinate delivery: Hand off serving and endpoint evaluation to</text>
-<text x="72.00" y="1137" font-size="27" font-weight="400" fill="#202A22">the deployment skill when the selected model meets the objective.</text>
-<text x="924.00" y="1100" font-size="27" font-weight="400" fill="#202A22">Produce reviewable artifacts: Retain training configurations,</text>
-<text x="924.00" y="1137" font-size="27" font-weight="400" fill="#202A22">checkpoints, exported .nemo models, and standalone evaluation</text>
-<text x="924.00" y="1174" font-size="27" font-weight="400" fill="#202A22">results.</text>
-<rect x="48" y="1208" width="1704" height="1" fill="#CBD3C6"/>
-<text x="48.00" y="1257" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
-<text x="1667.02" y="1257" font-size="18" font-weight="700" fill="#596555">TABLE 03</text>
+<rect x="48" y="170" width="1704" height="74" fill="#182019"/>
+<text x="68.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">nemotron-asr-finetune — plan and coordinate adaptation</text>
+<text x="920.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">nemo-speech-asr-finetune — train and evaluate with NeMo</text>
+<rect x="48" y="243" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="244" width="1704" height="108" fill="#FFFFFF"/>
+<text x="68.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">Define success: Turn a domain or language request into accuracy targets,</text>
+<text x="68.00" y="323.0" font-size="24" font-weight="400" fill="#202A22">latency constraints, and a baseline evaluation plan.</text>
+<text x="920.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">Inspect your model: Identify its architecture, tokenizer, and preprocessing,</text>
+<text x="920.00" y="323.0" font-size="24" font-weight="400" fill="#202A22">then choose a compatible NeMo recipe and environment.</text>
+<rect x="48" y="351" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="352" width="1704" height="108" fill="#F7F9F5"/>
+<text x="68.00" y="397.0" font-size="24" font-weight="400" fill="#202A22">Choose an approach: Decide whether word boosting, vocabulary support, an</text>
+<text x="68.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">n-gram language model , or acoustic fine-tuning fits the measured errors.</text>
+<text x="920.00" y="397.0" font-size="24" font-weight="400" fill="#202A22">Prepare training data: Check manifests and transcript conventions, configure</text>
+<text x="920.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">Lhotse loaders, and mix domain audio with general-speech replay.</text>
+<rect x="48" y="459" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="460" width="1704" height="108" fill="#FFFFFF"/>
+<text x="68.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">Plan resources: Assess available audio, label quality, GPU capacity, and</text>
+<text x="68.00" y="539.0" font-size="24" font-weight="400" fill="#202A22">time/cost trade-offs; identify missing inputs before expensive work.</text>
+<text x="920.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">Configure and run training: Set learning rate, batch sizing, step budget,</text>
+<text x="920.00" y="539.0" font-size="24" font-weight="400" fill="#202A22">validation, and checkpoint retention for the chosen model.</text>
+<rect x="48" y="567" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="568" width="1704" height="108" fill="#F7F9F5"/>
+<text x="68.00" y="613.0" font-size="24" font-weight="400" fill="#202A22">Protect existing capabilities: Define domain and general-speech checks so</text>
+<text x="68.00" y="647.0" font-size="24" font-weight="400" fill="#202A22">better domain accuracy does not hide catastrophic forgetting.</text>
+<text x="920.00" y="613.0" font-size="24" font-weight="400" fill="#202A22">Measure the result: Evaluate exported checkpoints with normalized WER on</text>
+<text x="920.00" y="647.0" font-size="24" font-weight="400" fill="#202A22">domain and general speech, independently of training logs.</text>
+<rect x="48" y="675" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="676" width="1704" height="142" fill="#FFFFFF"/>
+<text x="68.00" y="738.0" font-size="24" font-weight="400" fill="#202A22">Choose the next experiment: Use measured errors and constraints to</text>
+<text x="68.00" y="772.0" font-size="24" font-weight="400" fill="#202A22">prioritize data, training, or decoding changes and route specialist work.</text>
+<text x="920.00" y="721.0" font-size="24" font-weight="400" fill="#202A22">Refine the model: Adjust replay or curriculum and compare individual and</text>
+<text x="920.00" y="755.0" font-size="24" font-weight="400" fill="#202A22">averaged checkpoints, keeping changes only when evaluation supports</text>
+<text x="920.00" y="789.0" font-size="24" font-weight="400" fill="#202A22">them.</text>
+<rect x="48" y="817" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="818" width="1704" height="108" fill="#F7F9F5"/>
+<text x="68.00" y="863.0" font-size="24" font-weight="400" fill="#202A22">Coordinate delivery: Hand off serving and endpoint evaluation to the</text>
+<text x="68.00" y="897.0" font-size="24" font-weight="400" fill="#202A22">deployment skill when the selected model meets the objective.</text>
+<text x="920.00" y="863.0" font-size="24" font-weight="400" fill="#202A22">Produce reviewable artifacts: Retain training configurations, checkpoints,</text>
+<text x="920.00" y="897.0" font-size="24" font-weight="400" fill="#202A22">exported .nemo models, and standalone evaluation results.</text>
+<rect x="48" y="925" width="1704" height="1" fill="#CBD3C6"/>
+<text x="48.00" y="974" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
+<text x="1667.02" y="974" font-size="18" font-weight="700" fill="#596555">TABLE 03</text>
 </g></svg>

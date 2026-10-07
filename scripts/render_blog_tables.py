@@ -56,15 +56,41 @@ def render(index,raw):
  rows=[[c.strip() for c in line.strip().strip('|').split('|')] for line in raw]
  rows.pop(1)
  assert all(len(r)==len(weights) for r in rows)
- W=1800;M=48;INNER=W-2*M;PAD=24;SIZE=27;LINE=37
- widths=[round(INNER*w) for w in weights];widths[-1]=INNER-sum(widths[:-1])
+ W=1800;M=48;PAD=20;SIZE=24;LINE=34
+ # Result tables: size columns from their contents so every data cell is one line.
+ if index>=9:
+  widths=[]
+  for ci in range(len(weights)):
+   body=max(font(SIZE,ci==0 or re.fullmatch(r'\*\*[^*]+\*\*',r[ci]) is not None).getlength(plain(r[ci])) for r in rows[1:])
+   header=max(font(22,True).getlength(word) for word in plain(rows[0][ci]).split())
+   widths.append(int(max(body,header)+2*PAD+2))
+  W=max(W,sum(widths)+2*M)
+  extra=W-2*M-sum(widths)
+  targets=list(range(2,len(widths)))
+  for n in range(extra):widths[targets[n%len(targets)]]+=1
+ else:
+  widths=[round((W-2*M)*w) for w in weights];widths[-1]=W-2*M-sum(widths[:-1])
+  if index!=3:
+   label_width=int(max(font(SIZE,True).getlength(plain(r[0])) for r in rows[1:])+2*PAD+2)
+   if widths[0]<label_width<=560:
+    need=label_width-widths[0];rest=sum(widths[1:])
+    widths=[label_width]+[w-round(need*w/rest) for w in widths[1:]]
+    widths[-1]=W-2*M-sum(widths[:-1])
+ INNER=W-2*M
  layout=[]
  for ri,row in enumerate(rows):
   cells=[]
   for ci,cell in enumerate(row):
    bold=ri==0 or (ci==0 and index!=3) or re.fullmatch(r'\*\*[^*]+\*\*',cell) is not None
-   size=25 if ri==0 else SIZE
-   cells.append((wrap(plain(cell),widths[ci]-2*PAD,size,bold),size,bold))
+   size=22 if ri==0 else SIZE
+   # A small, bounded reduction can save a short entry from an awkward wrap.
+   if ri>0 and index<9 and len(plain(cell))<85:
+    for candidate in range(size,21,-1):
+     if font(candidate,bold).getlength(plain(cell))<=widths[ci]-2*PAD:
+      size=candidate;break
+   lines=wrap(plain(cell),widths[ci]-2*PAD,size,bold)
+   if index>=9 and ri>0:assert len(lines)==1,(index,ri,ci,lines)
+   cells.append((lines,size,bold))
   height=max(len(c[0]) for c in cells)*LINE+2*PAD
   layout.append((cells,height))
  H=170+sum(h for _,h in layout)+76
@@ -90,7 +116,7 @@ def render(index,raw):
   for ci,(lines,size,bold) in enumerate(cells):
    color='#FFFFFF' if ri==0 else '#397000' if '**' in rows[ri][ci] and re.fullmatch(r'\*\*[\d.]+%\*\*',rows[ri][ci]) else '#202A22'
    numeric=ri>0 and re.fullmatch(r'[\d.,% —]+',plain(rows[ri][ci])) is not None
-   for li,line in enumerate(lines):txt(x+widths[ci]-PAD if numeric else x+PAD,y+PAD+26+li*LINE,line,size,color,bold,numeric)
+   for li,line in enumerate(lines):txt(x+widths[ci]-PAD if numeric else x+PAD,y+(h-len(lines)*LINE)/2+25+li*LINE,line,size,color,bold,numeric)
    x+=widths[ci]
   y+=h
   rect(M,y-1,INNER,1,'#CBD3C6')

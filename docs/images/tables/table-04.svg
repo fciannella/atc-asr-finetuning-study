@@ -1,34 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="697" viewBox="0 0 1800 697" role="img" aria-labelledby="title"><title id="title">Choose the ASR architecture</title><g font-family="Arial, Helvetica, sans-serif">
-<rect x="0" y="0" width="1800" height="697" fill="#F3F5F1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="542" viewBox="0 0 1800 542" role="img" aria-labelledby="title"><title id="title">Choose the ASR architecture</title><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1800" height="542" fill="#F3F5F1"/>
 <rect x="48" y="35" width="64" height="6" fill="#76B900"/>
 <text x="48.00" y="96" font-size="43" font-weight="700" fill="#182019">Choose the ASR architecture</text>
 <text x="48.00" y="137" font-size="24" font-weight="400" fill="#596555">How each decoder works and where it fits</text>
-<rect x="48" y="170" width="1704" height="85" fill="#182019"/>
-<text x="72.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Architecture</text>
-<text x="328.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Basic idea</text>
-<text x="1044.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Practical implication</text>
-<rect x="48" y="254" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="255" width="1704" height="122" fill="#FFFFFF"/>
-<text x="72.00" y="305" font-size="27" font-weight="700" fill="#202A22">CTC</text>
-<text x="328.00" y="305" font-size="27" font-weight="400" fill="#202A22">Predict frame-level tokens , then collapse blanks and</text>
-<text x="328.00" y="342" font-size="27" font-weight="400" fill="#202A22">repetitions</text>
-<text x="1044.00" y="305" font-size="27" font-weight="400" fill="#202A22">Parallelizable decoding and convenient external-LM</text>
-<text x="1044.00" y="342" font-size="27" font-weight="400" fill="#202A22">integration</text>
-<rect x="48" y="376" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="377" width="1704" height="122" fill="#F7F9F5"/>
-<text x="72.00" y="427" font-size="27" font-weight="700" fill="#202A22">RNN-T</text>
-<text x="328.00" y="427" font-size="27" font-weight="400" fill="#202A22">Combine an acoustic encoder with a prediction and</text>
-<text x="328.00" y="464" font-size="27" font-weight="400" fill="#202A22">joint network</text>
-<text x="1044.00" y="427" font-size="27" font-weight="400" fill="#202A22">Streaming-friendly and conditioned on previously</text>
-<text x="1044.00" y="464" font-size="27" font-weight="400" fill="#202A22">emitted tokens</text>
-<rect x="48" y="498" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="499" width="1704" height="122" fill="#FFFFFF"/>
-<text x="72.00" y="549" font-size="27" font-weight="700" fill="#202A22">TDT</text>
-<text x="328.00" y="549" font-size="27" font-weight="400" fill="#202A22">Extend the transducer family with token-and-duration</text>
-<text x="328.00" y="586" font-size="27" font-weight="400" fill="#202A22">outputs</text>
-<text x="1044.00" y="549" font-size="27" font-weight="400" fill="#202A22">Efficient sequence modeling with architecture-specific</text>
-<text x="1044.00" y="586" font-size="27" font-weight="400" fill="#202A22">duration settings</text>
-<rect x="48" y="620" width="1704" height="1" fill="#CBD3C6"/>
-<text x="48.00" y="669" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
-<text x="1667.02" y="669" font-size="18" font-weight="700" fill="#596555">TABLE 04</text>
+<rect x="48" y="170" width="1704" height="74" fill="#182019"/>
+<text x="68.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Architecture</text>
+<text x="324.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Basic idea</text>
+<text x="1040.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Practical implication</text>
+<rect x="48" y="243" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="244" width="1704" height="74" fill="#FFFFFF"/>
+<text x="68.00" y="289.0" font-size="24" font-weight="700" fill="#202A22">CTC</text>
+<text x="324.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">Predict frame-level tokens , then collapse blanks and repetitions</text>
+<text x="1040.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">Parallelizable decoding and convenient external-LM integration</text>
+<rect x="48" y="317" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="318" width="1704" height="74" fill="#F7F9F5"/>
+<text x="68.00" y="363.0" font-size="24" font-weight="700" fill="#202A22">RNN-T</text>
+<text x="324.00" y="363.0" font-size="23" font-weight="400" fill="#202A22">Combine an acoustic encoder with a prediction and joint network</text>
+<text x="1040.00" y="363.0" font-size="24" font-weight="400" fill="#202A22">Streaming-friendly and conditioned on previously emitted tokens</text>
+<rect x="48" y="391" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="392" width="1704" height="74" fill="#FFFFFF"/>
+<text x="68.00" y="437.0" font-size="24" font-weight="700" fill="#202A22">TDT</text>
+<text x="324.00" y="437.0" font-size="24" font-weight="400" fill="#202A22">Extend the transducer family with token-and-duration outputs</text>
+<text x="1040.00" y="437.0" font-size="22" font-weight="400" fill="#202A22">Efficient sequence modeling with architecture-specific duration settings</text>
+<rect x="48" y="465" width="1704" height="1" fill="#CBD3C6"/>
+<text x="48.00" y="514" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
+<text x="1667.02" y="514" font-size="18" font-weight="700" fill="#596555">TABLE 04</text>
 </g></svg>

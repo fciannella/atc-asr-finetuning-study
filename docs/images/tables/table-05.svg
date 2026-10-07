@@ -1,46 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="845" viewBox="0 0 1800 845" role="img" aria-labelledby="title"><title id="title">Know your training ingredients</title><g font-family="Arial, Helvetica, sans-serif">
-<rect x="0" y="0" width="1800" height="845" fill="#F3F5F1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="712" viewBox="0 0 1800 712" role="img" aria-labelledby="title"><title id="title">Know your training ingredients</title><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1800" height="712" fill="#F3F5F1"/>
 <rect x="48" y="35" width="64" height="6" fill="#76B900"/>
 <text x="48.00" y="96" font-size="43" font-weight="700" fill="#182019">Know your training ingredients</text>
 <text x="48.00" y="137" font-size="24" font-weight="400" fill="#596555">Source pools, label quality, and purpose</text>
-<rect x="48" y="170" width="1704" height="85" fill="#182019"/>
-<text x="72.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Ingredient</text>
-<text x="328.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Labels and source</text>
-<text x="822.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Amount used</text>
-<text x="1401.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Purpose</text>
-<rect x="48" y="254" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="255" width="1704" height="159" fill="#FFFFFF"/>
-<text x="72.00" y="305" font-size="27" font-weight="700" fill="#202A22">ATCO2 Silver</text>
-<text x="328.00" y="305" font-size="27" font-weight="400" fill="#202A22">High-confidence, machine-generated</text>
-<text x="328.00" y="342" font-size="27" font-weight="400" fill="#202A22">ATC transcripts; labels can still</text>
-<text x="328.00" y="379" font-size="27" font-weight="400" fill="#202A22">contain errors</text>
-<text x="822.00" y="305" font-size="27" font-weight="400" fill="#202A22">314.721 h filtered pool; 314.716 h after the</text>
-<text x="822.00" y="342" font-size="27" font-weight="400" fill="#202A22">overlap audit used for the Gold experiments</text>
-<text x="1401.00" y="305" font-size="27" font-weight="400" fill="#202A22">Broad adaptation to radio</text>
-<text x="1401.00" y="342" font-size="27" font-weight="400" fill="#202A22">speech and aviation</text>
-<text x="1401.00" y="379" font-size="27" font-weight="400" fill="#202A22">language</text>
-<rect x="48" y="413" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="414" width="1704" height="159" fill="#F7F9F5"/>
-<text x="72.00" y="464" font-size="27" font-weight="700" fill="#202A22">ATCO2 Gold</text>
-<text x="328.00" y="464" font-size="27" font-weight="400" fill="#202A22">Human-verified ATC transcripts</text>
-<text x="822.00" y="464" font-size="27" font-weight="400" fill="#202A22">0.418 h training (393 clips), 0.100 h</text>
-<text x="822.00" y="501" font-size="27" font-weight="400" fill="#202A22">development, 2.000 h test</text>
-<text x="1401.00" y="464" font-size="27" font-weight="400" fill="#202A22">Trusted-label refinement,</text>
-<text x="1401.00" y="501" font-size="27" font-weight="400" fill="#202A22">checkpoint selection, and</text>
-<text x="1401.00" y="538" font-size="27" font-weight="400" fill="#202A22">separate evaluation</text>
-<rect x="48" y="572" width="1704" height="1" fill="#CBD3C6"/>
-<rect x="48" y="573" width="1704" height="196" fill="#FFFFFF"/>
-<text x="72.00" y="623" font-size="27" font-weight="700" fill="#202A22">English replay</text>
-<text x="328.00" y="623" font-size="27" font-weight="400" fill="#202A22">LibriSpeech general-English training</text>
-<text x="328.00" y="660" font-size="27" font-weight="400" fill="#202A22">audio</text>
-<text x="822.00" y="623" font-size="27" font-weight="400" fill="#202A22">314.721 h selected from train-clean-360 for</text>
-<text x="822.00" y="660" font-size="27" font-weight="400" fill="#202A22">Comparison 1; 100.344 h from</text>
-<text x="822.00" y="697" font-size="27" font-weight="400" fill="#202A22">train-clean-100 for Comparison 3; none in</text>
-<text x="822.00" y="734" font-size="27" font-weight="400" fill="#202A22">Comparison 2</text>
-<text x="1401.00" y="623" font-size="27" font-weight="400" fill="#202A22">Preserve general-English</text>
-<text x="1401.00" y="660" font-size="27" font-weight="400" fill="#202A22">recognition during ATC</text>
-<text x="1401.00" y="697" font-size="27" font-weight="400" fill="#202A22">fine-tuning</text>
-<rect x="48" y="768" width="1704" height="1" fill="#CBD3C6"/>
-<text x="48.00" y="817" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
-<text x="1667.02" y="817" font-size="18" font-weight="700" fill="#596555">TABLE 05</text>
+<rect x="48" y="170" width="1704" height="74" fill="#182019"/>
+<text x="68.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Ingredient</text>
+<text x="324.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Labels and source</text>
+<text x="818.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Amount used</text>
+<text x="1397.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Purpose</text>
+<rect x="48" y="243" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="244" width="1704" height="108" fill="#FFFFFF"/>
+<text x="68.00" y="306.0" font-size="24" font-weight="700" fill="#202A22">ATCO2 Silver</text>
+<text x="324.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">High-confidence, machine-generated ATC</text>
+<text x="324.00" y="323.0" font-size="24" font-weight="400" fill="#202A22">transcripts; labels can still contain errors</text>
+<text x="818.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">314.721 h filtered pool; 314.716 h after the overlap</text>
+<text x="818.00" y="323.0" font-size="24" font-weight="400" fill="#202A22">audit used for the Gold experiments</text>
+<text x="1397.00" y="289.0" font-size="24" font-weight="400" fill="#202A22">Broad adaptation to radio</text>
+<text x="1397.00" y="323.0" font-size="24" font-weight="400" fill="#202A22">speech and aviation language</text>
+<rect x="48" y="351" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="352" width="1704" height="142" fill="#F7F9F5"/>
+<text x="68.00" y="431.0" font-size="24" font-weight="700" fill="#202A22">ATCO2 Gold</text>
+<text x="324.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">Human-verified ATC transcripts</text>
+<text x="818.00" y="414.0" font-size="24" font-weight="400" fill="#202A22">0.418 h training (393 clips), 0.100 h development,</text>
+<text x="818.00" y="448.0" font-size="24" font-weight="400" fill="#202A22">2.000 h test</text>
+<text x="1397.00" y="397.0" font-size="24" font-weight="400" fill="#202A22">Trusted-label refinement,</text>
+<text x="1397.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">checkpoint selection, and</text>
+<text x="1397.00" y="465.0" font-size="24" font-weight="400" fill="#202A22">separate evaluation</text>
+<rect x="48" y="493" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="494" width="1704" height="142" fill="#FFFFFF"/>
+<text x="68.00" y="573.0" font-size="24" font-weight="700" fill="#202A22">English replay</text>
+<text x="324.00" y="573.0" font-size="24" font-weight="400" fill="#202A22">LibriSpeech general-English training audio</text>
+<text x="818.00" y="539.0" font-size="24" font-weight="400" fill="#202A22">314.721 h selected from train-clean-360 for</text>
+<text x="818.00" y="573.0" font-size="24" font-weight="400" fill="#202A22">Comparison 1; 100.344 h from train-clean-100 for</text>
+<text x="818.00" y="607.0" font-size="24" font-weight="400" fill="#202A22">Comparison 3; none in Comparison 2</text>
+<text x="1397.00" y="539.0" font-size="24" font-weight="400" fill="#202A22">Preserve general-English</text>
+<text x="1397.00" y="573.0" font-size="24" font-weight="400" fill="#202A22">recognition during ATC</text>
+<text x="1397.00" y="607.0" font-size="24" font-weight="400" fill="#202A22">fine-tuning</text>
+<rect x="48" y="635" width="1704" height="1" fill="#CBD3C6"/>
+<text x="48.00" y="684" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
+<text x="1667.02" y="684" font-size="18" font-weight="700" fill="#596555">TABLE 05</text>
 </g></svg>
