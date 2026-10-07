@@ -154,7 +154,7 @@ Development data selected checkpoints. We evaluated the exported models on the s
 
 We tested the same Gold-refinement strategies and staged curriculum with **Parakeet TDT 0.6B v3** and **Nemotron 3.5 ASR Streaming 0.6B**. Both use greedy decoding here, without an external language model. Parakeet operates offline; Nemotron uses native streaming. These are matched experimental designs, not identical runs or an architecture-only ranking: pretraining, tokenizers, and execution details differ.
 
-Scores come from the [Parakeet Gold results](../reports/experiment-study.json), [Parakeet curriculum results](../reports/jacktol-gold-study.json), and [Nemotron results](../reports/nemotron-comparisons-2026-10-07.json). They are repeated benchmark comparisons, not fresh blind tests. All reported error rates are WER; lower is better.
+Scores come from the [Parakeet Gold results](../reports/experiment-study.json), [Parakeet curriculum results](../reports/jacktol-gold-study.json), and [Nemotron results](../reports/nemotron-comparisons-2026-10-07.json). They are repeated benchmark comparisons, not fresh blind tests. All reported error rates are WER; lower is better. **Base** means the untouched pretrained checkpoint: `nvidia/parakeet-tdt-0.6b-v3` for Parakeet or `nemotron-3.5-asr-streaming-0.6b.nemo` for Nemotron. Training data below describe our adaptation after that checkpoint, not the models’ original pretraining corpora.
 
 ## **Comparison 1: What do Gold labels and English replay each contribute?**
 
@@ -166,19 +166,22 @@ We had plenty of machine-labeled ATCO2 audio but only about 25 minutes of human-
 
 **Measure:** ATCO2 test WER for domain accuracy, alongside LibriSpeech test-clean WER for English retention.
 
-| Strategy | Seed | Parakeet ATCO2 | Nemotron ATCO2 | Parakeet English | Nemotron English |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Silver/English parent | — | 30.28% | 36.52% | 2.18% | 3.48% |
-| G1: Gold only | 1234 | 26.44% | 26.09% | 10.91% | 5.16% |
-| G2: Gold + replay | 1234 | 24.30% | 26.89% | 2.67% | 3.72% |
-| G3: Gold refinement | 1234 | 20.51% | 22.97% | 2.41% | 3.68% |
-| G3: repeat seed | 42 | 20.00% | 22.46% | 2.31% | 3.63% |
-| G4: retain Silver | 1234 | 27.45% | 30.08% | 2.38% | 3.54% |
-| G4: repeat seed | 42 | 27.38% | 30.69% | 2.24% | 3.56% |
+| Run / seed | Starting checkpoint → adaptation data | Parakeet ATCO2 | Nemotron ATCO2 | Parakeet English | Nemotron English |
+| --- | --- | ---: | ---: | ---: | ---: |
+| **Pretrained baseline** | **Base → no adaptation** | — | 77.00% | — | 3.50% |
+| Silver/English parent | Base → 314.716 h Silver + 314.721 h English (80/20 sampling) | 30.28% | 36.52% | 2.18% | 3.48% |
+| G1 / 1234 | Base → 0.418 h Gold only | 26.44% | 26.09% | 10.91% | 5.16% |
+| G2 / 1234 | Base → 0.418 h Gold + 314.721 h English (85/15) | 24.30% | 26.89% | 2.67% | 3.72% |
+| G3 / 1234 | Silver/English parent → same Gold + English pools (85/15) | 20.51% | 22.97% | 2.41% | 3.68% |
+| G3 / 42 | Silver/English parent → same Gold + English pools (85/15) | 20.00% | 22.46% | 2.31% | 3.63% |
+| G4 / 1234 | Silver/English parent → Silver + Gold + English pools (70/15/15) | 27.45% | 30.08% | 2.38% | 3.54% |
+| G4 / 42 | Silver/English parent → Silver + Gold + English pools (70/15/15) | 27.38% | 30.69% | 2.24% | 3.56% |
+
+Hours are source-pool sizes; ratios are sampling percentages. **—** means a matching pretrained-baseline result is unavailable in the cited comparison snapshot; it does not mean zero. We do not substitute scores from a different ATCO2 evaluation split.
 
 Both models tell the same story: **English replay limits forgetting, and Gold refinement works best after broad adaptation.** Adding replay to Gold-only training reduces English WER from 10.91% to 2.67% for Parakeet and from 5.16% to 3.72% for Nemotron. G3 reaches 20.00% and 22.46% ATCO2 WER respectively at seed 42, improving on both parents. Keeping Silver in the final mixture (G4) weakens that correction in both seeds.
 
-For context, untouched Nemotron scored 77.00% on this ATCO2 test and 3.50% on English. The historical training data remain separate from the planned evaluation-data release; these results do not establish that 25 minutes will suffice for every domain.
+The historical training data remain separate from the planned evaluation-data release; these results do not establish that 25 minutes will suffice for every domain.
 
 ## **Comparison 2: Does more Jacktol-only training keep helping Nemotron?**
 
@@ -190,13 +193,13 @@ This experiment asks whether **more training on the same small dataset keeps imp
 
 **Measure:** Jacktol test WER for specialization, recording-disjoint ATCO2 WER for transfer, and LibriSpeech WER for English retention.
 
-| Completed training budget | Jacktol validation WER | Jacktol test WER | ATCO2 recording-disjoint WER | LibriSpeech WER |
-| --- | ---: | ---: | ---: | ---: |
-| Untouched base | 72.33% | 72.22% | 77.79% | 3.50% |
-| 5k steps | 14.26% | 14.11% | 29.41% | 6.30% |
-| 10k cumulative steps | 11.43% | 11.01% | 25.27% | 6.86% |
-| 20k cumulative steps | 9.10% | 9.34% | 22.12% | 7.52% |
-| 30k cumulative steps | 8.17% | 8.05% | 20.44% | 7.76% |
+| Completed training budget | Starting checkpoint → adaptation data | Jacktol validation WER | Jacktol test WER | ATCO2 recording-disjoint WER | LibriSpeech WER |
+| --- | --- | ---: | ---: | ---: | ---: |
+| **Pretrained baseline** | **Nemotron base → no adaptation** | 72.33% | 72.22% | 77.79% | 3.50% |
+| 5k steps | Nemotron base → 5.896 h Jacktol only | 14.26% | 14.11% | 29.41% | 6.30% |
+| 10k cumulative steps | 5k final checkpoint → same Jacktol pool | 11.43% | 11.01% | 25.27% | 6.86% |
+| 20k cumulative steps | 10k final checkpoint → same Jacktol pool | 9.10% | 9.34% | 22.12% | 7.52% |
+| 30k cumulative steps | 20k final checkpoint → same Jacktol pool | 8.17% | 8.05% | 20.44% | 7.76% |
 
 Jacktol test WER improves at every reported budget, reaching **8.05%** at 30k. English moves in the opposite direction, reaching **7.76%**, versus 3.50% for the base model. More domain optimization helped specialization but did not solve retention.
 
@@ -214,13 +217,16 @@ Comparison 2 exposed a trade-off: better ATC recognition accompanied worse gener
 
 **Measure:** Jacktol test WER alongside LibriSpeech WER. For Nemotron, also compare the outcome with the Jacktol-only run above to assess the combined curriculum's benefit.
 
-| Stage | Jacktol / UWB / English sampling | Parakeet Jacktol test | Nemotron Jacktol test | Parakeet English | Nemotron English |
+| Stage / starting checkpoint | Adaptation data; Jacktol / UWB / English sampling | Parakeet Jacktol test | Nemotron Jacktol test | Parakeet English | Nemotron English |
 | --- | --- | ---: | ---: | ---: | ---: |
-| A1 | 30 / 30 / 40 | 9.05% | 11.03% | 3.98% | 5.18% |
-| A2 | 40 / 35 / 25 | 6.56% | 7.90% | 4.11% | 5.20% |
-| P1 | 80 / 0 / 20 | 6.43% | 7.57% | 4.20% | 5.19% |
-| P2 | 85 / 0 / 15 | 5.93% | 7.53% | 4.07% | 5.27% |
-| P3 | 90 / 0 / 10 | 5.91% | 7.31% | 4.10% | 5.30% |
+| **Pretrained baseline / base** | **No adaptation** | — | 72.22% | — | 3.50% |
+| A1 / base | 5.896 h Jacktol + 10.534 h UWB + 100.344 h English; 30/30/40 | 9.05% | 11.03% | 3.98% | 5.18% |
+| A2 / selected A1 | Same three pools; 40/35/25 | 6.56% | 7.90% | 4.11% | 5.20% |
+| P1 / selected A2 | 5.896 h Jacktol + 100.344 h English; 80/0/20 | 6.43% | 7.57% | 4.20% | 5.19% |
+| P2 / selected P1 | Same Jacktol + English pools; 85/0/15 | 5.93% | 7.53% | 4.07% | 5.27% |
+| P3 / selected P2 | Same Jacktol + English pools; 90/0/10 | 5.91% | 7.31% | 4.10% | 5.30% |
+
+Each model follows its own checkpoint chain. **—** marks pretrained Parakeet scores absent from the cited curriculum snapshot.
 
 Both models improve on Jacktol as the curriculum progresses. Parakeet's historical balanced endpoint was **P2: 5.93% Jacktol and 4.07% English WER**. P3 corrects only two more Jacktol words while slightly worsening English and UWB results, so P2 was retained.
 
