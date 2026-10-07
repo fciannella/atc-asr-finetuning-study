@@ -45,7 +45,7 @@ Together, the skills connect experiment planning with execution. Each training r
 
 You need a coding agent supporting Agent Skills, Node.js/npm, Git, and a Linux GPU host with NVIDIA drivers, NVIDIA Container Toolkit, and a compatible NeMo ASR environment. Prepare a licensed `.nemo` checkpoint, readable audio, separate training/development/test manifests, and storage for checkpoints. JSONL rows need `audio_filepath`, `duration`, and `text`.
 
-The linked historical run used eight GPUs, BF16, and NeMo `2.8.0rc0`; that is its recorded setup, not a minimum for every pilot. Pin the software and model versions and check available GPU memory before training. Skills guide the work; they do not provision hardware or install the training environment.
+Pin the software and model versions, and check GPU memory before training. The skills guide the coding agent; they do not provision hardware or install the training environment.
 
 ## **Install and activate the skills**
 
@@ -98,83 +98,6 @@ The documented community-release plan covers **two hours of human-annotated ATCO
 
 For a public starting point, the [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) provides official training, validation, and test splits under its dataset-card terms. Alternatively, supply your own licensed recordings. Audit overlap before comparing Jacktol with ATCO2. New data means a new experiment, not reproduction of the historical scores.
 
-### **Listen to the data**
-
-These clips illustrate aviation phraseology and the reference-transcript conventions in each dataset. They are examples, not a ranking of recording quality. Jacktol preserves uppercase labels; our ATCO2 Gold manifests use lowercase. Our WER normalizer ignores that casing difference.
-
-| Dataset / split | Listen | Reference transcript |
-| :---- | :---- | :---- |
-| ATCO2 Gold community test · Sion | [▶ 5.02 s — taxi request](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lsgs-162034-001#t=0.14,5.16) · internal review | “hotel hotel victor runway two five vacate interception charlie request taxi” |
-| Jacktol test · row 0 | [▶ 1.51 s — acknowledgment](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=0) | “HOTEL HOTEL BRAVO THANK YOU” |
-| Jacktol test · row 1 | [▶ 1.90 s — direct routing](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=1) | “DIRECT RATEV LUFTHANSA EIGHT MIKE MIKE THANK YOU” |
-
-For Jacktol, open the linked row and press its audio play button. ATCO2 links require access to the internal network; the [comparison player](http://libra.nvidia.com:8508/#comparison) also provides playback with segment boundaries. The public ATCO2 sample links will be added when the evaluation dataset is released.
-
-<!-- Publication handoff: replace internal ATCO2 URLs with approved release assets and use the blog platform's native audio player with the same reference captions. Use English-only ATCO2 examples. Export only the selected Sion segment, 0.14–5.16 seconds, not the full source recording. GitHub review uses listening links; do not rely on embedded HTML audio rendering in Markdown. Jacktol source revision: 075e736bf8aed80579d829092f74355486b10bc7; test row IDs: 00a81de9d20f87d04465 and 00CRZ17A8RNXPWNUA6TD. Preserve references verbatim. Sample selection is illustrative and does not change training or evaluation. -->
-
-## **Historical training and evaluation example**
-
-The linked 2:1 recipe illustrates the mechanics of training and scoring. The newer Gold, Jacktol-only, and curriculum campaigns below use their own configurations; this archived recipe does not reproduce those results.
-
-## **Inspect and run the training configuration**
-
-The [Nemotron 2:1 replay example](https://github.com/fciannella/atc-asr-finetuning-experiments/tree/main/experiments/nemotron-mixed-2to1) contains an [effective training configuration](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/config.yaml), executable `recipe.sh`, sampling weights, logs, and results. **This repository is currently private; public release is pending.** The container digest and base-checkpoint download link still need to be pinned for release.
-
-The archived run mixed 314.721 hours of Silver ATCO2 with 314.721 hours of English, sampled 2:1. It used 40,000 optimizer steps, learning rate `1e-4`, and 400 warmup steps. Validation retained the top five checkpoints plus last. The published comparison evaluated the final exported 40,000-step model, separately from the best in-training checkpoint.
-
-Authorized readers set `NEMO_ROOT`, `BASE_MODEL`, `ATC_TRAIN_MANIFEST`, `GENERAL_TRAIN_MANIFEST`, `ATC_DEV_MANIFEST`, and `OUTPUT_DIR`, then run `bash recipe.sh`. The YAML describes the settings; the shell script executes them. The example README supplies the path-setting commands and checkpoint-resume procedure.
-
-This is a historical Silver-data recipe. New ATCO2 development follows the Gold-only policy. A small Gold pilot needs its own conservative learning rate, batch sizing, and step budget; copying a 40,000-step recipe unchanged would be inappropriate.
-
-## **Evaluate both models and inspect the outputs**
-
-Run standalone inference with the untouched and exported fine-tuned checkpoints on identical domain and general-English manifests. Development selects checkpoints and decoder settings; the locked test is evaluated only after selection. The historical table below uses development data, not the community test.
-
-For the Nemotron streaming checkpoint, use the [NeMo inference script](https://github.com/NVIDIA-NeMo/Speech/blob/main/examples/asr/asr_cache_aware_streaming/speech_to_text_cache_aware_streaming_infer.py). In the GPU container, set `NEMO_ROOT`, `BASE_MODEL`, `FINETUNED_MODEL`, `ATC_EVAL_MANIFEST`, and `GENERAL_EVAL_MANIFEST` to real paths. Use the historical ATC development manifest for the linked comparison and LibriSpeech test-clean for general evaluation. Set `STUDY_ROOT` to this study checkout and `EVAL_DIR` to a new output directory. Run in Bash:
-
-```sh
-set -euo pipefail
-mkdir -p "$EVAL_DIR"
-for variant in baseline finetuned; do
- model="$BASE_MODEL"
- if [ "$variant" = finetuned ]; then model="$FINETUNED_MODEL"; fi
- for split in atc general; do
- manifest="$ATC_EVAL_MANIFEST"
- if [ "$split" = general ]; then manifest="$GENERAL_EVAL_MANIFEST"; fi
- out="$EVAL_DIR/$variant-$split"
- mkdir "$out"
- python "$NEMO_ROOT/examples/asr/asr_cache_aware_streaming/speech_to_text_cache_aware_streaming_infer.py" \
- model_path="$model" dataset_manifest="$manifest" output_path="$out" \
- target_lang=en-US att_context_size='[56,3]' decoder_type=rnnt \
- pad_and_drop_preencoded=true batch_size=8 cuda=0 strip_lang_tags=true \
- amp=false compute_dtype=float32
- done
-done
-
-```
-
-Materialize segmented audio as clips first. These settings are specific to the historical Nemotron recipe; Parakeet needs its own inference path. The newer campaigns' pinned streaming entrypoint requires `float32`; record the precision and software revision. Missing historical environment pins prevent a guarantee of exact numerical reproduction.
-
-For each output directory, score its prediction JSONL (`text` and `pred_text`) using the actual generated filename:
-
-```py
-python "$STUDY_ROOT/scripts/score_wer.py" /actual/predictions.jsonl \
- --output /actual/wer.json
-```
-
-The scorer folds case and diacritics, normalizes symbols while retaining apostrophes, and divides total word edits by total reference words. Use the same implementation for both models and verify matching sample counts.
-
-Expected artifacts are configuration and manifest hashes, training logs, retained checkpoints, an exported `.nemo`, and four prediction/score pairs. Each `wer.json` includes utterances, reference words, word errors, and `normalized_wer` as a fraction; multiply by 100 for percentages. Save decoder settings and checkpoint hashes with the report.
-
-## **Historical reference: the original 2:1 replay recipe**
-
-| Evaluation | Untouched Nemotron | Fine-tuned Nemotron |
-| :---- | :---- | :---- |
-| Historical ATC development: 1,007 utterances | 75.75% WER | **37.38% WER** |
-| LibriSpeech test-clean: 2,620 utterances | 3.52% WER | **3.39% WER** |
-
-The [unrounded results](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/results.yaml) show a **38.37-percentage-point reduction**, or **50.65% relative reduction**, in ATC development WER. These are observed results, not promised outcomes. This development comparison belongs to the archived recipe. It is separate from the newer Nemotron comparisons below and is not their baseline.
-
 ## **ATCO2 and Jacktol provide different evidence**
 
 The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hours. Filtering for language, duration, confidence, text, and audio quality produced a 314.721-hour English Silver release with 396,461 segments. "Silver" means high-confidence CNET hypotheses rather than human-verified references. The smaller human-Gold pool was assigned to non-overlapping roles:
@@ -189,25 +112,33 @@ The splits had zero overlap by airport-date, audio path, record ID, and source r
 
 The public [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) contains 7.405 hours, including about 5.9 training hours and official validation and test splits. It supplied an external comparison and training-only domain text. Because it includes material derived from public ATCO2 recordings, cross-corpus claims required an acoustic overlap audit.
 
-# **A reproducible fine-tuning workflow**
+### **Listen to the data**
 
-1. **Set the objective.** Define the target domain WER and an acceptable general-English regression. We used ATCO2 Gold and LibriSpeech test-clean to measure both.
+These clips illustrate aviation phraseology and the reference-transcript conventions in each dataset. They are examples, not a ranking of recording quality. Jacktol preserves uppercase labels; our ATCO2 Gold manifests use lowercase. Our WER normalizer ignores that casing difference.
 
-2. **Prepare and version the data.** Validate audio and transcripts, record provenance, keep related recordings in the same split, and hash the manifests. Document replay data volumes and sampling ratios.
+| Dataset / split | Listen | Reference transcript |
+| :---- | :---- | :---- |
+| ATCO2 Gold community test · Sion | [▶ 5.02 s — taxi request](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lsgs-162034-001#t=0.14,5.16) · internal review | “hotel hotel victor runway two five vacate interception charlie request taxi” |
+| Jacktol test · row 0 | [▶ 1.51 s — acknowledgment](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=0) | “HOTEL HOTEL BRAVO THANK YOU” |
+| Jacktol test · row 1 | [▶ 1.90 s — direct routing](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=1) | “DIRECT RATEV LUFTHANSA EIGHT MIKE MIKE THANK YOU” |
 
-3. **Freeze evaluation.** Use development data to select checkpoints and decoder settings; reserve the test set for final evaluation. Score exported models with the same text normalizer.
+For Jacktol, open the linked row and press its audio play button. ATCO2 links require access to the internal network; the [comparison player](http://libra.nvidia.com:8508/#comparison) also provides playback with segment boundaries. The public ATCO2 sample links will be added when the evaluation dataset is released.
 
-4. **Train and diagnose.** Start conservatively, change one factor at a time, and retain both the best validation checkpoints and the final checkpoint.
+<!-- Publication handoff: replace internal ATCO2 URLs with approved release assets and use the blog platform's native audio player with the same reference captions. Use English-only ATCO2 examples. Export only the selected Sion segment, 0.14–5.16 seconds, not the full source recording. GitHub review uses listening links; do not rely on embedded HTML audio rendering in Markdown. Jacktol source revision: 075e736bf8aed80579d829092f74355486b10bc7; test row IDs: 00a81de9d20f87d04465 and 00CRZ17A8RNXPWNUA6TD. Preserve references verbatim. Sample selection is illustrative and does not change training or evaluation. -->
 
-5. **Save the recipe.** Package the `.nemo` model with its starting revision, tokenizer, preprocessing, manifest hashes, training and decoder settings, selection rule, normalizer, and domain/general-English scores.
+## **What we wanted to learn**
 
-# **Three questions answered by the newer Nemotron experiments**
+Our goal was to improve Nemotron's recognition of ATC speech while measuring how much general-English accuracy it retained. We organized the work around three questions:
 
-The newer work lets us follow one model, Nemotron 3.5 ASR Streaming 0.6B, through three questions: does Gold refinement need replay, how far does Jacktol-only training go, and does a staged curriculum improve the trade-off? All scores below come from completed standalone evaluations, captured in the [October 7 result snapshot](../reports/nemotron-comparisons-2026-10-07.json).
+- **Gold refinement:** Do a small amount of human-verified data and English replay improve an already adapted model? We compared Gold-only training, Gold with replay, and refinement with or without continued Silver data.
+- **Training duration:** Does more training on the same domain data keep helping? We extended Jacktol-only training from 5,000 to 30,000 steps and tracked both ATC gains and English regression.
+- **Training sequence:** Can a broader curriculum improve that balance? We combined Jacktol, UWB ATC, and English, then progressively emphasized Jacktol while retaining English replay.
 
-Every new row uses native cache-aware streaming, attention context `[56,3]`, `en-US`, greedy decoding with at most 10 symbols per step, and float32 inference. No beam search or external language model contributes to these results. The model retains its native tokenizer, RNN-T loss, and feature normalization. Checkpoint selection uses the relevant development/validation split; the tables score the actual exported artifacts.
+Development data selected checkpoints. We evaluated the exported models on the same test sets within each comparison, using normalized WER and LibriSpeech as the general-English check.
 
-The existing test sets have been evaluated in previous experiments. Treat these as repeated benchmark comparisons, not fresh blind tests. The new baseline is **77.00% on ATCO2**, **72.22% on Jacktol**, and **3.50% on LibriSpeech**. Older figures such as 75.57% ATCO2 and 3.52% LibriSpeech belong to historical evaluator runs and should not be substituted into these comparisons. Matching the model name alone is insufficient to establish an identical evaluation contract.
+# **What the Nemotron experiments showed**
+
+All results below use Nemotron 3.5 ASR Streaming 0.6B with native streaming and greedy decoding, without beam search or an external language model. These are repeated benchmark comparisons, not fresh blind tests. The [result snapshot](../reports/nemotron-comparisons-2026-10-07.json) records the scores and evaluation conditions.
 
 ## **Comparison 1: What do Gold labels and English replay each contribute?**
 
@@ -287,4 +218,4 @@ NVIDIA gratefully acknowledges ELDA (Evaluations and Language resources Distribu
 
 ## **Try the workflow**
 
-Install the [orchestration skill](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) and [training skill](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune), inspect the [example](https://github.com/fciannella/atc-asr-finetuning-experiments/tree/main/experiments/nemotron-mixed-2to1), and start with licensed domain data or [Jacktol](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset). Measure both domain gains and general-English retention.
+Install the [orchestration skill](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) and [training skill](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune), and start with licensed domain data or [Jacktol](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset). Measure both domain gains and general-English retention.
