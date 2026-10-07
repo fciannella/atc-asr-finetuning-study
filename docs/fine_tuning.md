@@ -16,7 +16,9 @@
 
 Suppose a speech recognition model transcribes everyday conversation accurately, yet struggles with a pilot reading back a clearance. The model already knows English. What it needs to learn is how English sounds over a radio and how people use it in air traffic control. Fine-tuning lets us teach those differences by updating a pretrained model with examples from the new domain.
 
-The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. We compare Parakeet and Nemotron using human-verified labels and staged training, examine longer domain-only training, and then test whether a language model can help without changing the acoustic weights. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. We compare Parakeet and Nemotron using human-verified labels and staged training, examine longer domain-only training, and then test whether a language model can help without changing the acoustic weights. We measure recognition quality with [word error rate (WER)](https://nvidia-asr-explained.hf.space/#/wer/flow), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+
+Explore the [interactive ASR overview](https://nvidia-asr-explained.hf.space/#/overview/flow) or try the [speech-to-text simulation](https://nvidia-asr-explained.hf.space/#/overview/stream) to see how the components work together.
 
 # **How the skills guide the work**
 
@@ -27,7 +29,7 @@ You can use the two skills together to move from an adaptation goal to a trained
 | [`nemotron-asr-finetune`](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) — plan and coordinate adaptation | [`nemo-speech-asr-finetune`](https://github.com/NVIDIA-NeMo/Speech/tree/main/.claude/skills/nemo-speech-asr-finetune) — train and evaluate with NeMo |
 | :---- | :---- |
 | **Define success:** Turn a domain or language request into accuracy targets, latency constraints, and a baseline evaluation plan. | **Inspect your model:** Identify its architecture, tokenizer, and preprocessing, then choose a compatible NeMo recipe and environment. |
-| **Choose an approach:** Decide whether word boosting, vocabulary support, an n-gram language model, or acoustic fine-tuning fits the measured errors. | **Prepare training data:** Check manifests and transcript conventions, configure Lhotse loaders, and mix domain audio with general-speech replay. |
+| **Choose an approach:** Decide whether word boosting, vocabulary support, an [n-gram language model](https://nvidia-asr-explained.hf.space/#/blocks/ngram), or acoustic fine-tuning fits the measured errors. | **Prepare training data:** Check manifests and transcript conventions, configure Lhotse loaders, and mix domain audio with general-speech replay. |
 | **Plan resources:** Assess available audio, label quality, GPU capacity, and time/cost trade-offs; identify missing inputs before expensive work. | **Configure and run training:** Set learning rate, batch sizing, step budget, validation, and checkpoint retention for the chosen model. |
 | **Protect existing capabilities:** Define domain and general-speech checks so better domain accuracy does not hide catastrophic forgetting. | **Measure the result:** Evaluate exported checkpoints with normalized WER on domain and general speech, independently of training logs. |
 | **Choose the next experiment:** Use measured errors and constraints to prioritize data, training, or decoding changes and route specialist work. | **Refine the model:** Adjust replay or curriculum and compare individual and averaged checkpoints, keeping changes only when evaluation supports them. |
@@ -81,15 +83,17 @@ Run the update interactively to review prompts about skills removed or merged up
 
 ## **Choose the architecture as part of the product decision**
 
-Before choosing a recipe, inspect the checkpoint. Its encoder, decoder, tokenizer, feature normalization, and loss function were designed and trained to work together.
+Before choosing a recipe, inspect the checkpoint. Its [encoder](https://nvidia-asr-explained.hf.space/#/blocks/encoder), [decoder](https://nvidia-asr-explained.hf.space/#/blocks/decoder), [tokenizer](https://nvidia-asr-explained.hf.space/#/blocks/tokenizer), [audio features and normalization](https://nvidia-asr-explained.hf.space/#/features/flow), and loss function were designed and trained to work together.
 
 | Architecture | Basic idea | Practical implication |
 | :---- | :---- | :---- |
-| CTC | Predict frame-level tokens, then collapse blanks and repetitions | Parallelizable decoding and convenient external-LM integration |
-| RNN-T | Combine an acoustic encoder with a prediction and joint network | Streaming-friendly and conditioned on previously emitted tokens |
-| TDT | Extend the transducer family with token-and-duration outputs | Efficient sequence modeling with architecture-specific duration settings |
+| [CTC](https://nvidia-asr-explained.hf.space/#/ctc/flow) | Predict frame-level [tokens](https://nvidia-asr-explained.hf.space/#/tokens/flow), then collapse blanks and repetitions | Parallelizable decoding and convenient external-LM integration |
+| [RNN-T](https://nvidia-asr-explained.hf.space/#/rnnt/flow) | Combine an acoustic encoder with a prediction and joint network | Streaming-friendly and conditioned on previously emitted tokens |
+| [TDT](https://nvidia-asr-explained.hf.space/#/tdt/flow) | Extend the transducer family with token-and-duration outputs | Efficient sequence modeling with architecture-specific duration settings |
 
 Our experiments used Nemotron 3.5 ASR Streaming 0.6B, Parakeet CTC 1.1B, and Parakeet TDT 0.6B v3. Each required a compatible training recipe. CTC can be attractive for offline decoding and language-model integration, while a streaming transducer may suit an application that must respond as someone speaks. Choose with the intended application in mind, then compare accuracy. Parakeet is a separate model family in this comparison. Preserve the CTC head and tokenizer, RNN-T loss and streaming configuration, or TDT duration vocabulary and decoder settings, as appropriate for the checkpoint.
+
+For a closer look at acoustic processing, explore the [encoder and Conformer walkthrough](https://nvidia-asr-explained.hf.space/#/encoder/flow).
 
 When adapting within the same language, keeping the pretrained tokenizer is usually the safest starting point. If a replacement is needed, train it only on training text. Input normalization deserves similar care: changing our completed Nemotron checkpoint from global to per-feature normalization without retraining sharply increased WER on both ATC and general speech. The lesson was to preserve the preprocessing the model had learned to expect.
 
@@ -167,7 +171,7 @@ Development data selected checkpoints. We evaluated the exported models on the s
 
 # **What the Parakeet and Nemotron experiments showed**
 
-We tested the same Gold-refinement strategies and staged curriculum with **Parakeet TDT 0.6B v3** and **Nemotron 3.5 ASR Streaming 0.6B**. Comparisons 1–3 use greedy decoding without an external language model; Comparison 4 adds an n-gram LM while retaining greedy decoding. Parakeet operates offline; Nemotron uses native streaming. These are matched experimental designs, not identical runs or an architecture-only ranking: pretraining, tokenizers, and execution details differ.
+We tested the same Gold-refinement strategies and staged curriculum with **Parakeet TDT 0.6B v3** and **Nemotron 3.5 ASR Streaming 0.6B**. Comparisons 1–3 use [greedy decoding](https://nvidia-asr-explained.hf.space/#/beam/flow) without an external language model; Comparison 4 adds an n-gram LM while retaining greedy decoding. Parakeet operates offline; Nemotron uses native streaming. These are matched experimental designs, not identical runs or an architecture-only ranking: pretraining, tokenizers, and execution details differ.
 
 Scores come from the [Parakeet Gold results](../reports/experiment-study.json), [Parakeet curriculum results](../reports/jacktol-gold-study.json), and [Nemotron results](../reports/nemotron-comparisons-2026-10-07.json). They are repeated benchmark comparisons, not fresh blind tests. All reported error rates are WER; lower is better. **Base** means the untouched pretrained checkpoint: `nvidia/parakeet-tdt-0.6b-v3` for Parakeet or `nemotron-3.5-asr-streaming-0.6b.nemo` for Nemotron. Training data below describe our adaptation after that checkpoint, not the models’ original pretraining corpora.
 
@@ -259,7 +263,7 @@ For both models, the tested Silver-to-Gold sequence with replay provided the str
 
 ## **Comparison 4: Help the decoder with aviation language**
 
-Can domain text improve recognition without more ASR training? An **n-gram language model** learns common sequences of tokens and helps choose the next token during decoding. We tested this with two checkpoints already introduced: **Parakeet G3 / 42 from Comparison 1** and **Nemotron P3 from Comparison 3**. The acoustic weights remain fixed. Parakeet still runs offline and Nemotron still uses native streaming, both with greedy decoding and no beam search.
+Can domain text improve recognition without more ASR training? An **[n-gram language model](https://nvidia-asr-explained.hf.space/#/ngram/flow)** learns common sequences of tokens and helps choose the next token during decoding. We tested this with two checkpoints already introduced: **Parakeet G3 / 42 from Comparison 1** and **Nemotron P3 from Comparison 3**. The acoustic weights remain fixed. Parakeet still runs offline and Nemotron still uses native streaming, both with greedy decoding and no beam search.
 
 We built 3-gram and 4-gram LMs using each model's existing tokenizer and four training-text recipes: Gold, Gold + English, Jacktol, and Gold + Jacktol. Gold supplies 393 transcripts from the 0.418-hour training split. Jacktol supplies 6,495 usable training transcripts after removing two containing unknown markers. Gold + English targets an 80/20 word mix; Gold + Jacktol balances word counts approximately equally by repeating Gold text. These are text mixtures, not additional audio training. We did not add development or test references to the LM corpora.
 
