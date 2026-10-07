@@ -16,7 +16,7 @@
 
 Suppose a speech recognition model transcribes everyday conversation accurately, yet struggles with a pilot reading back a clearance. The model already knows English. What it needs to learn is how English sounds over a radio and how people use it in air traffic control. Fine-tuning lets us teach those differences by updating a pretrained model with examples from the new domain.
 
-The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. We compare Parakeet and Nemotron using human-verified labels and staged training, then examine how longer domain-only training affects Nemotron. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. We compare Parakeet and Nemotron using human-verified labels and staged training, examine longer domain-only training, and then test whether a language model can help without changing the acoustic weights. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
 
 # **How the skills guide the work**
 
@@ -147,12 +147,13 @@ Our goal was to improve ATC recognition while preserving general English. Each c
 | **1 · Label quality and replay** | How should we use a small amount of trusted ATCO2 data? | Parakeet + Nemotron |
 | **2 · Training duration** | What happens if we keep training on Jacktol alone? | Nemotron |
 | **3 · Training sequence** | Can broad ATC training followed by focused refinement improve the balance? | Parakeet + Nemotron |
+| **4 · Language-model decoding** | Can training text improve the same checkpoints without acoustic retraining? | Parakeet G3 / 42 + Nemotron P3 |
 
 Development data selected checkpoints. We evaluated the exported models on the same test sets within each comparison, using normalized WER and LibriSpeech as the general-English check.
 
 # **What the Parakeet and Nemotron experiments showed**
 
-We tested the same Gold-refinement strategies and staged curriculum with **Parakeet TDT 0.6B v3** and **Nemotron 3.5 ASR Streaming 0.6B**. Both use greedy decoding here, without an external language model. Parakeet operates offline; Nemotron uses native streaming. These are matched experimental designs, not identical runs or an architecture-only ranking: pretraining, tokenizers, and execution details differ.
+We tested the same Gold-refinement strategies and staged curriculum with **Parakeet TDT 0.6B v3** and **Nemotron 3.5 ASR Streaming 0.6B**. Comparisons 1–3 use greedy decoding without an external language model; Comparison 4 adds an n-gram LM while retaining greedy decoding. Parakeet operates offline; Nemotron uses native streaming. These are matched experimental designs, not identical runs or an architecture-only ranking: pretraining, tokenizers, and execution details differ.
 
 Scores come from the [Parakeet Gold results](../reports/experiment-study.json), [Parakeet curriculum results](../reports/jacktol-gold-study.json), and [Nemotron results](../reports/nemotron-comparisons-2026-10-07.json). They are repeated benchmark comparisons, not fresh blind tests. All reported error rates are WER; lower is better. **Base** means the untouched pretrained checkpoint: `nvidia/parakeet-tdt-0.6b-v3` for Parakeet or `nemotron-3.5-asr-streaming-0.6b.nemo` for Nemotron. Training data below describe our adaptation after that checkpoint, not the models’ original pretraining corpora.
 
@@ -215,16 +216,16 @@ Comparison 2 exposed a trade-off: better ATC recognition accompanied worse gener
 
 **Read the stages:** A1–A2 blend two ATC sources with general English. P1–P3 drop UWB and progressively emphasize Jacktol. The source pools contain 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of English; the percentages below are sampling shares, not additional data. Each stage continues from the previous selected export.
 
-**Measure:** Jacktol test WER alongside LibriSpeech WER. For Nemotron, also compare the outcome with the Jacktol-only run above to assess the combined curriculum's benefit.
+**Measure:** Jacktol test WER alongside LibriSpeech WER. The Nemotron ATCO2 column uses the same 1.749-hour recording-disjoint view as Comparison 2, letting us compare transfer as well as specialization.
 
-| Stage / starting checkpoint | Adaptation data; Jacktol / UWB / English sampling | Parakeet Jacktol test | Nemotron Jacktol test | Parakeet English | Nemotron English |
-| --- | --- | ---: | ---: | ---: | ---: |
-| **Pretrained baseline / base** | **No adaptation** | — | 72.22% | — | 3.50% |
-| A1 / base | 5.896 h Jacktol + 10.534 h UWB + 100.344 h English; 30/30/40 | 9.05% | 11.03% | 3.98% | 5.18% |
-| A2 / selected A1 | Same three pools; 40/35/25 | 6.56% | 7.90% | 4.11% | 5.20% |
-| P1 / selected A2 | 5.896 h Jacktol + 100.344 h English; 80/0/20 | 6.43% | 7.57% | 4.20% | 5.19% |
-| P2 / selected P1 | Same Jacktol + English pools; 85/0/15 | 5.93% | 7.53% | 4.07% | 5.27% |
-| P3 / selected P2 | Same Jacktol + English pools; 90/0/10 | 5.91% | 7.31% | 4.10% | 5.30% |
+| Stage / starting checkpoint | Adaptation data; Jacktol / UWB / English sampling | Parakeet Jacktol test | Nemotron Jacktol test | Parakeet English | Nemotron English | Nemotron ATCO2 disjoint |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| **Pretrained baseline / base** | **No adaptation** | — | 72.22% | — | 3.50% | 77.79% |
+| A1 / base | 5.896 h Jacktol + 10.534 h UWB + 100.344 h English; 30/30/40 | 9.05% | 11.03% | 3.98% | 5.18% | 28.18% |
+| A2 / selected A1 | Same three pools; 40/35/25 | 6.56% | 7.90% | 4.11% | 5.20% | 22.37% |
+| P1 / selected A2 | 5.896 h Jacktol + 100.344 h English; 80/0/20 | 6.43% | 7.57% | 4.20% | 5.19% | 21.38% |
+| P2 / selected P1 | Same Jacktol + English pools; 85/0/15 | 5.93% | 7.53% | 4.07% | 5.27% | 20.79% |
+| P3 / selected P2 | Same Jacktol + English pools; 90/0/10 | 5.91% | 7.31% | 4.10% | 5.30% | 19.96% |
 
 Each model follows its own checkpoint chain. **—** marks pretrained Parakeet scores absent from the cited curriculum snapshot.
 
@@ -242,18 +243,32 @@ The skill table maps directly to the experiments. The orchestration skill frames
 
 For both models, the tested Silver-to-Gold sequence with replay provided the strongest balance among the Gold ablations. For Nemotron on Jacktol, longer domain-only training kept improving specialization while increasing forgetting. The staged curriculum improved on that domain-only model on both measured objectives, although it still regressed on general English. Those are three distinct conclusions, each backed by its own baseline and evaluation set.
 
-## **Help the decoder with aviation language**
+## **Comparison 4: Help the decoder with aviation language**
 
-Can domain text improve recognition without more ASR training? An **n-gram language model** learns common sequences of tokens and helps choose the next token during decoding. We now tested this with **both Parakeet and streaming Nemotron**, keeping the acoustic checkpoints fixed and using greedy decoding, without beam search.
+Can domain text improve recognition without more ASR training? An **n-gram language model** learns common sequences of tokens and helps choose the next token during decoding. We tested this with two checkpoints already introduced: **Parakeet G3 / 42 from Comparison 1** and **Nemotron P3 from Comparison 3**. The acoustic weights remain fixed. Parakeet still runs offline and Nemotron still uses native streaming, both with greedy decoding and no beam search.
 
-We compared LMs trained on Gold, Jacktol, and mixtures with English or Gold training text. Each LM used its ASR model's tokenizer. Development WER selected candidates; an English check allowed at most 0.20 percentage points of additional WER. The table shows the selected Jacktol-family candidate for each checkpoint against its fresh no-LM baseline.
+We built 3-gram and 4-gram LMs using each model's existing tokenizer and four training-text recipes: Gold, Gold + English, Jacktol, and Gold + Jacktol. Gold supplies 393 transcripts from the 0.418-hour training split. Jacktol supplies 6,495 usable training transcripts after removing two containing unknown markers. Gold + English targets an 80/20 word mix; Gold + Jacktol balances word counts approximately equally by repeating Gold text. These are text mixtures, not additional audio training. We did not add development or test references to the LM corpora.
 
-| Starting checkpoint | Language model / training text | ATCO2 disjoint WER | Jacktol WER | English WER |
-| --- | --- | ---: | ---: | ---: |
-| Nemotron P3 | None — fresh greedy baseline | 19.96% | 7.33% | 5.30% |
-| Same Nemotron P3 | 3-gram: Gold + Jacktol | **19.86%** | **7.29%** | 5.33% |
-| Parakeet G3, averaged | None — fresh greedy baseline | 20.00% | 21.33% | 2.35% |
-| Same Parakeet G3 | 4-gram: Jacktol | **19.24%** | **19.54%** | 2.49% |
+For each checkpoint, we evaluated 44 LM settings plus a fresh no-LM control on Gold development. We selected one candidate from the Gold/English family and one from the Jacktol-containing family, then checked that English WER increased by no more than 0.20 percentage points. All four candidates passed. Final-test scores did not choose the LM settings.
+
+The [completed evaluation snapshot](../reports/greedy-ngram-blog-checkpoints-2026-10-07.json) records exact word-error counts, checkpoint hashes, and development selections. Here are all selected candidates, not just the strongest test result:
+
+| Starting checkpoint | LM training text / order | LM weight | ATCO2 full 2 h | ATCO2 disjoint 1.749 h | Jacktol test | English |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| Nemotron P3 | None; fresh greedy control | 0 | 19.22% | 19.96% | 7.33% | 5.30% |
+| Same Nemotron P3 | Gold + English / 3-gram | 0.025 | 19.16% | 19.88% | 7.30% | 5.33% |
+| Same Nemotron P3 | Gold + Jacktol / 3-gram | 0.025 | 19.15% | 19.86% | 7.29% | 5.33% |
+| Parakeet G3 / 42 | None; fresh greedy control | 0 | 19.91% | 19.72% | 21.39% | 2.30% |
+| Same Parakeet G3 / 42 | Gold / 3-gram | 0.1 | 19.52% | 19.32% | 21.15% | 2.35% |
+| Same Parakeet G3 / 42 | Gold + Jacktol / 4-gram | 0.1 | 19.31% | 19.14% | 20.56% | 2.33% |
+
+All score columns are normalized WER. The Parakeet checkpoint is the individual seed-42 export, not an average and not the Jacktol curriculum model. Its higher Jacktol WER therefore does not contradict the 5.93% curriculum result: those models had different acoustic training data.
+
+Fresh controls matter. The same Parakeet export scores 19.91% on full ATCO2 in this evaluation, versus the historical 20.00% in Comparison 1, a difference of 20 word errors. Nemotron P3 scores 7.33% on Jacktol here versus 7.31% in Comparison 3, a difference of two word errors. We retain the historical results and measure LM gains against the fresh controls, without attributing these small evaluation differences to a verified cause.
+
+**The LM helped, but its value depended on the checkpoint.** Gold + Jacktol reduced Parakeet's full ATCO2 WER by 0.60 percentage points and disjoint WER by 0.58 points. Nemotron's corresponding gains were only 0.07 and 0.09 points. Both incurred small English regressions. These measured gains are not a statistical-significance claim or a comparison of architectures in isolation.
+
+The full ATCO2 set has known Jacktol overlap, so the disjoint column is especially important for Jacktol-text LMs. It removes known linked recordings, not every possible overlap. These remain repeatedly examined benchmarks; LibriSpeech also serves as a retention guardrail. No production latency or serving compatibility claim follows from these offline evaluations of saved models.
 
 This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation.
 

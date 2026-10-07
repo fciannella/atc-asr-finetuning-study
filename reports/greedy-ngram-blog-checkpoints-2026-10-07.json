@@ -1,0 +1,436 @@
+{
+  "date": "2026-10-07",
+  "units": "normalized_wer is a fraction; multiply by 100 for percent",
+  "scoring": "Lowercase, NFKD diacritic folding, punctuation/symbol normalization retaining ASCII apostrophes, whitespace collapse",
+  "campaigns": [
+    {
+      "campaign": "greedy-ngram-nemotron-parakeet-v1",
+      "status": "complete",
+      "source_path": "/lustre/fsw/portfolios/llmservice/users/fciannella/ATC_ELDA/asr-pilot/atc-ablation-v1/experiments/greedy-ngram-nemotron-parakeet-v1/results.json",
+      "source_sha256": "343082f0e626a0ecc960c7b64f35642393ab358523bfa2ff515c2583b46defd6",
+      "model": "nemotron-p3",
+      "selections": {
+        "baseline": {
+          "arm": {
+            "model": "nemotron-p3",
+            "corpus": null,
+            "alpha": 0
+          },
+          "label": "no-lm",
+          "normalized_wer": 0.1723826714801444,
+          "word_errors": 191,
+          "reference_words": 1108,
+          "model_sha256": "1c8bcf234013a5248cd10be972c8ff15269fd4c50516c2cc8ae00313ea52fa15"
+        },
+        "gold": {
+          "arm": {
+            "model": "nemotron-p3",
+            "corpus": "gold-general-80to20",
+            "order": 3,
+            "alpha": 0.025
+          },
+          "label": "gold-general-80to20-3gram-a0p025",
+          "normalized_wer": 0.17057761732851986,
+          "word_errors": 189,
+          "reference_words": 1108,
+          "model_sha256": "1c8bcf234013a5248cd10be972c8ff15269fd4c50516c2cc8ae00313ea52fa15"
+        },
+        "jacktol": {
+          "arm": {
+            "model": "nemotron-p3",
+            "corpus": "gold-jacktol-balanced",
+            "order": 3,
+            "alpha": 0.025
+          },
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "normalized_wer": 0.17057761732851986,
+          "word_errors": 189,
+          "reference_words": 1108,
+          "model_sha256": "1c8bcf234013a5248cd10be972c8ff15269fd4c50516c2cc8ae00313ea52fa15"
+        }
+      },
+      "guardrails": {
+        "nemotron-p3/gold": {
+          "development_improves": true,
+          "english_passes": true,
+          "english_limit": 0.055027997565429095,
+          "measured_english_wer": 0.053275258673158854
+        },
+        "nemotron-p3/jacktol": {
+          "development_improves": true,
+          "english_passes": true,
+          "english_limit": 0.055027997565429095,
+          "measured_english_wer": 0.05331329884357882
+        }
+      },
+      "scores": [
+        {
+          "label": "no-lm",
+          "dataset": "english-test",
+          "normalized_wer": 0.05302799756542909,
+          "word_errors": 2788,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.06596023336111442,
+          "word_errors": 554,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "gold-general-80to20-3gram-a0p025",
+          "dataset": "english-test",
+          "normalized_wer": 0.053275258673158854,
+          "word_errors": 2801,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "gold-general-80to20-3gram-a0p025",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.06631741874032623,
+          "word_errors": 557,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "dataset": "english-test",
+          "normalized_wer": 0.05331329884357882,
+          "word_errors": 2803,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.06607929515418502,
+          "word_errors": 555,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19220246238030095,
+          "word_errors": 4215,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.07285546415981199,
+          "word_errors": 620,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.19955967919484197,
+          "word_errors": 3807,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.07332549941245593,
+          "word_errors": 624,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "gold-general-80to20-3gram-a0p025",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19160966712266303,
+          "word_errors": 4202,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-general-80to20-3gram-a0p025",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.19877339204277403,
+          "word_errors": 3792,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        },
+        {
+          "label": "gold-general-80to20-3gram-a0p025",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.07297297297297298,
+          "word_errors": 621,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19151846785225718,
+          "word_errors": 4200,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-jacktol-balanced-3gram-a0p025",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.19861613461236044,
+          "word_errors": 3789,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        }
+      ],
+      "caveats": [
+        "Not an architecture-only comparison: Nemotron P3 and Parakeet G3 have different acoustic training histories.",
+        "Known cross-corpus recording overlap invalidates blind-transfer claims on full ATCO2 for Jacktol-trained acoustic/LM variants.",
+        "Disjoint ATCO2 excludes known Jacktol-linked recordings, not an exhaustive acoustic fingerprint audit.",
+        "Historical test sets are repeatedly observed benchmarks; LibriSpeech test-clean is reused as a guardrail, not an untouched test.",
+        "Native Nemotron streaming float32 vs Parakeet offline bfloat16; report within-model LM gains.",
+        "Historical corpus normalization is retained; Nemotron LM is rebuilt for its own tokenizer."
+      ]
+    },
+    {
+      "campaign": "greedy-ngram-parakeet-g3-s42-v1",
+      "status": "complete",
+      "source_path": "/lustre/fsw/portfolios/llmservice/users/fciannella/ATC_ELDA/asr-pilot/atc-ablation-v1/experiments/greedy-ngram-parakeet-g3-s42-v1/results.json",
+      "source_sha256": "3bbda7ea81d599d8b45e2f3bd64c6d96d196eb53731e9adb07d86c7ce466bfa4",
+      "model": "parakeet-g3-s42",
+      "selections": {
+        "baseline": {
+          "arm": {
+            "model": "parakeet-g3-s42",
+            "corpus": null,
+            "alpha": 0
+          },
+          "label": "no-lm",
+          "normalized_wer": 0.20306859205776173,
+          "word_errors": 225,
+          "reference_words": 1108,
+          "model_sha256": "974333ba371a4b3a9e2f306edb07bd4881312b49675665d0176410dbde5a42ca"
+        },
+        "gold": {
+          "arm": {
+            "model": "parakeet-g3-s42",
+            "corpus": "gold-train",
+            "order": 3,
+            "alpha": 0.1
+          },
+          "label": "gold-train-3gram-a0p1",
+          "normalized_wer": 0.19043321299638988,
+          "word_errors": 211,
+          "reference_words": 1108,
+          "model_sha256": "974333ba371a4b3a9e2f306edb07bd4881312b49675665d0176410dbde5a42ca"
+        },
+        "jacktol": {
+          "arm": {
+            "model": "parakeet-g3-s42",
+            "corpus": "gold-jacktol-balanced",
+            "order": 4,
+            "alpha": 0.1
+          },
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "normalized_wer": 0.18953068592057762,
+          "word_errors": 210,
+          "reference_words": 1108,
+          "model_sha256": "974333ba371a4b3a9e2f306edb07bd4881312b49675665d0176410dbde5a42ca"
+        }
+      },
+      "guardrails": {
+        "parakeet-g3-s42/gold": {
+          "development_improves": true,
+          "english_passes": true,
+          "english_limit": 0.025033323189287887,
+          "measured_english_wer": 0.02347078514911747
+        },
+        "parakeet-g3-s42/jacktol": {
+          "development_improves": true,
+          "english_passes": true,
+          "english_limit": 0.025033323189287887,
+          "measured_english_wer": 0.02326156421180767
+        }
+      },
+      "scores": [
+        {
+          "label": "no-lm",
+          "dataset": "english-test",
+          "normalized_wer": 0.02303332318928789,
+          "word_errors": 1211,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.22466960352422907,
+          "word_errors": 1887,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "gold-train-3gram-a0p1",
+          "dataset": "english-test",
+          "normalized_wer": 0.02347078514911747,
+          "word_errors": 1234,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "gold-train-3gram-a0p1",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.22264555304202882,
+          "word_errors": 1870,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "dataset": "english-test",
+          "normalized_wer": 0.02326156421180767,
+          "word_errors": 1223,
+          "reference_words": 52576,
+          "utterances": 2620,
+          "manifest_sha256": "270c783253b879f3924fdb3485c708ba45350cbf4ff1ea3a4bb1d0c7a99af479"
+        },
+        {
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "dataset": "jacktol-validation",
+          "normalized_wer": 0.21764495773306347,
+          "word_errors": 1828,
+          "reference_words": 8399,
+          "utterances": 812,
+          "manifest_sha256": "fa945d1199e3c9ef941b01e435ecd8168c85b2e7bb33b0459e42cfe52f858674"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19908800729594164,
+          "word_errors": 4366,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.2056404230317274,
+          "word_errors": 1750,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.19720081773863815,
+          "word_errors": 3762,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        },
+        {
+          "label": "no-lm",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.21386603995299647,
+          "word_errors": 1820,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "gold-train-3gram-a0p1",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19516643866849065,
+          "word_errors": 4280,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-train-3gram-a0p1",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.19316454369135608,
+          "word_errors": 3685,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        },
+        {
+          "label": "gold-train-3gram-a0p1",
+          "dataset": "jacktol-test",
+          "normalized_wer": 0.21151586368977673,
+          "word_errors": 1800,
+          "reference_words": 8510,
+          "utterances": 813,
+          "manifest_sha256": "fd2e0d900028007148b223217a9039a6966a1a18663123f9f54ead7ce8f3dd84"
+        },
+        {
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "dataset": "gold-test",
+          "normalized_wer": 0.19306885544915642,
+          "word_errors": 4234,
+          "reference_words": 21930,
+          "utterances": 1908,
+          "manifest_sha256": "55b5bb08754592f0f3d082efe92a1c35f22b2e962db7b61fb001781f5f841e6e"
+        },
+        {
+          "label": "gold-jacktol-balanced-4gram-a0p1",
+          "dataset": "gold-test-disjoint",
+          "normalized_wer": 0.1914347119568066,
+          "word_errors": 3652,
+          "reference_words": 19077,
+          "utterances": 1695,
+          "manifest_sha256": "d1134f8b4feb519c5eb93dd35022b2787b63b3a7d6e08b619c0af73b69749045"
+        }
+      ],
+      "caveats": [
+        "Individual G3 seed-42 checkpoint, not the top-three average and not the Jacktol curriculum model.",
+        "Fresh controls use the current greedy protocol; historical scores are provenance, not substituted controls.",
+        "Full ATCO2 has known Jacktol overlap for Jacktol-text LM variants; report known-recording-disjoint subset too.",
+        "Disjoint subset is not an exhaustive acoustic deduplication guarantee.",
+        "Historical benchmarks are repeatedly observed; LibriSpeech test-clean is a retention guardrail.",
+        "No acoustic training, new tokenizer, beam search, or new LM corpus."
+      ],
+      "baseline_reconciliation": {
+        "gold-test": {
+          "historical_wer": 0.2,
+          "fresh_wer": 0.19908800729594164,
+          "word_error_difference": -20
+        },
+        "jacktol-test": {
+          "historical_wer": 0.2136310223266745,
+          "fresh_wer": 0.21386603995299647,
+          "word_error_difference": 2
+        },
+        "english-test": {
+          "historical_wer": 0.023109403530127814,
+          "fresh_wer": 0.02303332318928789,
+          "word_error_difference": -4
+        }
+      }
+    }
+  ]
+}
