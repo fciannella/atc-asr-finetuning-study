@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="745" viewBox="0 0 1800 745" role="img" aria-labelledby="title"><title id="title">Four questions guide the experiments</title><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1800" height="745" fill="#F3F5F1"/>
+<rect x="48" y="35" width="64" height="6" fill="#76B900"/>
+<text x="48.00" y="96" font-size="43" font-weight="700" fill="#182019">Four questions guide the experiments</text>
+<text x="48.00" y="137" font-size="24" font-weight="400" fill="#596555">Objectives and the models evaluated</text>
+<rect x="48" y="170" width="1704" height="85" fill="#182019"/>
+<text x="72.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Comparison</text>
+<text x="532.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Question</text>
+<text x="1350.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Models</text>
+<rect x="48" y="254" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="255" width="1704" height="85" fill="#FFFFFF"/>
+<text x="72.00" y="305" font-size="27" font-weight="700" fill="#202A22">1 · Label quality and replay</text>
+<text x="532.00" y="305" font-size="27" font-weight="400" fill="#202A22">How should we use a small amount of trusted ATCO2 data?</text>
+<text x="1350.00" y="305" font-size="27" font-weight="400" fill="#202A22">Parakeet + Nemotron</text>
+<rect x="48" y="339" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="340" width="1704" height="85" fill="#F7F9F5"/>
+<text x="72.00" y="390" font-size="27" font-weight="700" fill="#202A22">2 · Training duration</text>
+<text x="532.00" y="390" font-size="27" font-weight="400" fill="#202A22">What happens if we keep training on Jacktol alone?</text>
+<text x="1350.00" y="390" font-size="27" font-weight="400" fill="#202A22">Nemotron</text>
+<rect x="48" y="424" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="425" width="1704" height="122" fill="#FFFFFF"/>
+<text x="72.00" y="475" font-size="27" font-weight="700" fill="#202A22">3 · Training sequence</text>
+<text x="532.00" y="475" font-size="27" font-weight="400" fill="#202A22">Can broad ATC training followed by focused refinement</text>
+<text x="532.00" y="512" font-size="27" font-weight="400" fill="#202A22">improve the balance?</text>
+<text x="1350.00" y="475" font-size="27" font-weight="400" fill="#202A22">Parakeet + Nemotron</text>
+<rect x="48" y="546" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="547" width="1704" height="122" fill="#F7F9F5"/>
+<text x="72.00" y="597" font-size="27" font-weight="700" fill="#202A22">4 · Language-model decoding</text>
+<text x="532.00" y="597" font-size="27" font-weight="400" fill="#202A22">Can training text improve the same checkpoints without</text>
+<text x="532.00" y="634" font-size="27" font-weight="400" fill="#202A22">acoustic retraining?</text>
+<text x="1350.00" y="597" font-size="27" font-weight="400" fill="#202A22">Parakeet G3 / 42 + Nemotron</text>
+<text x="1350.00" y="634" font-size="27" font-weight="400" fill="#202A22">P3</text>
+<rect x="48" y="668" width="1704" height="1" fill="#CBD3C6"/>
+<text x="48.00" y="717" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
+<text x="1667.02" y="717" font-size="18" font-weight="700" fill="#596555">TABLE 08</text>
+</g></svg>

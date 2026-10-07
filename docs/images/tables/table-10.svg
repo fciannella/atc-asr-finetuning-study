@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1015" viewBox="0 0 1800 1015" role="img" aria-labelledby="title"><title id="title">More training on Jacktol alone</title><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1800" height="1015" fill="#F3F5F1"/>
+<rect x="48" y="35" width="64" height="6" fill="#76B900"/>
+<text x="48.00" y="96" font-size="43" font-weight="700" fill="#182019">More training on Jacktol alone</text>
+<text x="48.00" y="137" font-size="24" font-weight="400" fill="#596555">Comparison 2 · Nemotron · WER (%) · lower is better</text>
+<rect x="48" y="170" width="1704" height="159" fill="#182019"/>
+<text x="72.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Completed</text>
+<text x="72.00" y="257" font-size="25" font-weight="700" fill="#FFFFFF">training budget</text>
+<text x="345.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Starting checkpoint → adaptation data</text>
+<text x="856.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Jacktol</text>
+<text x="856.00" y="257" font-size="25" font-weight="700" fill="#FFFFFF">validation WER</text>
+<text x="1086.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">Jacktol test</text>
+<text x="1086.00" y="257" font-size="25" font-weight="700" fill="#FFFFFF">WER</text>
+<text x="1316.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">ATCO2</text>
+<text x="1316.00" y="257" font-size="25" font-weight="700" fill="#FFFFFF">recording-</text>
+<text x="1316.00" y="294" font-size="25" font-weight="700" fill="#FFFFFF">disjoint WER</text>
+<text x="1546.00" y="220" font-size="25" font-weight="700" fill="#FFFFFF">LibriSpeech</text>
+<text x="1546.00" y="257" font-size="25" font-weight="700" fill="#FFFFFF">WER</text>
+<rect x="48" y="328" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="329" width="1704" height="122" fill="#EAF3DD"/>
+<rect x="48" y="329" width="5" height="122" fill="#76B900"/>
+<text x="72.00" y="379" font-size="27" font-weight="700" fill="#202A22">Pretrained</text>
+<text x="72.00" y="416" font-size="27" font-weight="700" fill="#202A22">baseline</text>
+<text x="345.00" y="379" font-size="27" font-weight="700" fill="#202A22">Nemotron base → no adaptation</text>
+<text x="946.00" y="379" font-size="27" font-weight="400" fill="#202A22">72.33%</text>
+<text x="1176.00" y="379" font-size="27" font-weight="400" fill="#202A22">72.22%</text>
+<text x="1406.00" y="379" font-size="27" font-weight="400" fill="#202A22">77.79%</text>
+<text x="1651.00" y="379" font-size="27" font-weight="400" fill="#202A22">3.50%</text>
+<rect x="48" y="450" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="451" width="1704" height="122" fill="#F7F9F5"/>
+<text x="72.00" y="501" font-size="27" font-weight="700" fill="#202A22">5k steps</text>
+<text x="345.00" y="501" font-size="27" font-weight="400" fill="#202A22">Nemotron base → 5.896 h Jacktol</text>
+<text x="345.00" y="538" font-size="27" font-weight="400" fill="#202A22">only</text>
+<text x="946.00" y="501" font-size="27" font-weight="400" fill="#202A22">14.26%</text>
+<text x="1176.03" y="501" font-size="27" font-weight="400" fill="#202A22">14.11%</text>
+<text x="1406.00" y="501" font-size="27" font-weight="400" fill="#202A22">29.41%</text>
+<text x="1651.00" y="501" font-size="27" font-weight="400" fill="#202A22">6.30%</text>
+<rect x="48" y="572" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="573" width="1704" height="122" fill="#FFFFFF"/>
+<text x="72.00" y="623" font-size="27" font-weight="700" fill="#202A22">10k cumulative</text>
+<text x="72.00" y="660" font-size="27" font-weight="700" fill="#202A22">steps</text>
+<text x="345.00" y="623" font-size="27" font-weight="400" fill="#202A22">5k final checkpoint → same Jacktol</text>
+<text x="345.00" y="660" font-size="27" font-weight="400" fill="#202A22">pool</text>
+<text x="946.03" y="623" font-size="27" font-weight="400" fill="#202A22">11.43%</text>
+<text x="1176.03" y="623" font-size="27" font-weight="400" fill="#202A22">11.01%</text>
+<text x="1406.00" y="623" font-size="27" font-weight="400" fill="#202A22">25.27%</text>
+<text x="1651.00" y="623" font-size="27" font-weight="400" fill="#202A22">6.86%</text>
+<rect x="48" y="694" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="695" width="1704" height="122" fill="#F7F9F5"/>
+<text x="72.00" y="745" font-size="27" font-weight="700" fill="#202A22">20k cumulative</text>
+<text x="72.00" y="782" font-size="27" font-weight="700" fill="#202A22">steps</text>
+<text x="345.00" y="745" font-size="27" font-weight="400" fill="#202A22">10k final checkpoint → same Jacktol</text>
+<text x="345.00" y="782" font-size="27" font-weight="400" fill="#202A22">pool</text>
+<text x="961.00" y="745" font-size="27" font-weight="400" fill="#202A22">9.10%</text>
+<text x="1191.00" y="745" font-size="27" font-weight="400" fill="#202A22">9.34%</text>
+<text x="1406.00" y="745" font-size="27" font-weight="400" fill="#202A22">22.12%</text>
+<text x="1651.00" y="745" font-size="27" font-weight="400" fill="#202A22">7.52%</text>
+<rect x="48" y="816" width="1704" height="1" fill="#CBD3C6"/>
+<rect x="48" y="817" width="1704" height="122" fill="#FFFFFF"/>
+<text x="72.00" y="867" font-size="27" font-weight="700" fill="#202A22">30k cumulative</text>
+<text x="72.00" y="904" font-size="27" font-weight="700" fill="#202A22">steps</text>
+<text x="345.00" y="867" font-size="27" font-weight="400" fill="#202A22">20k final checkpoint → same Jacktol</text>
+<text x="345.00" y="904" font-size="27" font-weight="400" fill="#202A22">pool</text>
+<text x="961.00" y="867" font-size="27" font-weight="400" fill="#202A22">8.17%</text>
+<text x="1191.00" y="867" font-size="27" font-weight="400" fill="#202A22">8.05%</text>
+<text x="1406.00" y="867" font-size="27" font-weight="400" fill="#202A22">20.44%</text>
+<text x="1651.00" y="867" font-size="27" font-weight="400" fill="#202A22">7.76%</text>
+<rect x="48" y="938" width="1704" height="1" fill="#CBD3C6"/>
+<text x="48.00" y="987" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
+<text x="1667.02" y="987" font-size="18" font-weight="700" fill="#596555">TABLE 10</text>
+</g></svg>

@@ -6,11 +6,19 @@
 | **Awareness / outstanding details** | Confirm dataset documentation, license, download location, and how the released two-hour dataset relates to the experimental training, validation, and test splits. Verify measured results and reproducible example links before publication. |
 | **Social copy — draft for review** | **LinkedIn:** Adapt speech recognition to your domain with NVIDIA Nemotron Speech skills. This hands-on ATC example walks through preparing data, fine-tuning with NeMo, and evaluating recognition quality. Alongside the blog, NVIDIA plans to release two hours of human-annotated ATC data to help the community experiment and build on the work. Join the October 13 livestream for more. \[Blog, dataset, and livestream links pending\] **X:** Fine-tune ASR for your domain with NVIDIA Nemotron Speech skills. Explore the ATC workflow and a planned community release of two hours of human-annotated ATC data. Join the October 13 livestream. \[Links pending\] |
 
+<!-- styled-table:01 -->
+[![Styled table: Editorial overview](images/tables/table-01.png)](images/tables/table-01.svg)
+<!-- /styled-table -->
+
 | Feedback Deadline: 10/09/26 Target Publish Date: 10/13/26 |  |
 | ----- | :---- |
 | **Submitters Notes:** | Please see above |
 | **Formal Reviewers** | **Formal Reviewers: [Maryam Motamedi US](mailto:maryamm@nvidia.com) [Adi Margolin US](mailto:amargolin@nvidia.com)[Yitagessu Gebremedhin US](mailto:ygebremedhin@nvidia.com)[Myungjong Kim US](mailto:myungjongk@nvidia.com)[Jinhan Wang US](mailto:jinhanw@nvidia.com)[Rajpreet Thethy (cw) US](mailto:rthethy@nvidia.com)**  |
 | **Awareness (CC)** | [Chintan Patel US](mailto:cpatel@nvidia.com)[Udi Karpas IL](mailto:ekarpas@nvidia.com)[Davide Onofrio US](mailto:donofrio@nvidia.com)[Will Jennings US](mailto:wjennings@nvidia.com) |
+
+<!-- styled-table:02 -->
+[![Styled table: Review and publication](images/tables/table-02.png)](images/tables/table-02.svg)
+<!-- /styled-table -->
 
 # **Fine-Tune ASR for Your Domain with NVIDIA Nemotron Speech Skills**
 
@@ -34,6 +42,10 @@ You can use the two skills together to move from an adaptation goal to a trained
 | **Protect existing capabilities:** Define domain and general-speech checks so better domain accuracy does not hide catastrophic forgetting. | **Measure the result:** Evaluate exported checkpoints with normalized WER on domain and general speech, independently of training logs. |
 | **Choose the next experiment:** Use measured errors and constraints to prioritize data, training, or decoding changes and route specialist work. | **Refine the model:** Adjust replay or curriculum and compare individual and averaged checkpoints, keeping changes only when evaluation supports them. |
 | **Coordinate delivery:** Hand off serving and endpoint evaluation to the deployment skill when the selected model meets the objective. | **Produce reviewable artifacts:** Retain training configurations, checkpoints, exported `.nemo` models, and standalone evaluation results. |
+
+<!-- styled-table:03 -->
+[![Styled table: Two skills, one adaptation workflow](images/tables/table-03.png)](images/tables/table-03.svg)
+<!-- /styled-table -->
 
 The orchestration skill coordinates specialist execution; serving through Riva/NIM requires the `nemotron-speech` skill. Both skills run through your coding agent with access to your data, software environment, and hardware.
 
@@ -91,6 +103,10 @@ Before choosing a recipe, inspect the checkpoint. Its [encoder](https://nvidia-a
 | [RNN-T](https://nvidia-asr-explained.hf.space/#/rnnt/flow) | Combine an acoustic encoder with a prediction and joint network | Streaming-friendly and conditioned on previously emitted tokens |
 | [TDT](https://nvidia-asr-explained.hf.space/#/tdt/flow) | Extend the transducer family with token-and-duration outputs | Efficient sequence modeling with architecture-specific duration settings |
 
+<!-- styled-table:04 -->
+[![Styled table: Choose the ASR architecture](images/tables/table-04.png)](images/tables/table-04.svg)
+<!-- /styled-table -->
+
 Our experiments used Nemotron 3.5 ASR Streaming 0.6B, Parakeet CTC 1.1B, and Parakeet TDT 0.6B v3. Each required a compatible training recipe. CTC can be attractive for offline decoding and language-model integration, while a streaming transducer may suit an application that must respond as someone speaks. Choose with the intended application in mind, then compare accuracy. Parakeet is a separate model family in this comparison. Preserve the CTC head and tokenizer, RNN-T loss and streaming configuration, or TDT duration vocabulary and decoder settings, as appropriate for the checkpoint.
 
 For a closer look at acoustic processing, explore the [encoder and Conformer walkthrough](https://nvidia-asr-explained.hf.space/#/encoder/flow).
@@ -120,6 +136,10 @@ Before looking at the experiments, distinguish **how transcripts were produced**
 | **ATCO2 Gold** | Human-verified ATC transcripts | **0.418 h training** (393 clips), **0.100 h development**, **2.000 h test** | Trusted-label refinement, checkpoint selection, and separate evaluation |
 | **English replay** | **LibriSpeech** general-English training audio | **314.721 h** selected from `train-clean-360` for Comparison 1; **100.344 h** from `train-clean-100` for Comparison 3; **none** in Comparison 2 | Preserve general-English recognition during ATC fine-tuning |
 
+<!-- styled-table:05 -->
+[![Styled table: Know your training ingredients](images/tables/table-05.png)](images/tables/table-05.svg)
+<!-- /styled-table -->
+
 Silver and Gold describe label quality, not dataset splits. Gold training, development, and test audio have separate roles; only the training split updates model weights. Replay hours describe available source pools, not how many hours are sampled in a run. LibriSpeech `test-clean` is reserved for evaluation, not replay.
 
 ## **Know which data is being released**
@@ -138,6 +158,10 @@ The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hour
 | Gold development | 0.100 h | 100 | Checkpoint and recipe selection |
 | Gold community test | 2.000 h | 1,908 | Held out from training/selection; reused comparison benchmark |
 
+<!-- styled-table:06 -->
+[![Styled table: Keep Gold data roles separate](images/tables/table-06.png)](images/tables/table-06.svg)
+<!-- /styled-table -->
+
 The splits had zero overlap by airport-date, audio path, record ID, and source recording. Reserving two hours for evaluation left about 25 minutes for Gold training. That was a deliberate trade-off: we wanted enough held-out speech to assess what the model had learned.
 
 The public [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) contains 7.405 hours, including about 5.9 training hours and official validation and test splits. It supplied an external comparison and training-only domain text. Because it includes material derived from public ATCO2 recordings, cross-corpus claims required an acoustic overlap audit.
@@ -151,6 +175,10 @@ These clips illustrate aviation phraseology and the reference-transcript convent
 | ATCO2 Gold community test · Sion | 5.02 s — taxi request · public audio pending | “hotel hotel victor runway two five vacate interception charlie request taxi” |
 | Jacktol test · row 0 | [▶ 1.51 s — acknowledgment](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=0) | “HOTEL HOTEL BRAVO THANK YOU” |
 | Jacktol test · row 1 | [▶ 1.90 s — direct routing](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=1) | “DIRECT RATEV LUFTHANSA EIGHT MIKE MIKE THANK YOU” |
+
+<!-- styled-table:07 -->
+[![Styled table: Listen to ATC speech](images/tables/table-07.png)](images/tables/table-07.svg)
+<!-- /styled-table -->
 
 For Jacktol, open the linked row and press its audio play button. The ATCO2 transcript is shown for reference; public audio will be linked when the evaluation dataset is released.
 
@@ -166,6 +194,10 @@ Our goal was to improve ATC recognition while preserving general English. Each c
 | **2 · Training duration** | What happens if we keep training on Jacktol alone? | Nemotron |
 | **3 · Training sequence** | Can broad ATC training followed by focused refinement improve the balance? | Parakeet + Nemotron |
 | **4 · Language-model decoding** | Can training text improve the same checkpoints without acoustic retraining? | Parakeet G3 / 42 + Nemotron P3 |
+
+<!-- styled-table:08 -->
+[![Styled table: Four questions guide the experiments](images/tables/table-08.png)](images/tables/table-08.svg)
+<!-- /styled-table -->
 
 Development data selected checkpoints. We evaluated the exported models on the same test sets within each comparison, using normalized WER and LibriSpeech as the general-English check.
 
@@ -196,6 +228,10 @@ We had plenty of machine-labeled ATCO2 audio but only about 25 minutes of human-
 | G4 / 1234 | Silver/English parent → Silver + Gold + English pools (70/15/15) | 27.45% | 30.08% | 2.38% | 3.54% |
 | G4 / 42 | Silver/English parent → Silver + Gold + English pools (70/15/15) | 27.38% | 30.69% | 2.24% | 3.56% |
 
+<!-- styled-table:09 -->
+[![Styled table: Gold labels and English replay](images/tables/table-09.png)](images/tables/table-09.svg)
+<!-- /styled-table -->
+
 Hours are source-pool sizes; ratios are sampling percentages. **—** means a matching pretrained-baseline result is unavailable in the cited comparison snapshot; it does not mean zero. We do not substitute scores from a different ATCO2 evaluation split.
 
 Both models tell the same story: **English replay limits forgetting, and Gold refinement works best after broad adaptation.** Adding replay to Gold-only training reduces English WER from 10.91% to 2.67% for Parakeet and from 5.16% to 3.72% for Nemotron. G3 reaches 20.00% and 22.46% ATCO2 WER respectively at seed 42, improving on both parents. Keeping Silver in the final mixture (G4) weakens that correction in both seeds.
@@ -219,6 +255,10 @@ This experiment asks whether **more training on the same small dataset keeps imp
 | 10k cumulative steps | 5k final checkpoint → same Jacktol pool | 11.43% | 11.01% | 25.27% | 6.86% |
 | 20k cumulative steps | 10k final checkpoint → same Jacktol pool | 9.10% | 9.34% | 22.12% | 7.52% |
 | 30k cumulative steps | 20k final checkpoint → same Jacktol pool | 8.17% | 8.05% | 20.44% | 7.76% |
+
+<!-- styled-table:10 -->
+[![Styled table: More training on Jacktol alone](images/tables/table-10.png)](images/tables/table-10.svg)
+<!-- /styled-table -->
 
 Jacktol test WER improves at every reported budget, reaching **8.05%** at 30k. English moves in the opposite direction, reaching **7.76%**, versus 3.50% for the base model. More domain optimization helped specialization but did not solve retention.
 
@@ -244,6 +284,10 @@ Comparison 2 exposed a trade-off: better ATC recognition accompanied worse gener
 | P1 / selected A2 | 5.896 h Jacktol + 100.344 h English; 80/0/20 | 6.43% | 7.57% | 4.20% | 5.19% | 21.38% |
 | P2 / selected P1 | Same Jacktol + English pools; 85/0/15 | 5.93% | 7.53% | 4.07% | 5.27% | 20.79% |
 | P3 / selected P2 | Same Jacktol + English pools; 90/0/10 | 5.91% | 7.31% | 4.10% | 5.30% | 19.96% |
+
+<!-- styled-table:11 -->
+[![Styled table: Broad adaptation, then focused refinement](images/tables/table-11.png)](images/tables/table-11.svg)
+<!-- /styled-table -->
 
 Each model follows its own checkpoint chain. **—** marks pretrained Parakeet scores absent from the cited curriculum snapshot.
 
@@ -279,6 +323,10 @@ The [completed evaluation snapshot](../reports/greedy-ngram-blog-checkpoints-202
 | Parakeet G3 / 42 | None; fresh greedy control | 0 | 19.91% | 19.72% | 21.39% | 2.30% |
 | Same Parakeet G3 / 42 | Gold / 3-gram | 0.1 | 19.52% | 19.32% | 21.15% | 2.35% |
 | Same Parakeet G3 / 42 | Gold + Jacktol / 4-gram | 0.1 | 19.31% | 19.14% | 20.56% | 2.33% |
+
+<!-- styled-table:12 -->
+[![Styled table: Add aviation language at decoding time](images/tables/table-12.png)](images/tables/table-12.svg)
+<!-- /styled-table -->
 
 This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation.
 
