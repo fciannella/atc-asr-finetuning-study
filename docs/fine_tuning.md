@@ -16,7 +16,7 @@
 
 Suppose a speech recognition model transcribes everyday conversation accurately, yet struggles with a pilot reading back a clearance. The model already knows English. What it needs to learn is how English sounds over a radio and how people use it in air traffic control. Fine-tuning lets us teach those differences by updating a pretrained model with examples from the new domain.
 
-The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. Here we follow the experiments from automatically transcribed audio to human annotations and, finally, an n-gram language model. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. Here we follow Nemotron through Gold refinement, longer domain-only training, and a staged curriculum with general-English replay. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
 
 # **How the skills guide the work**
 
@@ -96,6 +96,8 @@ For a public starting point, the [Jacktol ATC-ASR dataset](https://huggingface.c
 
 ## **Historical training and evaluation example**
 
+The linked 2:1 recipe illustrates the mechanics of training and scoring. The newer Gold, Jacktol-only, and curriculum campaigns below use their own configurations; this archived recipe does not reproduce those results.
+
 ## **Inspect and run the training configuration**
 
 The [Nemotron 2:1 replay example](https://github.com/fciannella/atc-asr-finetuning-experiments/tree/main/experiments/nemotron-mixed-2to1) contains an [effective training configuration](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/config.yaml), executable `recipe.sh`, sampling weights, logs, and results. **This repository is currently private; public release is pending.** The container digest and base-checkpoint download link still need to be pinned for release.
@@ -133,7 +135,7 @@ done
 
 ```
 
-Materialize segmented audio as clips first. These settings are specific to the historical Nemotron recipe; Parakeet needs its own inference path. `float32` makes the current script's default precision explicit; record it and the software revision. Missing historical environment pins prevent a guarantee of exact numerical reproduction.
+Materialize segmented audio as clips first. These settings are specific to the historical Nemotron recipe; Parakeet needs its own inference path. The newer campaigns' pinned streaming entrypoint requires `float32`; record the precision and software revision. Missing historical environment pins prevent a guarantee of exact numerical reproduction.
 
 For each output directory, score its prediction JSONL (`text` and `pred_text`) using the actual generated filename:
 
@@ -146,14 +148,14 @@ The scorer folds case and diacritics, normalizes symbols while retaining apostro
 
 Expected artifacts are configuration and manifest hashes, training logs, retained checkpoints, an exported `.nemo`, and four prediction/score pairs. Each `wer.json` includes utterances, reference words, word errors, and `normalized_wer` as a fraction; multiply by 100 for percentages. Save decoder settings and checkpoint hashes with the report.
 
-## **What fine-tuning changed**
+## **Historical reference: the original 2:1 replay recipe**
 
 | Evaluation | Untouched Nemotron | Fine-tuned Nemotron |
 | :---- | :---- | :---- |
 | Historical ATC development: 1,007 utterances | 75.75% WER | **37.38% WER** |
 | LibriSpeech test-clean: 2,620 utterances | 3.52% WER | **3.39% WER** |
 
-The [unrounded results](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/results.yaml) show a **38.37-percentage-point reduction**, or **50.65% relative reduction**, in ATC development WER. These are observed results, not promised outcomes. This development comparison is distinct from the later two-hour locked ATCO2 test.
+The [unrounded results](https://github.com/fciannella/atc-asr-finetuning-experiments/blob/main/experiments/nemotron-mixed-2to1/results.yaml) show a **38.37-percentage-point reduction**, or **50.65% relative reduction**, in ATC development WER. These are observed results, not promised outcomes. This development comparison belongs to the archived recipe. It is separate from the newer Nemotron comparisons below and is not their baseline.
 
 ## **ATCO2 and Jacktol provide different evidence**
 
@@ -163,7 +165,7 @@ The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hour
 | :---- | :---- | :---- | :---- |
 | Gold training | 0.418 h | 393 | Final supervised refinement |
 | Gold development | 0.100 h | 100 | Checkpoint and recipe selection |
-| Gold community test | 2.000 h | 1,908 | Locked final evaluation |
+| Gold community test | 2.000 h | 1,908 | Held out from training/selection; reused comparison benchmark |
 
 The splits had zero overlap by airport-date, audio path, record ID, and source recording. Reserving two hours for evaluation left about 25 minutes for Gold training. That was a deliberate trade-off: we wanted enough held-out speech to assess what the model had learned.
 
@@ -181,134 +183,83 @@ The public [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC
 
 5. **Save the recipe.** Package the `.nemo` model with its starting revision, tokenizer, preprocessing, manifest hashes, training and decoder settings, selection rule, normalizer, and domain/general-English scores.
 
-# **Experiment 1: What did additional Silver data teach the model?**
+# **Three questions answered by the newer Nemotron experiments**
 
-We began with nemotron-3.5-asr-streaming-0.6b.nemo and a peak learning rate of 3e-5. The Silver releases were nested. The following retrospective results evaluate surviving checkpoints on the same locked Gold test, separate from the historical development comparison above.
+The newer work lets us follow one model, Nemotron 3.5 ASR Streaming 0.6B, through three questions: does Gold refinement need replay, how far does Jacktol-only training go, and does a staged curriculum improve the trade-off? All scores below come from completed standalone evaluations, captured in the [October 7 result snapshot](../reports/nemotron-comparisons-2026-10-07.json).
 
-| Training data | Steps | ATCO2 Gold WER | LibriSpeech WER |
-| :---- | :---- | :---- | :---- |
-| Untouched model | 0 | 75.57% | 3.52% |
-| 10 h Silver | 9,791 | 44.02% | 5.46% |
-| 50 h Silver | 24,001 | 42.71% | 5.77% |
-| 100 h Silver | 20,000 | 43.63% | 5.74% |
-| 314.7 h Silver | 62,944 | 41.79% | 6.09% |
+Every new row uses native cache-aware streaming, attention context `[56,3]`, `en-US`, greedy decoding with at most 10 symbols per step, and float32 inference. No beam search or external language model contributes to these results. The model retains its native tokenizer, RNN-T loss, and feature normalization. Checkpoint selection uses the relevant development/validation split; the tables score the actual exported artifacts.
 
-The first ten hours produced most of the initial improvement. Expanding to the full 314.7 hours reduced WER by another 2.23 points under this recipe. These runs used different step budgets, so they are not a pure test of data volume. They did, however, give us a practical reason to investigate the training recipe before adding still more audio.
+The existing test sets have been evaluated in previous experiments. Treat these as repeated benchmark comparisons, not fresh blind tests. The new baseline is **77.00% on ATCO2**, **72.22% on Jacktol**, and **3.50% on LibriSpeech**. Older figures such as 75.57% ATCO2 and 3.52% LibriSpeech belong to historical evaluator runs and should not be substituted into these comparisons. Matching the model name alone is insufficient to establish an identical evaluation contract.
 
-# **Experiment 2: Better ATC accuracy came with a cost**
+## **Comparison 1: What do Gold labels and English replay each contribute?**
 
-Raising Nemotron’s learning rate to `1e-4` reduced ATCO2 WER to 32.12%, but LibriSpeech deteriorated to 16.88%. Looking at ATC alone would have made this seem like an unqualified success. The English evaluation showed the cost of that specialization.
+We repeated the G1–G4 design with Nemotron. The parent trained for 20,000 steps using 80% Silver ATCO2 and 20% English sampling. Each Gold run then used 2,000 steps at peak learning rate `1e-5`, with 393 Gold training segments, about 25 minutes of audio. The two-hour ATCO2 benchmark and LibriSpeech test-clean remained evaluation-only. Gold development selected checkpoints.
 
-Parakeet CTC 1.1B trained on the same Silver pool reached 26.78% ATCO2. Changing the model and its recipe clearly deserved attention, although this comparison cannot isolate architecture from model size and pretraining. Its LibriSpeech WER rose to 34.63%, again exposing substantial forgetting.
+| Model / strategy | Initialization and sampling | Seed | ATCO2 WER | LibriSpeech WER |
+| --- | --- | ---: | ---: | ---: |
+| Untouched base | Pretrained model | — | 77.00% | 3.50% |
+| Silver/English parent | Base; 80% Silver / 20% English | 42 | 36.52% | 3.48% |
+| G1: Gold only | Base; 100% Gold | 1234 | 26.09% | 5.16% |
+| G2: Gold + replay | Base; 85% Gold / 15% English | 1234 | 26.89% | 3.72% |
+| G3: Gold refinement | Parent; 85% Gold / 15% English | 1234 | 22.97% | 3.68% |
+| G3: repeat seed | Parent; 85% Gold / 15% English | 42 | 22.46% | 3.63% |
+| G4: retain Silver | Parent; 70% Silver / 15% Gold / 15% English | 1234 | 30.08% | 3.54% |
+| G4: repeat seed | Parent; 70% Silver / 15% Gold / 15% English | 42 | 30.69% | 3.56% |
 
-General-English replay addressed that trade-off. Nemotron replay runs held LibriSpeech near 3.39% while reaching approximately 36% ATCO2. Parakeet CTC with equal ATC and English sampling reached 32.81% ATCO2 and 2.15% LibriSpeech.
+G1 demonstrates substantial adaptation from scarce human labels, but English WER rises from 3.50% to 5.16%. G2 trades a small amount of ATCO2 accuracy for much better English retention: 26.89% ATCO2 and 3.72% LibriSpeech. Replay matters even when the domain training set is small.
 
-Parakeet TDT gave us the most useful balance for the next stage. It sampled 80% from a 314.716-hour Silver pool audited for leakage and 20% from a 314.721-hour English pool. It reached 30.28% on ATCO2 and 2.18% on LibriSpeech. We used this checkpoint as the starting point for Gold refinement.
+G3 starts from the broadly adapted parent and improves ATCO2 from 36.52% to 22.97%, with English at 3.68%. Seed 42 reaches 22.46% and 3.63%, supporting the direction of the result across two seeds without establishing a confidence interval. Both G3 seeds outperform the corresponding G4 runs, where continued Silver sampling weakens the Gold correction. This is evidence for separating broad adaptation from trusted-label refinement under this recipe.
 
-# **Experiment 3: Gold worked best as a second-stage correction**
+These are scoped experimental comparisons, including approved historical Silver ablations. They do not make the study's licensed training data part of the evaluation-data release or establish a general recommendation to fine-tune every model on 25 minutes of speech.
 
-We compared four strategies using Parakeet TDT, 2,000 steps, and peak LR `1e-5`.
+## **Comparison 2: Does more Jacktol-only training keep helping?**
 
-| Strategy | Starting point and data | ATCO2 WER | LibriSpeech WER |
-| :---- | :---- | :---- | :---- |
-| G1 | Untouched model; 0.418 h Gold only | 26.44% | 10.91% |
-| G2 | Untouched model; Gold \+ English replay | 24.30% | 2.67% |
-| G3 | Silver-adapted model; Gold \+ English replay | **20.00%** | 2.31% |
-| G4 | Silver-adapted model; Silver \+ Gold \+ English | 27.38% | **2.24%** |
+We next started from the untouched Nemotron model and trained only on Jacktol's official training split: 6,497 clips, 5.896 hours. No ATCO2, UWB, English replay, or synthetic audio was used. Each phase selected its checkpoint using Jacktol validation, with the same held-out manifests and normalized scorer across phases.
 
-G1 showed that even 25 minutes of matching human data could adapt the untouched model, but it also caused severe forgetting. G2 restored general English but left cross-ATC performance weak.
+| Completed training budget | Jacktol validation WER | Jacktol test WER | ATCO2 recording-disjoint WER | LibriSpeech WER |
+| --- | ---: | ---: | ---: | ---: |
+| Untouched base | 72.33% | 72.22% | 77.79% | 3.50% |
+| 5k steps | 14.26% | 14.11% | 29.41% | 6.30% |
+| 10k cumulative steps | 11.43% | 11.01% | 25.27% | 6.86% |
+| 20k cumulative steps | 9.10% | 9.34% | 22.12% | 7.52% |
+| 30k cumulative steps | 8.17% | 8.05% | 20.44% | 7.76% |
 
-G3 combined what the earlier runs had taught us. We first adapted to the broad Silver corpus, then refined that model on Gold examples at a lower learning rate while retaining English replay. ATCO2 WER fell from 30.28% to 20.00%, with LibriSpeech remaining close to the 2.18% starting value.
+Jacktol test WER improves at every reported budget, reaching **8.05%** at 30k. English moves in the opposite direction, reaching **7.76%**, versus 3.50% for the base model. More domain optimization helped specialization but did not solve retention.
 
-G4 continued sampling the large Silver pool during Gold refinement and performed much worse. This suggests that continued exposure to automatic labels weakened the correction provided by human annotations. In these experiments, Silver helped establish broad domain knowledge, while the final stage benefited from greater emphasis on Gold.
+The budgets describe completed training phases; the validation-selected checkpoint may precede the endpoint. Each extension initializes from the prior phase's final weights, restarts AdamW, and rewarms the learning-rate schedule. This is not an uninterrupted 30k-step cosine run, so the comparison cannot isolate step count from the restart schedule.
 
-Repeating G3 with another random seed produced a similar improvement, giving us more confidence that the recipe was responsible.
+The ATCO2 column uses the existing **1,695-segment, 1.749-hour recording-disjoint view**, excluding 213 segments linked to any Jacktol split. It is distinct from the full 1,908-segment, two-hour benchmark in the Gold table. The acoustic audit reduces known overlap; it does not prove that all possible overlap is absent.
 
-# **Experiment 4: The final gains came from decoding**
+## **Comparison 3: Can a staged curriculum improve the balance?**
 
-Beam width four reduced the G3 seed-42 result from 20.00% to 19.08% without changing model weights. A paired 5,000-sample bootstrap placed the improvement between 0.68 and 1.15 WER points at 95% confidence; no resample favored greedy decoding.
+The next campaign returned to the untouched base and matched the data pools and curriculum of our earlier Parakeet study: 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of LibriSpeech training audio. A1 and A2 blend both ATC sources with English; P1–P3 progressively emphasize Jacktol while retaining English replay. Each stage starts from the previous stage's selected export and uses a fresh optimizer and schedule.
 
-We also averaged the three checkpoints with the best validation scores. The average improved Gold development WER, so we selected it for the LM experiments; its test WER was 19.21%, slightly above the individual checkpoint's 19.08%. Giving difficult examples more training weight, adding gain variation and white noise, and boosting 200 ATC phrases did not improve on the selected approach.
+| Stage | Jacktol / UWB / English sampling | Stage step budget | Jacktol validation WER | Jacktol test WER | LibriSpeech WER |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Untouched base | — | 0 | 72.33% | 72.22% | 3.50% |
+| A1 | 30 / 30 / 40 | 14,465 | 10.51% | 11.03% | 5.18% |
+| A2 | 40 / 35 / 25 | 23,144 | 7.30% | 7.90% | 5.20% |
+| P1 | 80 / 0 / 20 | 5,000 | 6.86% | 7.57% | 5.19% |
+| P2 | 85 / 0 / 15 | 4,000 | 6.74% | 7.53% | 5.27% |
+| P3 | 90 / 0 / 10 | 3,000 | 6.61% | 7.31% | 5.30% |
 
-We next tested whether a language model could help resolve the remaining transcription ambiguities.
+P3 has the lowest Jacktol validation WER among these exports and reaches **7.31% Jacktol test WER**, an **89.88% relative reduction** from the 72.22% base. Compared with the 30k Jacktol-only model, it improves Jacktol by **0.74 percentage points** and reduces English WER by **2.46 points**, to 5.30%. Retention is better, but still worse than the original 3.50%; replay has not eliminated forgetting.
 
-## **Why an n-gram model after acoustic fine-tuning?**
+A manifest audit confirmed identical evaluation audio paths, offsets, durations, and normalized references between the 30k and curriculum campaigns, despite different raw Jacktol and English manifest hashes. This comparison changes training data, order, budget, and label conventions together. It demonstrates the combined recipe's outcome, not a controlled estimate of replay's individual contribution. The five budgets total 49,609 steps, but that is not the exact training lineage of P3 because intermediate stages hand off selected checkpoints rather than necessarily their final weights.
 
-The ASR model scores candidate transcriptions using the audio and its learned context. An external n-gram language model adds a preference based on short token sequences observed in text. During shallow fusion, the decoder combines the ASR and LM scores. A weight called alpha controls how strongly the external LM influences the choice.
+For recipe fidelity, this campaign preserved the historical uppercase Jacktol and lowercase UWB/English training labels, unlike the normalized-label Jacktol-only runs. It also preserved the historical checkpoint-weight choices: A1 exports ordinary weights despite selection by exponential-moving-average (EMA) validation scores; A2 exports EMA weights. Standalone evaluation measures the exported models, not their in-training proxies.
 
-Consider the words following a runway clearance. ATC uses a relatively small set of recurring phrases, so some continuations are much more likely than others. An LM can use those patterns to help choose between acoustically similar candidates. It provides additional evidence, although a strong preference for familiar phrases can also steer the decoder away from what was actually said.
+P3 also scores **20.68% on UWB test** and **19.96% on the ATCO2 recording-disjoint view**. The latter is a qualified transfer measurement: the subset removes known Jacktol-linked recordings, but the additional UWB training source has not received a fresh cross-corpus acoustic fingerprint audit. The full ATCO2 score, 19.22%, remains overlap-confounded and should not headline an unseen-transfer claim.
 
-This is an economical experiment because the ASR checkpoint stays fixed and LM training requires only text. It lets us test an additional source of improvement without running another acoustic fine-tuning job.
+## **Where Parakeet fits in the comparison**
 
-## **Constructing the LM corpora without test leakage**
+The historical Parakeet curriculum reached 5.93% Jacktol test WER, compared with Nemotron P3's 7.31%. That gives useful context for the matched-data/curriculum study, but it is not an architecture-only contest: the checkpoints differ in pretraining, tokenizer, streaming/offline behavior, selection details, and execution topology. Neither the earlier Parakeet beam-search result nor its 17.61% ATCO2 result with an external language model should be attributed to Nemotron. The [earlier experiment narrative](fine_tuning_blog_2800.md) retains those separate results.
 
-The first corpus contained only the 393 ATCO2 Gold training transcripts: 4,761 normalized tokens. We also constructed an 80% Gold / 20% general-English corpus by token count to test whether an LM replay mixture would preserve ordinary English.
+## **What users can learn from these comparisons**
 
-The normalization matched our WER contract: case and diacritic folding, symbol normalization while retaining apostrophes, and whitespace collapse. Gold development and community-test transcripts were used only for identifier-level isolation checks; their text never entered LM training. Silver ATCO2 was also excluded.
+The skill table maps directly to the experiments. The orchestration skill frames the question and the domain/general evaluation contract; the NeMo skill preserves model-specific settings, configures the data mixture, and evaluates exported checkpoints. The useful output is a comparison that explains the trade-off, not just the lowest domain WER.
 
-For the second round, we added the official Jacktol training text. After removing unusable rows, it contributed 6,495 lines and 65,807 tokens. Because the ATCO2 Gold corpus was tiny, we repeated its training lines to create a token-balanced corpus rather than allowing Jacktol to dominate. The result contained 132,461 tokens: 50.32% ATCO2 Gold and 49.68% Jacktol. Jacktol validation and test transcripts remained excluded.
-
-Repeating the Gold lines increased their contribution to the n-gram counts; it did not increase the amount of unique text. Recording that distinction matters when describing the corpus and reproducing its balance.
-
-## **Selecting order and fusion weight**
-
-We trained three-gram and four-gram KenLM models and converted them for offline NeMo TDT decoding. The acoustic model was the frozen, top-three-averaged G3 finalist. Ordinary beam-4 decoding scored 18.77% on Gold development. Switching to the MALSD decoder without an LM scored 19.40%, so every LM candidate first had to recover the cost of changing decoder.
-
-The first sweep evaluated 24 combinations of corpus, n-gram order, and alpha. A Gold-only four-gram with alpha `0.1` scored best at 17.96% development WER, an improvement of 0.81 points over ordinary beam decoding. Before testing that configuration on held-out ATCO2, we checked English: LibriSpeech WER changed from 2.32% to 2.48%, below our predefined 2.52% maximum. The selected Gold-only LM then reached **18.12%** on ATCO2, compared with 19.21% for the frozen acoustic finalist.
-
-With Jacktol text added, we evaluated 20 further configurations against the Gold-only LM. A balanced four-gram at alpha `0.2` produced the lowest ATCO2 development WER, 17.15%, but raised LibriSpeech to 2.80%. That exceeded our accepted regression limit, so we rejected it before final testing.
-
-We stepped down to alpha `0.1`. On Jacktol validation, it improved the Gold-only LM from 21.15% to 19.49%, while LibriSpeech reached 2.43% and passed the guardrail. Only then did we freeze the configuration and run the final tests.
-
-| Decoder configuration | ATCO2 locked test | Jacktol test | LibriSpeech test-clean |
-| :---- | :---- | :---- | :---- |
-| Frozen G3 acoustic finalist, beam 4 | 19.21% | 20.36% | 2.32% |
-| Gold-only four-gram, alpha 0.1 | 18.12% | 20.05% | 2.48% |
-| Gold \+ Jacktol balanced four-gram, alpha 0.1 | **17.61%** | **18.70%** | 2.43% |
-
-Using the unrounded scores, the balanced LM reduced WER by 1.61 absolute points on ATCO2 and 1.67 points on Jacktol without updating the ASR weights. The choice of alpha illustrates a useful principle: select decoder settings against the full objective. The lowest domain development score was insufficient if ordinary English suffered too much.
-
-These measurements came from an offline NeMo pilot. To deploy the approach through Riva, we would rebuild the approved corpus in its supported word-level LM format and evaluate the running service. The orchestration skill distinguishes these stages because serving can introduce a different decoder and a different accuracy profile.
-
-# **External reference: the Jacktol result**
-
-We also verified that our setup could reproduce the public Jacktol benchmark. Our selected checkpoint reached **5.93% Jacktol WER**, closely matching the published 5.99% result; the public checkpoint scored 6.06% with our local normalizer. This result provides useful external context, but the main study remained focused on improving ATCO2 under its locked Gold and general-English evaluation contract.
-
-# **Learning from the experiments that did not help**
-
-Several plausible changes fell short in this study:
-
-* post-hoc feature-normalization changes violated the checkpoint contract;
-* increasing Silver scale without changing the recipe plateaued;
-* high-learning-rate and ATC-only runs hid catastrophic forgetting;
-* continuing Silver replay diluted final Gold correction;
-* generic noise did not reproduce the remaining radio errors;
-* hard-example oversampling reduced overall development accuracy;
-* phrase boosting did not help the selected TDT checkpoint;
-* the LM weight giving the lowest development WER exceeded the permitted English regression.
-
-These outcomes helped us decide where to spend the next training or evaluation budget. They also kept the conclusions specific: a technique that failed with this data and checkpoint might still help elsewhere.
-
-# **The practical recipe that emerged**
-
-For a domain with abundant weak labels and scarce trusted references, our evidence supports six steps:
-
-1. Freeze leakage-safe Gold development and test sets, then measure the untouched checkpoint on domain and general speech.
-2. Use Silver data for broad channel adaptation, with general-domain replay when existing capability must be preserved.
-3. Refine the balanced checkpoint on scarce Gold data at a lower learning rate and repeat the recipe across seeds.
-4. Select and export checkpoints before opening the locked test.
-5. Evaluate beam search, averaging, and n-gram fusion as separate controlled stages.
-6. Report domain WER, transfer results, and the forgetting guardrail together.
-
-The judgment in fine-tuning lies in choosing what to investigate next. A plateau may reflect noisy labels, an unsuitable learning rate, or a decoder that needs more domain context. The measurements help distinguish these explanations, and the next experiment should make that distinction clearer.
-
-The skills help carry those decisions through the project. The orchestration skill keeps the objective and evaluation criteria in view; the NeMo skill guides the training and scoring needed to test each idea. That leaves the next engineer with a useful starting point: a model, the evidence behind it, and a clear account of what remains to be learned.
-
-## **Apply the lessons to your own domain**
-
-The historical sequence was broad Silver adaptation, English replay, low-learning-rate Gold refinement, then decoder experiments. New ATCO2 work uses the Gold-only policy; the historical Silver results explain the study rather than authorize new Silver training.
-
-Use development data to choose the next experiment, retain a general-English guardrail, and evaluate the exported artifact. A plateau can reflect label quality, optimization, or decoding. The skills keep the configurations and measurements consistent while you test those explanations.
+For ATCO2, the tested Silver-to-Gold sequence with replay provided the strongest balance among the Gold ablations. For Jacktol, longer domain-only training kept improving specialization while increasing forgetting. The staged curriculum improved on that domain-only model on both measured objectives, although it still regressed on general English. Those are three distinct conclusions, each backed by its own baseline and evaluation set.
 
 ## **ATC02 Dataset**
 

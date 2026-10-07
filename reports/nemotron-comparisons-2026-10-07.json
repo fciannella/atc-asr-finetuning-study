@@ -1,0 +1,1370 @@
+{
+  "schema_version": 1,
+  "retrieved_on": "2026-10-07",
+  "source": "Completed remote campaign results.json files; aggregate scores only",
+  "scoring": "Shared lexical WER: lowercase/NFKD, combining-mark removal, symbol normalization retaining apostrophes, whitespace collapse",
+  "comparison_notes": [
+    "Repeated benchmarks, not fresh blind tests.",
+    "Older historical metrics use a separate evaluation contract and must not be spliced into these tables.",
+    "ATCO2 recording-disjoint view excludes 213 known Jacktol-linked segments; it is not proof of complete cross-corpus isolation."
+  ],
+  "campaigns": [
+    {
+      "experiment": "nemotron-gold-community-ablation-v1",
+      "results": [
+        {
+          "stage": "g2_gold_replay_s1234",
+          "model_sha256": "8110d961824e058949597c15bd1b97902d8ccc5a8652d81945a0cf7bba63281b",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.26173285198555957,
+              "word_errors": 290,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.26890104879160964,
+              "word_errors": 5897,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03722230675593426,
+              "word_errors": 1957,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "g4_silver_gold_joint_s42",
+          "model_sha256": "3e6887bfe203eab7308f889f7a7188d1e736c744a817cf8fbab17f619fddad71",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.33212996389891697,
+              "word_errors": 368,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.3069311445508436,
+              "word_errors": 6731,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03556755934266585,
+              "word_errors": 1870,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "g3_silver_gold_refine_s42",
+          "model_sha256": "5f88e503be0985a95b40580159b7465a7b9244e3acf079d2f95c5d246a0274d4",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.21299638989169675,
+              "word_errors": 236,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.224578203374373,
+              "word_errors": 4925,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03632836275106512,
+              "word_errors": 1910,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "g1_gold_only_s1234",
+          "model_sha256": "4f96276bf5865d2cbdf81d547499a9f9546402eaa9227f39b97f9a814d4b4b18",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.2463898916967509,
+              "word_errors": 273,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.260875512995896,
+              "word_errors": 5721,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.05162051125989044,
+              "word_errors": 2714,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "g3_silver_gold_refine_s1234",
+          "model_sha256": "aad299f0c45ecab1e5c5b29f36f4fc8534b0b737e85f6f656a68fcd3925cc4b0",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.21660649819494585,
+              "word_errors": 240,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.2297309621523028,
+              "word_errors": 5038,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.036784844796104686,
+              "word_errors": 1934,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "base",
+          "model_sha256": "210214ed94039bf6bfbb9a047c7fa289628db75b103e2bf6381fa78285436a74",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.7626353790613718,
+              "word_errors": 845,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.7700410396716826,
+              "word_errors": 16887,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03497793670115642,
+              "word_errors": 1839,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "g4_silver_gold_joint_s1234",
+          "model_sha256": "6bc4e947363aca93403b5ba925a4829b5172805679dd39b35c3ba27262d01c6d",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.3203971119133574,
+              "word_errors": 355,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.30077519379844964,
+              "word_errors": 6596,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03535833840535606,
+              "word_errors": 1859,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "parent_80to20",
+          "model_sha256": "353a85cef3d3298b37f417572aef5056e61cae2aa984ac09c2ee87b7f57b885f",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [],
+          "scores": {
+            "gold_dev": {
+              "normalized_wer": 0.40613718411552346,
+              "word_errors": 450,
+              "reference_words": 1108,
+              "utterances": 100,
+              "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300"
+            },
+            "gold_test": {
+              "normalized_wer": 0.36516187870497036,
+              "word_errors": 8008,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "english_test": {
+              "normalized_wer": 0.03484479610468655,
+              "word_errors": 1832,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        }
+      ],
+      "recipe": {
+        "selection_policy": "val_wer on Gold development only; all six models freeze before test scoring",
+        "comparison_caveats": [
+          "Parent uses known-safe Nemotron 90-second nominal global duration batching, not Parakeet OOM buckets.",
+          "Parent selection uses only frozen Gold development, not the earlier larger development set.",
+          "Gold optimizer, source pools, weights, steps, seeds and augmentations mirror G1-G4; native preprocessing retained.",
+          "Gold duration limit 17s matches historical implementation; excluded hours are explicitly audited.",
+          "Existing community test is a fixed comparison benchmark, not a newly blind holdout."
+        ],
+        "training_gpus": 8,
+        "stages": {
+          "parent_80to20": {
+            "weights": {
+              "silver": 0.8,
+              "english": 0.2
+            },
+            "seed": 42,
+            "max_steps": 20000,
+            "lr": 0.0001,
+            "warmup": 200,
+            "min_lr": 1e-06,
+            "validation_interval": 1000,
+            "precision": "bf16-true",
+            "max_duration": 30,
+            "batch_size": null,
+            "batch_duration": 11.25
+          },
+          "g1_gold_only_s1234": {
+            "weights": {
+              "gold_train": 1.0
+            },
+            "seed": 1234,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 25,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "g2_gold_replay_s1234": {
+            "weights": {
+              "english": 0.15,
+              "gold_train": 0.85
+            },
+            "seed": 1234,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 100,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "g3_silver_gold_refine_s1234": {
+            "weights": {
+              "english": 0.15,
+              "gold_train": 0.85
+            },
+            "seed": 1234,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 100,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "g4_silver_gold_joint_s1234": {
+            "weights": {
+              "english": 0.15,
+              "gold_train": 0.15,
+              "silver": 0.7
+            },
+            "seed": 1234,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 100,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "g3_silver_gold_refine_s42": {
+            "weights": {
+              "english": 0.15,
+              "gold_train": 0.85
+            },
+            "seed": 42,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 100,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "g4_silver_gold_joint_s42": {
+            "weights": {
+              "english": 0.15,
+              "gold_train": 0.15,
+              "silver": 0.7
+            },
+            "seed": 42,
+            "max_steps": 2000,
+            "lr": 1e-05,
+            "warmup": 100,
+            "min_lr": 1e-06,
+            "validation_interval": 100,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          }
+        }
+      }
+    },
+    {
+      "experiment": "nemotron-jacktol-gold-extension-10k-v1",
+      "results": [
+        {
+          "stage": "jacktol_extension_s1234",
+          "model_sha256": "80a2fe4cc1fc554c5bccd687d59b736143dce52a90e9c210e72eccc05a6316a0",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+            "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+            "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+            "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+            "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.1142993213477795,
+              "word_errors": 960,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a05fa97443f3dfa038b682de6de5b121f8c590132084ecfba5181f38c539cd02"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.11010575793184489,
+              "word_errors": 937,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "4cec02073b14fe966121892ec341e7c52e72821286ba7b45bd6b53b8e2573b1a"
+            },
+            "gold_test": {
+              "normalized_wer": 0.2484268125854993,
+              "word_errors": 5448,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.25266027153116316,
+              "word_errors": 4820,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            },
+            "english_test": {
+              "normalized_wer": 0.06860544735240413,
+              "word_errors": 3607,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "experiment": "nemotron-jacktol-gold-extension-20k-v1",
+      "results": [
+        {
+          "stage": "jacktol_extension_s1234",
+          "model_sha256": "b43eab803803400455ddc74ee4e91c128859e58042bee773d968ecd5a2f6ced6",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+            "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+            "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+            "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+            "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.09096320990594119,
+              "word_errors": 764,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a05fa97443f3dfa038b682de6de5b121f8c590132084ecfba5181f38c539cd02"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.09341950646298472,
+              "word_errors": 795,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "4cec02073b14fe966121892ec341e7c52e72821286ba7b45bd6b53b8e2573b1a"
+            },
+            "gold_test": {
+              "normalized_wer": 0.21536707706338348,
+              "word_errors": 4723,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.22120878544844577,
+              "word_errors": 4220,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            },
+            "english_test": {
+              "normalized_wer": 0.07516737674984784,
+              "word_errors": 3952,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "experiment": "nemotron-jacktol-gold-extension-30k-v1",
+      "results": [
+        {
+          "stage": "jacktol_extension_s1234",
+          "model_sha256": "7adc0831265f04cb4c7a59e3c064dcc6b125d6810f3e3c557ff0858c305e2bb4",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+            "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+            "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+            "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+            "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.0816763900464341,
+              "word_errors": 686,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a05fa97443f3dfa038b682de6de5b121f8c590132084ecfba5181f38c539cd02"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.08049353701527615,
+              "word_errors": 685,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "4cec02073b14fe966121892ec341e7c52e72821286ba7b45bd6b53b8e2573b1a"
+            },
+            "gold_test": {
+              "normalized_wer": 0.19749202006383948,
+              "word_errors": 4331,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.20443465953766315,
+              "word_errors": 3900,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            },
+            "english_test": {
+              "normalized_wer": 0.07763998782714547,
+              "word_errors": 4082,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        }
+      ],
+      "recipe": {
+        "selection_policy": "Minimum Jacktol validation val_wer; test sets never select checkpoints or tune this recipe",
+        "selection_manifest_key": "jacktol_validation",
+        "evaluation_caveats": [
+          "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+          "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+          "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+          "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+          "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+        ],
+        "effective_batch_size": 16,
+        "training_gpus": 8,
+        "stages": {
+          "jacktol_extension_s1234": {
+            "weights": {
+              "jacktol_train": 1.0
+            },
+            "seed": 1234,
+            "max_steps": 10000,
+            "lr": 1e-05,
+            "warmup": 200,
+            "min_lr": 1e-06,
+            "validation_interval": 250,
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null,
+            "cumulative_step_offset": 20000,
+            "cumulative_target_steps": 30000,
+            "optimizer_restart": true
+          }
+        }
+      }
+    },
+    {
+      "experiment": "nemotron-jacktol-gold-only-v1",
+      "results": [
+        {
+          "stage": "jacktol_only_s1234",
+          "model_sha256": "affb385bff12b334f09840789dbb88720e6c8cf876ec72126ac94ec822c3b6ee",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+            "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+            "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+            "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+            "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.14263602809858317,
+              "word_errors": 1198,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a05fa97443f3dfa038b682de6de5b121f8c590132084ecfba5181f38c539cd02"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.1411280846063455,
+              "word_errors": 1201,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "4cec02073b14fe966121892ec341e7c52e72821286ba7b45bd6b53b8e2573b1a"
+            },
+            "gold_test": {
+              "normalized_wer": 0.29069767441860467,
+              "word_errors": 6375,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.294123814016879,
+              "word_errors": 5611,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            },
+            "english_test": {
+              "normalized_wer": 0.06295648204503956,
+              "word_errors": 3310,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        },
+        {
+          "stage": "base",
+          "model_sha256": "210214ed94039bf6bfbb9a047c7fa289628db75b103e2bf6381fa78285436a74",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Full ATCO2 Gold test is overlap-confounded by Jacktol; use the separately labeled disjoint subset for transfer.",
+            "Disjoint subset excludes source recordings tied to any acoustically confirmed Jacktol split (213 test segments).",
+            "The existing acoustic candidate audit is conservative, not proof that no undetected overlap exists.",
+            "This is direct Jacktol-only adaptation, not the multi-stage Parakeet Jacktol/UWB/English curriculum.",
+            "Native Nemotron streaming architecture and normalization are retained; Parakeet is an offline architecture."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.7233003929039171,
+              "word_errors": 6075,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a05fa97443f3dfa038b682de6de5b121f8c590132084ecfba5181f38c539cd02"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.7222091656874265,
+              "word_errors": 6146,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "4cec02073b14fe966121892ec341e7c52e72821286ba7b45bd6b53b8e2573b1a"
+            },
+            "gold_test": {
+              "normalized_wer": 0.7700410396716826,
+              "word_errors": 16887,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.7779000891125439,
+              "word_errors": 14840,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            },
+            "english_test": {
+              "normalized_wer": 0.03497793670115642,
+              "word_errors": 1839,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "43b388450e7c5adeef72aa85bbc5cdcde40dadab7ac7fe821cb24f324506036b"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "experiment": "nemotron-matched-parakeet-curriculum-v1",
+      "results": [
+        {
+          "stage": "p3",
+          "model_sha256": "1c8bcf234013a5248cd10be972c8ff15269fd4c50516c2cc8ae00313ea52fa15",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.06607929515418502,
+              "word_errors": 555,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.07309048178613396,
+              "word_errors": 622,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.2068385650224215,
+              "word_errors": 5535,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.05302799756542909,
+              "word_errors": 2788,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.19220246238030095,
+              "word_errors": 4215,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.19961209833831314,
+              "word_errors": 3808,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        },
+        {
+          "stage": "p2",
+          "model_sha256": "66183be393b68b81f84d1bce091b09b0a4f4e3a5cdf0cbf2f9620edfb2e7a25b",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.06738897487796167,
+              "word_errors": 566,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.07532314923619271,
+              "word_errors": 641,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.20990284005979074,
+              "word_errors": 5617,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.05270465611685941,
+              "word_errors": 2771,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.20036479708162336,
+              "word_errors": 4394,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.20794674215023326,
+              "word_errors": 3967,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        },
+        {
+          "stage": "a2",
+          "model_sha256": "716c99e6282e1be508237411bf40f867415d428ff19c7970ce36d24aaf156f08",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.07298487915228004,
+              "word_errors": 613,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.07896592244418331,
+              "word_errors": 672,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.21154708520179372,
+              "word_errors": 5661,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.051962872793670116,
+              "word_errors": 2732,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.2170998632010944,
+              "word_errors": 4761,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.22372490433506317,
+              "word_errors": 4268,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        },
+        {
+          "stage": "p1",
+          "model_sha256": "634de06b54b0166395e718cc5e295c4e13a7225e8f48b42b1168186138e517ac",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.0685795928086677,
+              "word_errors": 576,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.07567567567567568,
+              "word_errors": 644,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.2110239162929746,
+              "word_errors": 5647,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.05190581253804017,
+              "word_errors": 2729,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.2072047423620611,
+              "word_errors": 4544,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.21376526707553598,
+              "word_errors": 4078,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        },
+        {
+          "stage": "a1",
+          "model_sha256": "e30dccd3db28e0d633e65da2ea0b3db313e6256252fa3d78964bf01e634fafbf",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.10513156328134302,
+              "word_errors": 883,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.11034077555816686,
+              "word_errors": 939,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.24857997010463379,
+              "word_errors": 6652,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.05179169202678028,
+              "word_errors": 2723,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.2772913816689466,
+              "word_errors": 6081,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.281805315301148,
+              "word_errors": 5376,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        },
+        {
+          "stage": "base",
+          "model_sha256": "210214ed94039bf6bfbb9a047c7fa289628db75b103e2bf6381fa78285436a74",
+          "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+          "decoder": "greedy native cache-aware streaming",
+          "attention_context": [
+            56,
+            3
+          ],
+          "compute_dtype": "float32",
+          "max_symbols_per_step": 10,
+          "beam": false,
+          "ngram": false,
+          "evaluation_caveats": [
+            "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+            "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+            "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+            "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+            "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+            "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+            "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+            "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+            "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+          ],
+          "scores": {
+            "jacktol_validation": {
+              "normalized_wer": 0.7233003929039171,
+              "word_errors": 6075,
+              "reference_words": 8399,
+              "utterances": 812,
+              "source_sha256": "a796b39e03491e05f0cb12b8a5a71375d39546fefd1e5eed8941eaca3bc9aa36"
+            },
+            "jacktol_test": {
+              "normalized_wer": 0.7222091656874265,
+              "word_errors": 6146,
+              "reference_words": 8510,
+              "utterances": 813,
+              "source_sha256": "b8c907584d472132b2c4d720255955e2a33a313c52ea4d0edcd5eb43d412ec6d"
+            },
+            "uwb_test": {
+              "normalized_wer": 0.8253363228699552,
+              "word_errors": 22086,
+              "reference_words": 26760,
+              "utterances": 2822,
+              "source_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52"
+            },
+            "librispeech_test": {
+              "normalized_wer": 0.03497793670115642,
+              "word_errors": 1839,
+              "reference_words": 52576,
+              "utterances": 2620,
+              "source_sha256": "f6450ea6294a309b0ffdfa11e9ebb5d0bcf982be5e05f03e5ee8c01be50a869f"
+            },
+            "gold_test": {
+              "normalized_wer": 0.7700410396716826,
+              "word_errors": 16887,
+              "reference_words": 21930,
+              "utterances": 1908,
+              "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082"
+            },
+            "gold_test_disjoint": {
+              "normalized_wer": 0.7779000891125439,
+              "word_errors": 14840,
+              "reference_words": 19077,
+              "utterances": 1695,
+              "source_sha256": "97dd3b2c3c7ebeaacb2879f9e5128f497c0ccf06d6fba9e0f97aacd3fefe7908"
+            }
+          }
+        }
+      ],
+      "recipe": {
+        "selection_manifest_key": "jacktol_validation",
+        "evaluation_caveats": [
+          "Matched-data/curriculum comparison, not bitwise reproduction; native Nemotron streaming RNNT retained.",
+          "User-approved historical raw-label preservation: uppercase Jacktol, lowercase UWB/English training.",
+          "A1/A2 validate EMA; A1 exports ordinary weights as in history; A2 exports EMA. Validation is a selection proxy for A1 ordinary weights.",
+          "A1/A2 validation cadence rounded from 725 microbatches / 4 accumulation to 181 optimizer steps; P1/P2/P3 every 125.",
+          "All stages use 8 GPUs/global batch 16; historical early stages used 1 GPU/accumulation 4.",
+          "Resume uses a deterministic segment-specific data seed; sampler position is not restored.",
+          "Full ATCO2 is overlap-confounded. Recording-disjoint subset excludes known Jacktol-linked recordings only.",
+          "UWB exact path/available PCM overlap audited; no fresh cross-corpus acoustic fingerprint search. Do not claim fully clean transfer.",
+          "Known public and historical test results make this a repeated benchmark, not a new blind evaluation."
+        ],
+        "transcript_policy": "preserve historical labels; only add native Nemotron language prompt metadata",
+        "effective_batch_size": 16,
+        "training_gpus": 8,
+        "stages": {
+          "a1": {
+            "weights": {
+              "jacktol_train": 0.3,
+              "uwb_train": 0.3,
+              "librispeech_train": 0.4
+            },
+            "seed": 1234,
+            "max_steps": 14465,
+            "lr": 3e-05,
+            "warmup": 500,
+            "min_lr": 5e-06,
+            "ema": true,
+            "validation_interval": 181,
+            "selection_weight_kind": "original",
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "a2": {
+            "weights": {
+              "jacktol_train": 0.4,
+              "uwb_train": 0.35,
+              "librispeech_train": 0.25
+            },
+            "seed": 1234,
+            "max_steps": 23144,
+            "lr": 2e-05,
+            "warmup": 500,
+            "min_lr": 5e-06,
+            "ema": true,
+            "validation_interval": 181,
+            "selection_weight_kind": "ema",
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "p1": {
+            "weights": {
+              "jacktol_train": 0.8,
+              "librispeech_train": 0.2
+            },
+            "seed": 1234,
+            "max_steps": 5000,
+            "lr": 1e-05,
+            "warmup": 200,
+            "min_lr": 1e-06,
+            "ema": false,
+            "validation_interval": 125,
+            "selection_weight_kind": "original",
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "p2": {
+            "weights": {
+              "jacktol_train": 0.85,
+              "librispeech_train": 0.15
+            },
+            "seed": 1234,
+            "max_steps": 4000,
+            "lr": 2e-05,
+            "warmup": 150,
+            "min_lr": 1e-06,
+            "ema": false,
+            "validation_interval": 125,
+            "selection_weight_kind": "original",
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          },
+          "p3": {
+            "weights": {
+              "jacktol_train": 0.9,
+              "librispeech_train": 0.1
+            },
+            "seed": 1234,
+            "max_steps": 3000,
+            "lr": 1.5e-05,
+            "warmup": 150,
+            "min_lr": 1e-06,
+            "ema": false,
+            "validation_interval": 125,
+            "selection_weight_kind": "original",
+            "precision": "32-true",
+            "max_duration": 17,
+            "batch_size": 2,
+            "batch_duration": null
+          }
+        }
+      }
+    }
+  ],
+  "cross_campaign_manifest_audit": {
+    "comparison": [
+      "nemotron-jacktol-gold-extension-30k-v1",
+      "nemotron-matched-parakeet-curriculum-v1"
+    ],
+    "method": "SHA-256 of sorted tuples: resolved audio path, offset, duration, normalized reference. No audio/transcript content exported. This checks evaluation membership/reference equivalence, not train-test leakage.",
+    "checks": [
+      {
+        "dataset": "jacktol_validation",
+        "same_audio_offsets_durations_normalized_references": true,
+        "rows_a": 812,
+        "rows_b": 812,
+        "canonical_sha256_a": "5ff9e7b8b977f21272c22bddcd7e7766e6d43a280af998a9e833d9f66c971b0f",
+        "canonical_sha256_b": "5ff9e7b8b977f21272c22bddcd7e7766e6d43a280af998a9e833d9f66c971b0f"
+      },
+      {
+        "dataset": "jacktol_test",
+        "same_audio_offsets_durations_normalized_references": true,
+        "rows_a": 813,
+        "rows_b": 813,
+        "canonical_sha256_a": "710ea88fc7e3517fd2832ea4cbd5c5afef4a9b2fd2c2440b9c1b976302d3affa",
+        "canonical_sha256_b": "710ea88fc7e3517fd2832ea4cbd5c5afef4a9b2fd2c2440b9c1b976302d3affa"
+      },
+      {
+        "dataset": "gold_test",
+        "same_audio_offsets_durations_normalized_references": true,
+        "rows_a": 1908,
+        "rows_b": 1908,
+        "canonical_sha256_a": "1a4f85339827459384ca698604c2baad279d29fffad1b61d0373981b1767d929",
+        "canonical_sha256_b": "1a4f85339827459384ca698604c2baad279d29fffad1b61d0373981b1767d929"
+      },
+      {
+        "dataset": "gold_test_disjoint",
+        "same_audio_offsets_durations_normalized_references": true,
+        "rows_a": 1695,
+        "rows_b": 1695,
+        "canonical_sha256_a": "d87019efb884c8c67d81a13254a107c8c070c7ab511b764c0d58ca15c4ce287b",
+        "canonical_sha256_b": "d87019efb884c8c67d81a13254a107c8c070c7ab511b764c0d58ca15c4ce287b"
+      },
+      {
+        "dataset": "english_test",
+        "same_audio_offsets_durations_normalized_references": true,
+        "rows_a": 2620,
+        "rows_b": 2620,
+        "canonical_sha256_a": "00cc0d902f3b2c7c701d529de00612c847e23416baf4d4d3544becbac1c91b16",
+        "canonical_sha256_b": "00cc0d902f3b2c7c701d529de00612c847e23416baf4d4d3544becbac1c91b16"
+      }
+    ]
+  }
+}
