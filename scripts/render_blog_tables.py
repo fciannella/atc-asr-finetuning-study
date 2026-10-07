@@ -4,7 +4,7 @@ Run from any directory with python3 scripts/render_blog_tables.py.
 Set TABLE_FONT_DIR to a directory containing Arial.ttf and Arial Bold.ttf.
 """
 from pathlib import Path
-import os,re,html
+import os,re,html,json
 from PIL import Image,ImageDraw,ImageFont
 ROOT=Path(__file__).resolve().parents[1]
 DOC=ROOT/'docs/fine_tuning.md'
@@ -44,7 +44,7 @@ SPECS=[
  ('Choose the ASR architecture','How each decoder works and where it fits',[.15,.42,.43]),
  ('Know your training ingredients','Source pools, label quality, and purpose',[.15,.29,.34,.22]),
  ('Keep Gold data roles separate','Human-verified ATCO2 splits',[.23,.13,.14,.50]),
- ('Listen to ATC speech','Audio examples and reference transcripts · links in the Markdown table',[.24,.29,.47]),
+ ('Listen to ATC speech','Audio examples and reference transcripts · listening links below',[.24,.29,.47]),
  ('Four questions guide the experiments','Objectives and the models evaluated',[.27,.48,.25]),
  ('Gold labels and English replay','Comparison 1 · WER (%) · lower is better',[.15,.35,.125,.125,.125,.125]),
  ('More training on Jacktol alone','Comparison 2 · Nemotron · WER (%) · lower is better',[.16,.30,.135,.135,.135,.135]),
@@ -131,16 +131,14 @@ def render(index,raw):
  return f'<!-- styled-table:{index:02} -->\n[![Styled table: {title}](images/tables/{stem}.png)](images/tables/{stem}.svg)\n<!-- /styled-table -->'
 def main():
  OUT.mkdir(parents=True,exist_ok=True)
+ tables=json.loads((OUT/'source.json').read_text())['tables']
+ assert len(tables)==len(SPECS)
  source=DOC.read_text()
- source=re.sub(r'\n*<!-- styled-table:\d+ -->.*?<!-- /styled-table -->\n*','\n\n',source,flags=re.S)
- lines=source.splitlines();result=[];i=0;count=0
- while i<len(lines):
-  if lines[i].startswith('|'):
-   block=[]
-   while i<len(lines) and lines[i].startswith('|'):block.append(lines[i]);i+=1
-   count+=1;result.extend(block+['',render(count,block)])
-  else:result.append(lines[i]);i+=1
- assert count==len(SPECS),(count,len(SPECS))
- DOC.write_text('\n'.join(result)+'\n')
- print(f'Rendered {count} tables as PNG and SVG; original Markdown tables retained.')
+ for index,raw in enumerate(tables,1):
+  preview=render(index,raw)
+  pattern=rf'<!-- styled-table:{index:02} -->.*?<!-- /styled-table -->'
+  source,count=re.subn(pattern,lambda _:preview,source,flags=re.S)
+  assert count==1,(index,count)
+ DOC.write_text(source)
+ print(f'Rendered {len(tables)} table images from docs/images/tables/source.json.')
 if __name__=='__main__':main()
