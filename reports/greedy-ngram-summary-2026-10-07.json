@@ -1,0 +1,80 @@
+{
+  "source_report": "GREEDY_NGRAM_EXPERIMENT_RESULTS_20261007.md",
+  "source_sha256": "f75ae05e70619aedef3c0f6afb8e6b3c7393dd6524a9c47f0a65321cd8b1db90",
+  "campaign": "greedy-ngram-nemotron-parakeet-v1",
+  "date": "2026-10-07",
+  "units": "Normalized corpus WER percentages, rounded to two decimal places in the source report",
+  "decoding": "greedy_batch; native streaming for Nemotron, offline TDT for Parakeet",
+  "selection": "One candidate per LM family per checkpoint, selected on Gold development before final testing; maximum English regression 0.20 percentage points vs fresh baseline",
+  "results": [
+    {
+      "id": "N-base",
+      "checkpoint": "Nemotron P3",
+      "lm": null,
+      "alpha": 0,
+      "full_atco2_wer": 19.22,
+      "atco2_known_jacktol_disjoint_wer": 19.96,
+      "jacktol_test_wer": 7.33,
+      "librispeech_wer": 5.3
+    },
+    {
+      "id": "N-gold",
+      "checkpoint": "Nemotron P3",
+      "lm": "Gold + English, 3-gram",
+      "alpha": 0.025,
+      "full_atco2_wer": 19.16,
+      "atco2_known_jacktol_disjoint_wer": 19.88,
+      "jacktol_test_wer": 7.3,
+      "librispeech_wer": 5.33
+    },
+    {
+      "id": "N-jack",
+      "checkpoint": "Nemotron P3",
+      "lm": "Gold + Jacktol, 3-gram",
+      "alpha": 0.025,
+      "full_atco2_wer": 19.15,
+      "atco2_known_jacktol_disjoint_wer": 19.86,
+      "jacktol_test_wer": 7.29,
+      "librispeech_wer": 5.33
+    },
+    {
+      "id": "P-base",
+      "checkpoint": "Parakeet G3 top-three average",
+      "lm": null,
+      "alpha": 0,
+      "full_atco2_wer": 20.06,
+      "atco2_known_jacktol_disjoint_wer": 20.0,
+      "jacktol_test_wer": 21.33,
+      "librispeech_wer": 2.35
+    },
+    {
+      "id": "P-gold",
+      "checkpoint": "Parakeet G3 top-three average",
+      "lm": "Gold, 3-gram",
+      "alpha": 0.2,
+      "full_atco2_wer": 19.44,
+      "atco2_known_jacktol_disjoint_wer": 19.28,
+      "jacktol_test_wer": 21.22,
+      "librispeech_wer": 2.53
+    },
+    {
+      "id": "P-jack",
+      "checkpoint": "Parakeet G3 top-three average",
+      "lm": "Jacktol, 4-gram",
+      "alpha": 0.2,
+      "full_atco2_wer": 19.3,
+      "atco2_known_jacktol_disjoint_wer": 19.24,
+      "jacktol_test_wer": 19.54,
+      "librispeech_wer": 2.49
+    }
+  ],
+  "limitations": [
+    "Within-checkpoint comparisons; acoustic training histories differ.",
+    "Fresh controls belong to this campaign; do not substitute historical baselines.",
+    "Full ATCO2 has known Jacktol overlap; disjoint subset is not an exhaustive deduplication guarantee.",
+    "Historical evaluation sets have been examined repeatedly; LibriSpeech serves as a selection guardrail.",
+    "All selected LMs slightly regress on English despite passing the guardrail.",
+    "Statistical significance and serving performance were not measured.",
+    "Earlier beam-search LM results are a separate experiment."
+  ]
+}

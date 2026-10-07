@@ -244,19 +244,20 @@ For both models, the tested Silver-to-Gold sequence with replay provided the str
 
 ## **Help the decoder with aviation language**
 
-We tested this next step **only with Parakeet TDT**. An n-gram language model learns common sequences from domain text and helps the decoder choose between plausible transcriptions. It adds aviation-language knowledge **without changing the ASR model weights**.
+Can domain text improve recognition without more ASR training? An **n-gram language model** learns common sequences of tokens and helps choose the next token during decoding. We now tested this with **both Parakeet and streaming Nemotron**, keeping the acoustic checkpoints fixed and using greedy decoding, without beam search.
 
-Starting from the frozen, averaged G3 checkpoint with beam search, we trained four-gram models on Gold training transcripts, then added Jacktol training transcripts. Development and test transcripts were excluded from LM training. We selected the LM's influence using development results and an English-retention check.
+We compared LMs trained on Gold, Jacktol, and mixtures with English or Gold training text. Each LM used its ASR model's tokenizer. Development WER selected candidates; an English check allowed at most 0.20 percentage points of additional WER. The table shows the selected Jacktol-family candidate for each checkpoint against its fresh no-LM baseline.
 
-| Same Parakeet checkpoint; different decoder | ATCO2 WER | Jacktol WER | English WER |
-| --- | ---: | ---: | ---: |
-| Beam search, no external LM | 19.21% | 20.36% | 2.32% |
-| + Gold-text LM | 18.12% | 20.05% | 2.48% |
-| + Gold and Jacktol-text LM | **17.61%** | **18.70%** | 2.43% |
+| Starting checkpoint | Language model / training text | ATCO2 disjoint WER | Jacktol WER | English WER |
+| --- | --- | ---: | ---: | ---: |
+| Nemotron P3 | None — fresh greedy baseline | 19.96% | 7.33% | 5.30% |
+| Same Nemotron P3 | 3-gram: Gold + Jacktol | **19.86%** | **7.29%** | 5.33% |
+| Parakeet G3, averaged | None — fresh greedy baseline | 20.00% | 21.33% | 2.35% |
+| Same Parakeet G3 | 4-gram: Jacktol | **19.24%** | **19.54%** | 2.49% |
 
-Domain accuracy improved with a small English regression. These results use a different checkpoint and decoder from the greedy G3 rows above; cross-corpus overlap caveats still apply.
+**Text helped Parakeet modestly; Nemotron's gain was very small.** Both passed the English check but slightly worsened English WER. The checkpoints have different training histories, so compare each with its own baseline. ATCO2 here excludes known Jacktol-linked recordings; residual overlap remains possible, and statistical significance was not tested. The [result snapshot](../reports/greedy-ngram-summary-2026-10-07.json) records the comparison.
 
-**This is part of the skill workflow:** [`nemotron-asr-finetune`](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) includes n-gram adaptation and routes offline trials to `nemo-speech-asr-finetune`. These are offline NeMo results; Riva deployment requires a compatible LM build and separate evaluation.
+This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation. These NeMo results include native streaming; serving performance remains unmeasured. The earlier **17.61% full-ATCO2 Parakeet result used beam search** and is a separate experiment.
 
 ## **ATC02 Dataset**
 
