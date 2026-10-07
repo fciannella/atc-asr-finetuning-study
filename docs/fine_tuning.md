@@ -39,15 +39,7 @@ Together, the skills connect experiment planning with execution. Each training r
 
 ## **Where we used the skills in this study**
 
-We used `nemotron-asr-finetune` as the study's planning framework: define the adaptation problem, choose an intervention, and assess domain gains together with general-English retention. The [original study narrative](experiment-narrative.md#how-those-capabilities-shaped-our-experiments) records this role. ATC involved radio-channel and acoustic mismatch as well as unfamiliar terminology, which motivated the acoustic-adaptation branch. `nemo-speech-asr-finetune` supplied the checkpoint-aware training and offline evaluation guidance for that branch.
-
-The newer Nemotron experiments make that division concrete:
-
-- **Gold refinement:** the planning question was whether trusted labels could improve the Silver-adapted model without losing general English. G1–G4 compared initialization and data mixtures; NeMo execution preserved Nemotron's native architecture and used development data to select checkpoints.
-- **Jacktol-only continuation:** the researcher-requested 5k–30k phases tested whether more domain optimization would help. The orchestration framework's paired evaluation exposed the trade-off: Jacktol WER improved to 8.05%, while LibriSpeech worsened to 7.76%. Domain accuracy alone would have hidden that regression.
-- **Matched curriculum:** the researcher-approved Jacktol/UWB/English recipe tested a different balance. Standalone evaluation showed 7.31% Jacktol WER and 5.30% LibriSpeech WER. The same planning framework keeps the remaining English regression visible rather than treating the lowest ATC score as sufficient evidence to ship.
-
-These were researcher-directed experiments supported by skill guidance. The campaign scripts and Slurm jobs executed the runs; the skills supplied instructions to the coding agent. The records document decisions, configurations, and results, but do not contain a per-run skill-invocation trace. We therefore do not claim that the orchestrator independently chose every experiment or that these controlled small-data studies followed every default recommendation. For example, the matched curriculum deliberately preserved historical label conventions, a documented exception to the training skill's usual transcript-style guidance.
+`nemotron-asr-finetune` helped frame the experiments and assess ATC gains alongside English retention. `nemo-speech-asr-finetune` guided data preparation, model-specific training, and checkpoint evaluation. We chose the experiment budgets and recipes; the skills guided the coding agent through implementation and analysis.
 
 ## **Prerequisites**
 
@@ -105,6 +97,21 @@ Both the sound and the language differ from ordinary conversation. An adapted mo
 The documented community-release plan covers **two hours of human-annotated ATCO2 evaluation data**, containing 1,908 segments. It does not currently include the study's 0.418-hour Gold training set, 0.100-hour Gold development set, or licensed 314.7-hour Silver training corpus. The download URL, license, and final packaging remain pending release-owner confirmation. Keep the community evaluation data out of training and model selection.
 
 For a public starting point, the [Jacktol ATC-ASR dataset](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset) provides official training, validation, and test splits under its dataset-card terms. Alternatively, supply your own licensed recordings. Audit overlap before comparing Jacktol with ATCO2. New data means a new experiment, not reproduction of the historical scores.
+
+### **Listen to the data**
+
+These clips illustrate aviation phraseology and the reference-transcript conventions in each dataset. They are examples, not a ranking of recording quality. Jacktol preserves uppercase labels; our ATCO2 Gold manifests use lowercase. Our WER normalizer ignores that casing difference.
+
+| Dataset / split | Listen | Reference transcript |
+| :---- | :---- | :---- |
+| ATCO2 Gold community test · Sion | [▶ 5.02 s — taxi request](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lsgs-162034-001#t=0.14,5.16) · internal review | “hotel hotel victor runway two five vacate interception charlie request taxi” |
+| ATCO2 Gold community test · Bratislava | [▶ 7.01 s — landing clearance](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lzib-224842-002#t=6.22,13.23) · internal review | “dobry vecer topjet sever zero four stefanik tower wind variable two knots runway three one cleared to land” |
+| Jacktol test · row 0 | [▶ 1.51 s — acknowledgment](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=0) | “HOTEL HOTEL BRAVO THANK YOU” |
+| Jacktol test · row 1 | [▶ 1.90 s — direct routing](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=1) | “DIRECT RATEV LUFTHANSA EIGHT MIKE MIKE THANK YOU” |
+
+For Jacktol, open the linked row and press its audio play button. ATCO2 links require access to the internal network; the [comparison player](http://libra.nvidia.com:8508/#comparison) also provides playback with segment boundaries. The public ATCO2 sample links will be added when the evaluation dataset is released.
+
+<!-- Publication handoff: replace internal ATCO2 URLs with approved release assets and use the blog platform's native audio player with the same reference captions. Export only the selected segments: Sion 0.14–5.16 seconds and Bratislava 6.22–13.23 seconds, not the full source recordings. GitHub review uses listening links; do not rely on embedded HTML audio rendering in Markdown. Jacktol source revision: 075e736bf8aed80579d829092f74355486b10bc7; test row IDs: 00a81de9d20f87d04465 and 00CRZ17A8RNXPWNUA6TD. Preserve references verbatim. Sample selection is illustrative and does not change training or evaluation. -->
 
 ## **Historical training and evaluation example**
 
