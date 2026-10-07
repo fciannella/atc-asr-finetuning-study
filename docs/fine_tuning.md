@@ -236,13 +236,27 @@ The Nemotron duration and curriculum campaigns use the same evaluation audio and
 
 Nemotron P3 also reaches 20.68% on UWB test and 19.96% on the recording-disjoint ATCO2 view. The ATCO2 transfer claim remains qualified: known Jacktol overlap was removed, but UWB training audio has not received a fresh cross-corpus acoustic audit.
 
-Separate Parakeet decoding experiments reached 17.61% ATCO2 WER with an external language model. That result is outside these greedy-decoding comparisons and is not a Nemotron result.
-
 ## **What users can learn from these comparisons**
 
 The skill table maps directly to the experiments. The orchestration skill frames the question and the domain/general evaluation contract; the NeMo skill preserves model-specific settings, configures the data mixture, and evaluates exported checkpoints. The useful output is a comparison that explains the trade-off, not just the lowest domain WER.
 
 For both models, the tested Silver-to-Gold sequence with replay provided the strongest balance among the Gold ablations. For Nemotron on Jacktol, longer domain-only training kept improving specialization while increasing forgetting. The staged curriculum improved on that domain-only model on both measured objectives, although it still regressed on general English. Those are three distinct conclusions, each backed by its own baseline and evaluation set.
+
+## **Help the decoder with aviation language**
+
+We tested this next step **only with Parakeet TDT**. An n-gram language model learns common sequences from domain text and helps the decoder choose between plausible transcriptions. It adds aviation-language knowledge **without changing the ASR model weights**.
+
+Starting from the frozen, averaged G3 checkpoint with beam search, we trained four-gram models on Gold training transcripts, then added Jacktol training transcripts. Development and test transcripts were excluded from LM training. We selected the LM's influence using development results and an English-retention check.
+
+| Same Parakeet checkpoint; different decoder | ATCO2 WER | Jacktol WER | English WER |
+| --- | ---: | ---: | ---: |
+| Beam search, no external LM | 19.21% | 20.36% | 2.32% |
+| + Gold-text LM | 18.12% | 20.05% | 2.48% |
+| + Gold and Jacktol-text LM | **17.61%** | **18.70%** | 2.43% |
+
+Domain accuracy improved with a small English regression. These results use a different checkpoint and decoder from the greedy G3 rows above; cross-corpus overlap caveats still apply.
+
+**This is part of the skill workflow:** [`nemotron-asr-finetune`](https://github.com/NVIDIA/skills/tree/main/skills/nemotron-asr-finetune) includes n-gram adaptation and routes offline trials to `nemo-speech-asr-finetune`. These are offline NeMo results; Riva deployment requires a compatible LM build and separate evaluation.
 
 ## **ATC02 Dataset**
 
