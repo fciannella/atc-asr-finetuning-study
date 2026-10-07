@@ -37,6 +37,18 @@ The orchestration skill coordinates specialist execution; serving through Riva/N
 
 Together, the skills connect experiment planning with execution. Each training run has a reason, a defined dataset, and a test that can tell us whether the change helped.
 
+## **Where we used the skills in this study**
+
+We used `nemotron-asr-finetune` as the study's planning framework: define the adaptation problem, choose an intervention, and assess domain gains together with general-English retention. The [original study narrative](experiment-narrative.md#how-those-capabilities-shaped-our-experiments) records this role. ATC involved radio-channel and acoustic mismatch as well as unfamiliar terminology, which motivated the acoustic-adaptation branch. `nemo-speech-asr-finetune` supplied the checkpoint-aware training and offline evaluation guidance for that branch.
+
+The newer Nemotron experiments make that division concrete:
+
+- **Gold refinement:** the planning question was whether trusted labels could improve the Silver-adapted model without losing general English. G1–G4 compared initialization and data mixtures; NeMo execution preserved Nemotron's native architecture and used development data to select checkpoints.
+- **Jacktol-only continuation:** the researcher-requested 5k–30k phases tested whether more domain optimization would help. The orchestration framework's paired evaluation exposed the trade-off: Jacktol WER improved to 8.05%, while LibriSpeech worsened to 7.76%. Domain accuracy alone would have hidden that regression.
+- **Matched curriculum:** the researcher-approved Jacktol/UWB/English recipe tested a different balance. Standalone evaluation showed 7.31% Jacktol WER and 5.30% LibriSpeech WER. The same planning framework keeps the remaining English regression visible rather than treating the lowest ATC score as sufficient evidence to ship.
+
+These were researcher-directed experiments supported by skill guidance. The campaign scripts and Slurm jobs executed the runs; the skills supplied instructions to the coding agent. The records document decisions, configurations, and results, but do not contain a per-run skill-invocation trace. We therefore do not claim that the orchestrator independently chose every experiment or that these controlled small-data studies followed every default recommendation. For example, the matched curriculum deliberately preserved historical label conventions, a documented exception to the training skill's usual transcript-style guidance.
+
 ## **Prerequisites**
 
 You need a coding agent supporting Agent Skills, Node.js/npm, Git, and a Linux GPU host with NVIDIA drivers, NVIDIA Container Toolkit, and a compatible NeMo ASR environment. Prepare a licensed `.nemo` checkpoint, readable audio, separate training/development/test manifests, and storage for checkpoints. JSONL rows need `audio_filepath`, `duration`, and `text`.
