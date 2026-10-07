@@ -262,14 +262,6 @@ The [completed evaluation snapshot](../reports/greedy-ngram-blog-checkpoints-202
 | Same Parakeet G3 / 42 | Gold / 3-gram | 0.1 | 19.52% | 19.32% | 21.15% | 2.35% |
 | Same Parakeet G3 / 42 | Gold + Jacktol / 4-gram | 0.1 | 19.31% | 19.14% | 20.56% | 2.33% |
 
-All score columns are normalized WER. The Parakeet checkpoint is the individual seed-42 export, not an average and not the Jacktol curriculum model. Its higher Jacktol WER therefore does not contradict the 5.93% curriculum result: those models had different acoustic training data.
-
-Fresh controls matter. The same Parakeet export scores 19.91% on full ATCO2 in this evaluation, versus the historical 20.00% in Comparison 1, a difference of 20 word errors. Nemotron P3 scores 7.33% on Jacktol here versus 7.31% in Comparison 3, a difference of two word errors. We retain the historical results and measure LM gains against the fresh controls, without attributing these small evaluation differences to a verified cause.
-
-**The LM helped, but its value depended on the checkpoint.** Gold + Jacktol reduced Parakeet's full ATCO2 WER by 0.60 percentage points and disjoint WER by 0.58 points. Nemotron's corresponding gains were only 0.07 and 0.09 points. Both incurred small English regressions. These measured gains are not a statistical-significance claim or a comparison of architectures in isolation.
-
-The full ATCO2 set has known Jacktol overlap, so the disjoint column is especially important for Jacktol-text LMs. It removes known linked recordings, not every possible overlap. These remain repeatedly examined benchmarks; LibriSpeech also serves as a retention guardrail. No production latency or serving compatibility claim follows from these offline evaluations of saved models.
-
 This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation.
 
 ## **ATC02 Dataset**
