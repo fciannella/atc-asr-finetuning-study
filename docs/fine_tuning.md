@@ -255,7 +255,7 @@ We compared LMs trained on Gold, Jacktol, and mixtures with English or Gold trai
 | Parakeet G3, averaged | None — fresh greedy baseline | 20.00% | 21.33% | 2.35% |
 | Same Parakeet G3 | 4-gram: Jacktol | **19.24%** | **19.54%** | 2.49% |
 
-This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation. These NeMo results include native streaming; serving performance remains unmeasured. The earlier **17.61% full-ATCO2 Parakeet result used beam search** and is a separate experiment.
+This follows the skills' workflow: `nemotron-asr-finetune` selects n-gram adaptation, and `nemo-speech-asr-finetune` guides LM building and evaluation.
 
 ## **ATC02 Dataset**
 
