@@ -6,74 +6,74 @@
 <rect x="48" y="170" width="1747" height="142" fill="#182019"/>
 <text x="68.00" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Stage / starting checkpoint</text>
 <text x="406.00" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Adaptation data; Jacktol / UWB / English sampling</text>
-<text x="1114.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Parakeet</text>
-<text x="1114.00" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Jacktol</text>
-<text x="1114.00" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">test</text>
-<text x="1247.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
-<text x="1247.00" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Jacktol</text>
-<text x="1247.00" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">test</text>
-<text x="1392.00" y="232.0" font-size="22" font-weight="700" fill="#FFFFFF">Parakeet</text>
-<text x="1392.00" y="266.0" font-size="22" font-weight="700" fill="#FFFFFF">English</text>
-<text x="1525.00" y="232.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
-<text x="1525.00" y="266.0" font-size="22" font-weight="700" fill="#FFFFFF">English</text>
-<text x="1670.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
-<text x="1670.00" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">ATCO2</text>
-<text x="1670.00" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">disjoint</text>
+<text x="1115.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Parakeet</text>
+<text x="1123.50" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Jacktol</text>
+<text x="1141.50" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">test</text>
+<text x="1248.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
+<text x="1262.50" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">Jacktol</text>
+<text x="1280.50" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">test</text>
+<text x="1393.00" y="232.0" font-size="22" font-weight="700" fill="#FFFFFF">Parakeet</text>
+<text x="1399.50" y="266.0" font-size="22" font-weight="700" fill="#FFFFFF">English</text>
+<text x="1526.00" y="232.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
+<text x="1538.50" y="266.0" font-size="22" font-weight="700" fill="#FFFFFF">English</text>
+<text x="1671.00" y="215.0" font-size="22" font-weight="700" fill="#FFFFFF">Nemotron</text>
+<text x="1685.51" y="249.0" font-size="22" font-weight="700" fill="#FFFFFF">ATCO2</text>
+<text x="1684.50" y="283.0" font-size="22" font-weight="700" fill="#FFFFFF">disjoint</text>
 <rect x="48" y="311" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="312" width="1747" height="74" fill="#EAF3DD"/>
 <rect x="48" y="312" width="5" height="74" fill="#76B900"/>
 <text x="68.00" y="357.0" font-size="24" font-weight="700" fill="#202A22">Pretrained baseline / base</text>
 <text x="406.00" y="357.0" font-size="24" font-weight="700" fill="#202A22">No adaptation</text>
-<text x="1183.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">—</text>
-<text x="1272.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">72.22%</text>
-<text x="1461.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">—</text>
-<text x="1563.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">3.50%</text>
-<text x="1695.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">77.79%</text>
+<text x="1148.50" y="357.0" font-size="24" font-weight="400" fill="#202A22">—</text>
+<text x="1259.50" y="357.0" font-size="24" font-weight="400" fill="#202A22">72.22%</text>
+<text x="1426.50" y="357.0" font-size="24" font-weight="400" fill="#202A22">—</text>
+<text x="1544.00" y="357.0" font-size="24" font-weight="400" fill="#202A22">3.50%</text>
+<text x="1682.50" y="357.0" font-size="24" font-weight="400" fill="#202A22">77.79%</text>
 <rect x="48" y="385" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="386" width="1747" height="74" fill="#F7F9F5"/>
 <text x="68.00" y="431.0" font-size="24" font-weight="700" fill="#202A22">A1 / base</text>
 <text x="406.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">5.896 h Jacktol + 10.534 h UWB + 100.344 h English; 30/30/40</text>
-<text x="1140.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">9.05%</text>
-<text x="1272.03" y="431.0" font-size="24" font-weight="400" fill="#202A22">11.03%</text>
-<text x="1418.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">3.98%</text>
-<text x="1563.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">5.18%</text>
-<text x="1695.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">28.18%</text>
+<text x="1127.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">9.05%</text>
+<text x="1259.52" y="431.0" font-size="24" font-weight="400" fill="#202A22">11.03%</text>
+<text x="1405.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">3.98%</text>
+<text x="1544.00" y="431.0" font-size="24" font-weight="400" fill="#202A22">5.18%</text>
+<text x="1682.50" y="431.0" font-size="24" font-weight="400" fill="#202A22">28.18%</text>
 <rect x="48" y="459" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="460" width="1747" height="74" fill="#FFFFFF"/>
 <text x="68.00" y="505.0" font-size="24" font-weight="700" fill="#202A22">A2 / selected A1</text>
 <text x="406.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">Same three pools; 40/35/25</text>
-<text x="1140.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">6.56%</text>
-<text x="1285.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">7.90%</text>
-<text x="1418.03" y="505.0" font-size="24" font-weight="400" fill="#202A22">4.11%</text>
-<text x="1563.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">5.20%</text>
-<text x="1695.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">22.37%</text>
+<text x="1127.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">6.56%</text>
+<text x="1266.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">7.90%</text>
+<text x="1405.02" y="505.0" font-size="24" font-weight="400" fill="#202A22">4.11%</text>
+<text x="1544.00" y="505.0" font-size="24" font-weight="400" fill="#202A22">5.20%</text>
+<text x="1682.50" y="505.0" font-size="24" font-weight="400" fill="#202A22">22.37%</text>
 <rect x="48" y="533" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="534" width="1747" height="74" fill="#F7F9F5"/>
 <text x="68.00" y="579.0" font-size="24" font-weight="700" fill="#202A22">P1 / selected A2</text>
 <text x="406.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">5.896 h Jacktol + 100.344 h English; 80/0/20</text>
-<text x="1140.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">6.43%</text>
-<text x="1285.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">7.57%</text>
-<text x="1418.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">4.20%</text>
-<text x="1563.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">5.19%</text>
-<text x="1695.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">21.38%</text>
+<text x="1127.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">6.43%</text>
+<text x="1266.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">7.57%</text>
+<text x="1405.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">4.20%</text>
+<text x="1544.00" y="579.0" font-size="24" font-weight="400" fill="#202A22">5.19%</text>
+<text x="1682.50" y="579.0" font-size="24" font-weight="400" fill="#202A22">21.38%</text>
 <rect x="48" y="607" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="608" width="1747" height="74" fill="#FFFFFF"/>
 <text x="68.00" y="653.0" font-size="24" font-weight="700" fill="#202A22">P2 / selected P1</text>
 <text x="406.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">Same Jacktol + English pools; 85/0/15</text>
-<text x="1140.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">5.93%</text>
-<text x="1285.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">7.53%</text>
-<text x="1418.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">4.07%</text>
-<text x="1563.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">5.27%</text>
-<text x="1695.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">20.79%</text>
+<text x="1127.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">5.93%</text>
+<text x="1266.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">7.53%</text>
+<text x="1405.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">4.07%</text>
+<text x="1544.00" y="653.0" font-size="24" font-weight="400" fill="#202A22">5.27%</text>
+<text x="1682.50" y="653.0" font-size="24" font-weight="400" fill="#202A22">20.79%</text>
 <rect x="48" y="681" width="1747" height="1" fill="#CBD3C6"/>
 <rect x="48" y="682" width="1747" height="74" fill="#F7F9F5"/>
 <text x="68.00" y="727.0" font-size="24" font-weight="700" fill="#202A22">P3 / selected P2</text>
 <text x="406.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">Same Jacktol + English pools; 90/0/10</text>
-<text x="1140.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">5.91%</text>
-<text x="1285.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">7.31%</text>
-<text x="1418.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">4.10%</text>
-<text x="1563.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">5.30%</text>
-<text x="1695.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">19.96%</text>
+<text x="1127.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">5.91%</text>
+<text x="1266.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">7.31%</text>
+<text x="1405.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">4.10%</text>
+<text x="1544.00" y="727.0" font-size="24" font-weight="400" fill="#202A22">5.30%</text>
+<text x="1682.50" y="727.0" font-size="24" font-weight="400" fill="#202A22">19.96%</text>
 <rect x="48" y="755" width="1747" height="1" fill="#CBD3C6"/>
 <text x="48.00" y="804" font-size="18" font-weight="700" fill="#596555">ASR FINE-TUNING STUDY</text>
 <text x="1710.03" y="804" font-size="18" font-weight="700" fill="#596555">TABLE 11</text>

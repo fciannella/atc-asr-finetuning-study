@@ -99,13 +99,15 @@ def render(index,raw):
  def rect(x,y,w,h,fill):
   d.rectangle((x,y,x+w,y+h),fill=fill)
   svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{fill}"/>')
- def txt(x,y,s,size,color,bold=False,right=False):
+ def txt(x,y,s,size,color,bold=False,right=False,center=False):
   f=font(size,bold)
-  if right:x-=f.getlength(s)
+  if center:x-=f.getlength(s)/2
+  elif right:x-=f.getlength(s)
   d.text((x,y),s,font=f,fill=color,anchor='ls')
   svg.append(f'<text x="{x:.2f}" y="{y}" font-size="{size}" font-weight="{700 if bold else 400}" fill="{color}">{html.escape(s)}</text>')
  rect(0,0,W,H,'#F3F5F1');rect(M,35,64,6,'#76B900')
  txt(M,96,title,43,'#182019',True);txt(M,137,subtitle,24,'#596555')
+ numeric_columns={ci for ci in range(len(weights)) if all(re.fullmatch(r'[\d.,% —]+(?: h)?',plain(row[ci])) for row in rows[1:])}
  y=170
  for ri,(cells,h) in enumerate(layout):
   baseline=ri>0 and (plain(rows[ri][0]).lower().startswith('pretrained baseline') or any('fresh greedy control' in cell.lower() for cell in rows[ri]))
@@ -115,8 +117,8 @@ def render(index,raw):
   x=M
   for ci,(lines,size,bold) in enumerate(cells):
    color='#FFFFFF' if ri==0 else '#397000' if '**' in rows[ri][ci] and re.fullmatch(r'\*\*[\d.]+%\*\*',rows[ri][ci]) else '#202A22'
-   numeric=ri>0 and re.fullmatch(r'[\d.,% —]+',plain(rows[ri][ci])) is not None
-   for li,line in enumerate(lines):txt(x+widths[ci]-PAD if numeric else x+PAD,y+(h-len(lines)*LINE)/2+25+li*LINE,line,size,color,bold,numeric)
+   numeric=ci in numeric_columns
+   for li,line in enumerate(lines):txt(x+widths[ci]/2 if numeric else x+PAD,y+(h-len(lines)*LINE)/2+25+li*LINE,line,size,color,bold,center=numeric)
    x+=widths[ci]
   y+=h
   rect(M,y-1,INNER,1,'#CBD3C6')
