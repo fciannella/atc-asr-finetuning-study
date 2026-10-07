@@ -105,13 +105,12 @@ These clips illustrate aviation phraseology and the reference-transcript convent
 | Dataset / split | Listen | Reference transcript |
 | :---- | :---- | :---- |
 | ATCO2 Gold community test · Sion | [▶ 5.02 s — taxi request](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lsgs-162034-001#t=0.14,5.16) · internal review | “hotel hotel victor runway two five vacate interception charlie request taxi” |
-| ATCO2 Gold community test · Bratislava | [▶ 7.01 s — landing clearance](http://libra.nvidia.com:8508/api/dataset-comparison/audio/atco2_gold/atco2-lzib-224842-002#t=6.22,13.23) · internal review | “dobry vecer topjet sever zero four stefanik tower wind variable two knots runway three one cleared to land” |
 | Jacktol test · row 0 | [▶ 1.51 s — acknowledgment](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=0) | “HOTEL HOTEL BRAVO THANK YOU” |
 | Jacktol test · row 1 | [▶ 1.90 s — direct routing](https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset/viewer/default/test?row=1) | “DIRECT RATEV LUFTHANSA EIGHT MIKE MIKE THANK YOU” |
 
 For Jacktol, open the linked row and press its audio play button. ATCO2 links require access to the internal network; the [comparison player](http://libra.nvidia.com:8508/#comparison) also provides playback with segment boundaries. The public ATCO2 sample links will be added when the evaluation dataset is released.
 
-<!-- Publication handoff: replace internal ATCO2 URLs with approved release assets and use the blog platform's native audio player with the same reference captions. Export only the selected segments: Sion 0.14–5.16 seconds and Bratislava 6.22–13.23 seconds, not the full source recordings. GitHub review uses listening links; do not rely on embedded HTML audio rendering in Markdown. Jacktol source revision: 075e736bf8aed80579d829092f74355486b10bc7; test row IDs: 00a81de9d20f87d04465 and 00CRZ17A8RNXPWNUA6TD. Preserve references verbatim. Sample selection is illustrative and does not change training or evaluation. -->
+<!-- Publication handoff: replace internal ATCO2 URLs with approved release assets and use the blog platform's native audio player with the same reference captions. Use English-only ATCO2 examples. Export only the selected Sion segment, 0.14–5.16 seconds, not the full source recording. GitHub review uses listening links; do not rely on embedded HTML audio rendering in Markdown. Jacktol source revision: 075e736bf8aed80579d829092f74355486b10bc7; test row IDs: 00a81de9d20f87d04465 and 00CRZ17A8RNXPWNUA6TD. Preserve references verbatim. Sample selection is illustrative and does not change training or evaluation. -->
 
 ## **Historical training and evaluation example**
 
