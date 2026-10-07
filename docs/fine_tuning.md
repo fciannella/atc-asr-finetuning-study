@@ -16,7 +16,7 @@
 
 Suppose a speech recognition model transcribes everyday conversation accurately, yet struggles with a pilot reading back a clearance. The model already knows English. What it needs to learn is how English sounds over a radio and how people use it in air traffic control. Fine-tuning lets us teach those differences by updating a pretrained model with examples from the new domain.
 
-The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. Here we follow Nemotron through Gold refinement, longer domain-only training, and a staged curriculum with general-English replay. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
+The challenge is deciding what to teach, how much to change, and how to check that existing capabilities survive. We explored those questions using air traffic control (ATC) speech and two NVIDIA agent skills. We compare Parakeet and Nemotron using human-verified labels and staged training, then examine how longer domain-only training affects Nemotron. We measure recognition quality with word error rate (WER), which counts substitutions, deletions, and insertions relative to the reference transcript. Lower is better.
 
 # **How the skills guide the work**
 
@@ -92,6 +92,18 @@ ATC speech concentrates several ASR challenges in one domain:
 
 Both the sound and the language differ from ordinary conversation. An adapted model may nevertheless need to recognize general English too, so we measured those two capabilities throughout the study.
 
+## **Three ingredients in the training data**
+
+Before looking at the experiments, distinguish **how transcripts were produced** from **how the data are used**:
+
+| Ingredient | What it means here | Why we use it |
+| --- | --- | --- |
+| **ATCO2 Silver** | ATC audio paired with high-confidence, machine-generated transcripts; the labels can still contain errors | Learn radio speech and aviation language from a large pool |
+| **ATCO2 Gold** | ATC audio with human-verified transcripts | Refine the model with trusted labels and create separate development and test sets |
+| **English replay** | General-English training audio mixed into ATC fine-tuning | Help preserve the model's existing English recognition |
+
+Silver and Gold describe label quality, not dataset splits. Gold training, development, and test audio have separate roles; only the training split updates model weights.
+
 ## **Know which data is being released**
 
 The documented community-release plan covers **two hours of human-annotated ATCO2 evaluation data**, containing 1,908 segments. It does not currently include the study's 0.418-hour Gold training set, 0.100-hour Gold development set, or licensed 314.7-hour Silver training corpus. The download URL, license, and final packaging remain pending release-owner confirmation. Keep the community evaluation data out of training and model selection.
@@ -100,7 +112,7 @@ For a public starting point, the [Jacktol ATC-ASR dataset](https://huggingface.c
 
 ## **ATCO2 and Jacktol provide different evidence**
 
-The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hours. Filtering for language, duration, confidence, text, and audio quality produced a 314.721-hour English Silver release with 396,461 segments. "Silver" means high-confidence CNET hypotheses rather than human-verified references. The smaller human-Gold pool was assigned to non-overlapping roles:
+The ATCO2 delivery contained 3,088,603 recordings and approximately 4,281.9 hours. Filtering for language, duration, confidence, text, and audio quality produced a 314.721-hour English Silver training pool with 396,461 segments. The smaller human-Gold pool was assigned to non-overlapping roles:
 
 | Split | Audio | Segments | Role |
 | :---- | :---- | :---- | :---- |
@@ -128,11 +140,13 @@ For Jacktol, open the linked row and press its audio play button. ATCO2 links re
 
 ## **What we wanted to learn**
 
-Our goal was to improve Parakeet and Nemotron on ATC speech while measuring how much general-English accuracy each retained. We organized the work around three questions:
+Our goal was to improve ATC recognition while preserving general English. Each comparison asks a different question:
 
-- **Gold refinement:** Do a small amount of human-verified data and English replay improve an already adapted model? We compared Gold-only training, Gold with replay, and refinement with or without continued Silver data.
-- **Training duration:** Does more training on the same domain data keep helping? For Nemotron, we extended Jacktol-only training from 5,000 to 30,000 steps and tracked both ATC gains and English regression.
-- **Training sequence:** Can a broader curriculum improve that balance? We combined Jacktol, UWB ATC, and English, then progressively emphasized Jacktol while retaining English replay.
+| Comparison | Question | Models |
+| --- | --- | --- |
+| **1 · Label quality and replay** | How should we use a small amount of trusted ATCO2 data? | Parakeet + Nemotron |
+| **2 · Training duration** | What happens if we keep training on Jacktol alone? | Nemotron |
+| **3 · Training sequence** | Can broad ATC training followed by focused refinement improve the balance? | Parakeet + Nemotron |
 
 Development data selected checkpoints. We evaluated the exported models on the same test sets within each comparison, using normalized WER and LibriSpeech as the general-English check.
 
@@ -144,7 +158,20 @@ Scores come from the [Parakeet Gold results](../reports/experiment-study.json), 
 
 ## **Comparison 1: What do Gold labels and English replay each contribute?**
 
-For each model, we first trained a Silver/English parent with 80/20 sampling and a 20,000-step budget. We then compared four 2,000-step strategies using the same 393 Gold training segments, about 25 minutes of audio. G1 starts from the base with Gold only; G2 adds 15% English replay. G3 applies that 85/15 mixture to the adapted parent; G4 keeps 70% Silver, 15% Gold, and 15% English. Gold development selected checkpoints; the two-hour ATCO2 test and LibriSpeech test-clean measured outcomes.
+We had plenty of machine-labeled ATCO2 audio but only about 25 minutes of human-verified training audio. **Should we train directly on those trusted labels, or first adapt on the larger Silver pool? And where does English replay help?**
+
+```mermaid
+flowchart LR
+    B["Pretrained model"] --> G1["G1: Gold only"]
+    B --> G2["G2: Gold + English replay"]
+    B --> S["Adapted parent<br/>Silver + English replay"]
+    S --> G3["G3: Gold + English replay"]
+    S --> G4["G4: Silver + Gold + English replay"]
+```
+
+**Read the branches:** G1 vs G2 tests adding replay; G2 vs G3 tests prior Silver adaptation; G3 vs G4 tests keeping Silver during the final correction. We repeat all four strategies for both models, using the same 393 Gold training segments and a 2,000-step refinement budget. Gold development selects checkpoints.
+
+**Measure:** ATCO2 test WER for domain accuracy, alongside LibriSpeech test-clean WER for English retention.
 
 | Strategy | Seed | Parakeet ATCO2 | Nemotron ATCO2 | Parakeet English | Nemotron English |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -162,7 +189,19 @@ For context, untouched Nemotron scored 77.00% on this ATCO2 test and 3.50% on En
 
 ## **Comparison 2: Does more Jacktol-only training keep helping Nemotron?**
 
-We next started from the untouched Nemotron model and trained only on Jacktol's official training split: 6,497 clips, 5.896 hours. No ATCO2, UWB, English replay, or synthetic audio was used. Each phase selected its checkpoint using Jacktol validation, with the same held-out manifests and normalized scorer across phases.
+This experiment asks whether **more training on the same small dataset keeps improving ATC recognition—and what it costs in general English.** We start from pretrained Nemotron and use only Jacktol's 5.896-hour training split, with no English replay or other training audio.
+
+```mermaid
+flowchart LR
+    B["Pretrained Nemotron"] --> S5["5k steps"]
+    S5 --> S10["10k total"]
+    S10 --> S20["20k total"]
+    S20 --> S30["30k total"]
+```
+
+**Read the progression:** the data stay fixed while training continues. Each extension starts from the previous phase's final weights with a fresh optimizer and schedule; Jacktol validation selects the checkpoint to evaluate at each budget.
+
+**Measure:** Jacktol test WER for specialization, recording-disjoint ATCO2 WER for transfer, and LibriSpeech WER for English retention.
 
 | Completed training budget | Jacktol validation WER | Jacktol test WER | ATCO2 recording-disjoint WER | LibriSpeech WER |
 | --- | ---: | ---: | ---: | ---: |
@@ -174,13 +213,23 @@ We next started from the untouched Nemotron model and trained only on Jacktol's 
 
 Jacktol test WER improves at every reported budget, reaching **8.05%** at 30k. English moves in the opposite direction, reaching **7.76%**, versus 3.50% for the base model. More domain optimization helped specialization but did not solve retention.
 
-The budgets describe completed training phases; the validation-selected checkpoint may precede the endpoint. Each extension initializes from the prior phase's final weights, restarts AdamW, and rewarms the learning-rate schedule. This is not an uninterrupted 30k-step cosine run, so the comparison cannot isolate step count from the restart schedule.
+Budgets describe completed phases; selected checkpoints may precede their endpoints. Because the optimizer and schedule restart, this comparison measures longer training with restarts rather than step count alone.
 
 The ATCO2 column uses the existing **1,695-segment, 1.749-hour recording-disjoint view**, excluding 213 segments linked to any Jacktol split. It is distinct from the full 1,908-segment, two-hour benchmark in the Gold table. The acoustic audit reduces known overlap; it does not prove that all possible overlap is absent.
 
 ## **Comparison 3: Can a staged curriculum improve the balance?**
 
-Both models started from their pretrained bases and followed the same curriculum using 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of LibriSpeech training audio. A1 and A2 blend both ATC sources with English; P1–P3 progressively emphasize Jacktol while retaining English replay. Each stage starts from the previous stage's selected export and uses a fresh optimizer and schedule.
+Comparison 2 exposed a trade-off: better ATC recognition accompanied worse general English. Here we ask whether **training on broader ATC data first, then focusing on Jacktol while retaining English replay, gives a better balance.** We run this curriculum for both Parakeet and Nemotron.
+
+```mermaid
+flowchart LR
+    B["Pretrained model"] --> A["A1 → A2: broad adaptation<br/>Jacktol + UWB ATC + English"]
+    A --> P["P1 → P2 → P3: focused refinement<br/>Increasing Jacktol share + English"]
+```
+
+**Read the stages:** A1–A2 blend two ATC sources with general English. P1–P3 drop UWB and progressively emphasize Jacktol. The source pools contain 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of English; the percentages below are sampling shares, not additional data. Each stage continues from the previous selected export.
+
+**Measure:** Jacktol test WER alongside LibriSpeech WER. For Nemotron, also compare the outcome with the Jacktol-only run above to assess the combined curriculum's benefit.
 
 | Stage | Jacktol / UWB / English sampling | Parakeet Jacktol test | Nemotron Jacktol test | Parakeet English | Nemotron English |
 | --- | --- | ---: | ---: | ---: | ---: |
