@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="485" viewBox="0 0 1200 485" role="img" aria-labelledby="title desc"><title id="title">Does more domain training keep helping?</title><desc id="desc">Nemotron only  •  Fixed data, increasing training budget</desc><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1200" height="485" rx="14" fill="#101410" stroke="#101410"/>
+<path d="M40 40H96" stroke="#76B900" stroke-width="6"/>
+<text x="114" y="48" fill="#76B900" font-size="18" font-weight="700">COMPARISON 2</text>
+<text x="40" y="99" fill="#FFFFFF" font-size="36" font-weight="700">Does more domain training keep helping?</text>
+<text x="40" y="135" fill="#BCC5BA" font-size="20" font-weight="400">Nemotron only  •  Fixed data, increasing training budget</text>
+<rect x="40" y="163" width="550" height="116" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="60" y="193" fill="#BCC5BA" font-size="17" font-weight="700">JACKTOL TRAINING</text>
+<text x="60" y="231" fill="#76B900" font-size="30" font-weight="700">5.896 h</text>
+<text x="60" y="259" fill="#BCC5BA" font-size="17" font-weight="400">6,497 clips · official training split</text>
+<rect x="610" y="163" width="550" height="116" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="630" y="193" fill="#BCC5BA" font-size="17" font-weight="700">ENGLISH REPLAY</text>
+<text x="630" y="231" fill="#76B900" font-size="30" font-weight="700">0 h</text>
+<text x="630" y="259" fill="#BCC5BA" font-size="17" font-weight="400">No additional training sources</text>
+<rect x="40" y="317" width="200" height="73" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="62" y="363" fill="#76B900" font-size="29" font-weight="700">Base</text>
+<text x="248" y="363" fill="#BCC5BA" font-size="25" font-weight="400">→</text>
+<rect x="270" y="317" width="200" height="73" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="292" y="363" fill="#76B900" font-size="29" font-weight="700">5k</text>
+<text x="478" y="363" fill="#BCC5BA" font-size="25" font-weight="400">→</text>
+<rect x="500" y="317" width="200" height="73" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="522" y="363" fill="#76B900" font-size="29" font-weight="700">10k</text>
+<text x="708" y="363" fill="#BCC5BA" font-size="25" font-weight="400">→</text>
+<rect x="730" y="317" width="200" height="73" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="752" y="363" fill="#76B900" font-size="29" font-weight="700">20k</text>
+<text x="938" y="363" fill="#BCC5BA" font-size="25" font-weight="400">→</text>
+<rect x="960" y="317" width="200" height="73" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="982" y="363" fill="#76B900" font-size="29" font-weight="700">30k</text>
+<text x="40" y="424" fill="#BCC5BA" font-size="20" font-weight="400">Cumulative step budgets · extensions restart the optimizer and learning-rate schedule</text>
+<text x="40" y="456" fill="#FFFFFF" font-size="20" font-weight="400">Evaluate: Jacktol accuracy + ATCO2 transfer + general-English retention</text>
+</g></svg>

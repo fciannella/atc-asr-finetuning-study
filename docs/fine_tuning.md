@@ -96,13 +96,13 @@ Both the sound and the language differ from ordinary conversation. An adapted mo
 
 Before looking at the experiments, distinguish **how transcripts were produced** from **how the data are used**:
 
-| Ingredient | What it means here | Why we use it |
-| --- | --- | --- |
-| **ATCO2 Silver** | ATC audio paired with high-confidence, machine-generated transcripts; the labels can still contain errors | Learn radio speech and aviation language from a large pool |
-| **ATCO2 Gold** | ATC audio with human-verified transcripts | Refine the model with trusted labels and create separate development and test sets |
-| **English replay** | General-English training audio mixed into ATC fine-tuning | Help preserve the model's existing English recognition |
+| Ingredient | Labels and source | Amount used | Purpose |
+| --- | --- | --- | --- |
+| **ATCO2 Silver** | High-confidence, machine-generated ATC transcripts; labels can still contain errors | **314.721 h** filtered pool; **314.716 h** after the overlap audit used for the Gold experiments | Broad adaptation to radio speech and aviation language |
+| **ATCO2 Gold** | Human-verified ATC transcripts | **0.418 h training** (393 clips), **0.100 h development**, **2.000 h test** | Trusted-label refinement, checkpoint selection, and separate evaluation |
+| **English replay** | **LibriSpeech** general-English training audio | **314.721 h** selected from `train-clean-360` for Comparison 1; **100.344 h** from `train-clean-100` for Comparison 3; **none** in Comparison 2 | Preserve general-English recognition during ATC fine-tuning |
 
-Silver and Gold describe label quality, not dataset splits. Gold training, development, and test audio have separate roles; only the training split updates model weights.
+Silver and Gold describe label quality, not dataset splits. Gold training, development, and test audio have separate roles; only the training split updates model weights. Replay hours describe available source pools, not how many hours are sampled in a run. LibriSpeech `test-clean` is reserved for evaluation, not replay.
 
 ## **Know which data is being released**
 
@@ -160,14 +160,7 @@ Scores come from the [Parakeet Gold results](../reports/experiment-study.json), 
 
 We had plenty of machine-labeled ATCO2 audio but only about 25 minutes of human-verified training audio. **Should we train directly on those trusted labels, or first adapt on the larger Silver pool? And where does English replay help?**
 
-```mermaid
-flowchart LR
-    B["Pretrained model"] --> G1["G1: Gold only"]
-    B --> G2["G2: Gold + English replay"]
-    B --> S["Adapted parent<br/>Silver + English replay"]
-    S --> G3["G3: Gold + English replay"]
-    S --> G4["G4: Silver + Gold + English replay"]
-```
+![Four Gold training paths for Parakeet and Nemotron, with ATCO2 Silver, Gold, and LibriSpeech source-pool hours.](images/comparison-1-gold.svg)
 
 **Read the branches:** G1 vs G2 tests adding replay; G2 vs G3 tests prior Silver adaptation; G3 vs G4 tests keeping Silver during the final correction. We repeat all four strategies for both models, using the same 393 Gold training segments and a 2,000-step refinement budget. Gold development selects checkpoints.
 
@@ -191,13 +184,7 @@ For context, untouched Nemotron scored 77.00% on this ATCO2 test and 3.50% on En
 
 This experiment asks whether **more training on the same small dataset keeps improving ATC recognition—and what it costs in general English.** We start from pretrained Nemotron and use only Jacktol's 5.896-hour training split, with no English replay or other training audio.
 
-```mermaid
-flowchart LR
-    B["Pretrained Nemotron"] --> S5["5k steps"]
-    S5 --> S10["10k total"]
-    S10 --> S20["20k total"]
-    S20 --> S30["30k total"]
-```
+![Nemotron training grows from 5k to 30k steps on 5.896 hours of Jacktol, with no English replay.](images/comparison-2-duration.svg)
 
 **Read the progression:** the data stay fixed while training continues. Each extension starts from the previous phase's final weights with a fresh optimizer and schedule; Jacktol validation selects the checkpoint to evaluate at each budget.
 
@@ -221,11 +208,7 @@ The ATCO2 column uses the existing **1,695-segment, 1.749-hour recording-disjoin
 
 Comparison 2 exposed a trade-off: better ATC recognition accompanied worse general English. Here we ask whether **training on broader ATC data first, then focusing on Jacktol while retaining English replay, gives a better balance.** We run this curriculum for both Parakeet and Nemotron.
 
-```mermaid
-flowchart LR
-    B["Pretrained model"] --> A["A1 → A2: broad adaptation<br/>Jacktol + UWB ATC + English"]
-    A --> P["P1 → P2 → P3: focused refinement<br/>Increasing Jacktol share + English"]
-```
+![Shared curriculum using 5.896 hours of Jacktol, 10.534 hours of UWB, and 100.344 hours of LibriSpeech, with sampling shares for each stage.](images/comparison-3-curriculum.svg)
 
 **Read the stages:** A1–A2 blend two ATC sources with general English. P1–P3 drop UWB and progressively emphasize Jacktol. The source pools contain 5.896 hours of Jacktol, 10.534 hours of UWB ATC, and 100.344 hours of English; the percentages below are sampling shares, not additional data. Each stage continues from the previous selected export.
 

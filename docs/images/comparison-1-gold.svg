@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="710" viewBox="0 0 1200 710" role="img" aria-labelledby="title desc"><title id="title">How should we use trusted labels?</title><desc id="desc">Parakeet + Nemotron  •  Four training paths, the same Gold training set</desc><g font-family="Arial, Helvetica, sans-serif">
+<rect x="0" y="0" width="1200" height="710" rx="14" fill="#101410" stroke="#101410"/>
+<path d="M40 40H96" stroke="#76B900" stroke-width="6"/>
+<text x="114" y="48" fill="#76B900" font-size="18" font-weight="700">COMPARISON 1</text>
+<text x="40" y="99" fill="#FFFFFF" font-size="36" font-weight="700">How should we use trusted labels?</text>
+<text x="40" y="135" fill="#BCC5BA" font-size="20" font-weight="400">Parakeet + Nemotron  •  Four training paths, the same Gold training set</text>
+<rect x="40" y="163" width="360" height="116" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="60" y="193" fill="#BCC5BA" font-size="17" font-weight="700">ATCO2 SILVER</text>
+<text x="60" y="231" fill="#76B900" font-size="30" font-weight="700">314.716 h</text>
+<text x="60" y="259" fill="#BCC5BA" font-size="17" font-weight="400">Machine-labeled ATC · audited pool</text>
+<rect x="420" y="163" width="360" height="116" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="440" y="193" fill="#BCC5BA" font-size="17" font-weight="700">ATCO2 GOLD</text>
+<text x="440" y="231" fill="#76B900" font-size="30" font-weight="700">0.418 h ≈ 25 min</text>
+<text x="440" y="259" fill="#BCC5BA" font-size="17" font-weight="400">Human-verified · 393 training clips</text>
+<rect x="800" y="163" width="360" height="116" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="820" y="193" fill="#BCC5BA" font-size="17" font-weight="700">ENGLISH REPLAY</text>
+<text x="820" y="231" fill="#76B900" font-size="30" font-weight="700">314.721 h</text>
+<text x="820" y="259" fill="#BCC5BA" font-size="17" font-weight="400">LibriSpeech train-clean-360 subset</text>
+<rect x="40" y="304" width="550" height="142" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="60" y="336" fill="#FFFFFF" font-size="24" font-weight="700">G1 · Gold only</text>
+<text x="60" y="366" fill="#BCC5BA" font-size="19" font-weight="400">Pretrained base → Gold</text>
+<text x="60" y="395" fill="#76B900" font-size="20" font-weight="700">100% Gold</text>
+<text x="60" y="424" fill="#BCC5BA" font-size="18" font-weight="400">Direct adaptation with trusted labels</text>
+<rect x="610" y="304" width="550" height="142" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="630" y="336" fill="#FFFFFF" font-size="24" font-weight="700">G2 · Add replay</text>
+<text x="630" y="366" fill="#BCC5BA" font-size="19" font-weight="400">Pretrained base → Gold + English</text>
+<text x="630" y="395" fill="#76B900" font-size="20" font-weight="700">85% Gold / 15% English</text>
+<text x="630" y="424" fill="#BCC5BA" font-size="18" font-weight="400">Does replay preserve general English?</text>
+<rect x="40" y="466" width="550" height="142" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="60" y="498" fill="#FFFFFF" font-size="24" font-weight="700">G3 · Refine an adapted model</text>
+<text x="60" y="528" fill="#BCC5BA" font-size="19" font-weight="400">Silver/English parent → Gold + English</text>
+<text x="60" y="557" fill="#76B900" font-size="20" font-weight="700">85% Gold / 15% English</text>
+<text x="60" y="586" fill="#BCC5BA" font-size="18" font-weight="400">Does broad adaptation help first?</text>
+<rect x="610" y="466" width="550" height="142" rx="14" fill="#20251F" stroke="#3C4735"/>
+<text x="630" y="498" fill="#FFFFFF" font-size="24" font-weight="700">G4 · Keep Silver in refinement</text>
+<text x="630" y="528" fill="#BCC5BA" font-size="19" font-weight="400">Silver/English parent → Silver + Gold + English</text>
+<text x="630" y="557" fill="#76B900" font-size="20" font-weight="700">70% Silver / 15% Gold / 15% English</text>
+<text x="630" y="586" fill="#BCC5BA" font-size="18" font-weight="400">Does continued Silver help or hinder?</text>
+<text x="40" y="648" fill="#BCC5BA" font-size="19" font-weight="400">Parent: 80% Silver / 20% English. Each G1–G4 run: 2,000 steps.</text>
+<text x="40" y="678" fill="#BCC5BA" font-size="18" font-weight="400">Hours = available training pools. Percentages = sampling shares, not unique hours.</text>
+</g></svg>
