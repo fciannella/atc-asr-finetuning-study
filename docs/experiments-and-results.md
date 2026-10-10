@@ -1,5 +1,7 @@
 # What We Learned Fine-Tuning ASR for Air-Traffic Control
 
+> Historical narrative. For the current, ordered record through October 7, 2026, use the [experiment appendix](experiments/README.md). It adds the later Nemotron campaigns and fresh greedy LM controls, distinguishes historical ATC development from the frozen community test, and documents cross-corpus overlap. Historical "reproduction" here means comparable benchmark performance, not proof of an identical training recipe.
+
 ## Experiments and results from Silver adaptation to Gold refinement
 
 This is the results companion to [How to Fine-Tune ASR for a New Domain](fine-tuning-guide.md). The first article explains the model families, fine-tuning skills, data roles, and evaluation workflow. This article follows the experiments in the order in which they answered our questions.

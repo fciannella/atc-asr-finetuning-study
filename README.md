@@ -1,11 +1,12 @@
 # ATC ASR Fine-Tuning Study
 
-Private working repository for the ATCO2 and Jacktol ASR adaptation study. It collects the educational article, experiment narrative, frozen result summaries, and a small set of reproducibility scripts without copying the underlying audio, model checkpoints, or internal training manifests.
+Public documentation repository for the ATCO2 and Jacktol ASR adaptation study. It collects the educational article, experiment narrative, frozen result summaries, and a small set of reproducibility scripts without copying the underlying audio, model checkpoints, or internal training manifests.
 
 ## Start here
 
+- [Experiment appendix: ordered reading guide](docs/experiments/README.md) is the current entry point for results, including Nemotron Gold refinement, Jacktol curricula, and fresh greedy n-gram comparisons through October 7, 2026.
 - [Fine-tuning guide](docs/fine-tuning-guide.md) explains the skill-guided ASR adaptation workflow.
-- [Experiments and results](docs/experiments-and-results.md) follows the study from Silver adaptation through Gold refinement and n-gram fusion.
+- [Earlier experiments narrative](docs/experiments-and-results.md) preserves the historical account; use the appendix above for updated evidence and comparison boundaries.
 - [Fine-tuning blog — concise edition](docs/fine_tuning_blog_1400.md) targets the original 1,400-word editorial limit.
 - [Fine-tuning blog — extended edition](docs/fine_tuning_blog_2800.md) retains additional architecture, experiment, and negative-result detail within 2,800 words.
 - [Fine-tuning blog — source draft](docs/fine_tuning_blog.md) preserves the unabridged working material.
@@ -52,4 +53,4 @@ The authoritative metric is standalone normalized WER: lowercase, Unicode diacri
 
 ## Status
 
-This is a private review repository. Results and prose remain subject to technical, data-release, and editorial review. No dataset license or model license is granted by the presence of documentation in this repository.
+This repository is public. Results and prose remain subject to technical, data-release, and editorial review. Public documentation does not grant a dataset or model license, or mean the planned evaluation-data release is already available.
