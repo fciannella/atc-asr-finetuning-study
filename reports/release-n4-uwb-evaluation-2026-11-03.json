@@ -1,0 +1,64 @@
+{
+  "status": "complete",
+  "completed_utc": "2026-11-03T08:09:39.247376+00:00",
+  "job_id": "37896018",
+  "checkpoint": "N4",
+  "hf_repository": "nvidia/nv-atc02-finetune-n4",
+  "hf_revision": "bb06688439dd09aca9a072a5c0c52e7f2aef07d1",
+  "model_sha256": "5f88e503be0985a95b40580159b7465a7b9244e3acf079d2f95c5d246a0274d4",
+  "evaluation": "UWB ATC test",
+  "manifest_sha256": "fddaec5af271278000a2da2de29b44a97b94781c9f5c28f44a61413fff5cde52",
+  "parakeet_reference_manifest_sha256": "50a479eea22a696b96010cd1066fe8738b308077d90b900b661d7df88d374d49",
+  "identical_audio_and_references_to_parakeet_manifest": true,
+  "utterances": 2822,
+  "speech_hours": 2.4337386805555536,
+  "word_errors": 10439,
+  "reference_words": 26760,
+  "normalized_wer": 0.39009715994020927,
+  "decoder": "greedy native cache-aware streaming",
+  "attention_context": [
+    56,
+    3
+  ],
+  "batch_size_per_gpu": 8,
+  "compute_dtype": "float32",
+  "amp": false,
+  "max_symbols_per_step": 10,
+  "target_lang": "en-US",
+  "strip_lang_tags": true,
+  "beam": false,
+  "ngram": false,
+  "boosting": false,
+  "source_audio_sample_rate_hz": 8000,
+  "inference_sample_rate_hz": 16000,
+  "resampling": "Pinned NeMo streaming buffer get_samples loads source audio and resamples to 16000 Hz with librosa; source files are unchanged.",
+  "normalization": "NFKD, lowercase, combining-mark removal, alphanumeric and straight-apostrophe retention, other symbols replaced with spaces, whitespace collapse",
+  "evaluator_sha256": "79c907c6d8444a5031dca01511cf54acc3f5270be8c827ba39f44994678027a2",
+  "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+  "runner_sha256": "5b0e8c4ab0b48aae853ac24336d3b988462a1a5f82a55d063c0050f749adf26e",
+  "predictions_sha256": "304d01448956326c7dba8c2d8ecf93724fa4dede79d43447a0968d1e00856a24",
+  "container": "nemotron-asr-finetune-v0.8.sqsh",
+  "torch_version": "2.7.0a0+79aa17489c.nv25.04",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "evaluation_caveats": [
+    "UWB is used only for evaluation in this run; this result does not establish complete cross-corpus isolation."
+  ],
+  "verification": {
+    "slurm_state": "COMPLETED",
+    "slurm_exit_code": "0:0",
+    "elapsed": "00:02:26",
+    "independent_rescore": "passed",
+    "all_utterances_scored": true
+  },
+  "attempt_history": [
+    {
+      "job_id": "37895883",
+      "status": "preflight_failed_before_inference",
+      "reason": "Initial preflight assumed 16 kHz source WAVs; all UWB WAVs are 8 kHz. The pinned evaluator resamples to 16 kHz during loading."
+    },
+    {
+      "job_id": "37896018",
+      "status": "complete"
+    }
+  ]
+}
