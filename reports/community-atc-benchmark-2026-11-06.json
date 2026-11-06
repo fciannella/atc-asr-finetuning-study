@@ -1,0 +1,1957 @@
+{
+  "date": "2026-11-06",
+  "status": "complete",
+  "new_inference_models": 8,
+  "rescored_baselines": [
+    "qenneth",
+    "p4",
+    "n4"
+  ],
+  "data_contract": {
+    "test": {
+      "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+      "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+      "utterances": 1908,
+      "reference_words": 21930,
+      "hours": 2.0004411111111073,
+      "max_duration": 15.27,
+      "disjoint_utterances": 1695,
+      "disjoint_words": 19077,
+      "source_recordings": 1168
+    },
+    "dev": {
+      "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+      "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+      "utterances": 100,
+      "reference_words": 1108,
+      "hours": 0.10003166666666669,
+      "max_duration": 9.45,
+      "disjoint_utterances": 92,
+      "disjoint_words": 994,
+      "source_recordings": 75
+    },
+    "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+    "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+  },
+  "normalization": "lowercase, NFKD diacritic fold, remove non-alphanumeric symbols except ASCII apostrophe, whitespace collapse; no number expansion",
+  "results": {
+    "qenneth": {
+      "source_prediction_sha256": "9f5c6d5cf085179cb04818315b5e5c306019f838109695126b31041ef66ba401",
+      "status": "rescored_existing_predictions",
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 3490,
+          "substitutions": 2260,
+          "deletions": 897,
+          "insertions": 333,
+          "wer": 0.15914272685818515,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.15093352868605725,
+            0.16697687885681387
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 3176,
+          "substitutions": 2061,
+          "deletions": 809,
+          "insertions": 306,
+          "wer": 0.1664831996645175,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.15808381328611362,
+            0.17490033143192873
+          ]
+        }
+      },
+      "reference_identity_checked": "id, normalized text, resolved source path, offset, duration",
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 5,
+        "predictions_containing_digits": 0,
+        "references_containing_digits": 0
+      },
+      "model": {
+        "repo_id": "qenneth/parakeet-tdt-0.6b-v3-finetuned-for-ATC",
+        "revision": "ac5200eec345e4e674a8a685ef52ab6b2cf4fa95",
+        "checkpoint_sha256": "423a9cda1fe0d2532a08d75c62b4787adfaec636439fabc3c28873cbb437ff2a"
+      }
+    },
+    "p4": {
+      "source_prediction_sha256": "28538a3fddf82dc003e9e45070221a53153d0417a606c9fd03f51b61d9437645",
+      "status": "rescored_existing_predictions",
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 4386,
+          "substitutions": 2905,
+          "deletions": 814,
+          "insertions": 667,
+          "wer": 0.2,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.19139399142902513,
+            0.20831827419002175
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 3795,
+          "substitutions": 2518,
+          "deletions": 702,
+          "insertions": 575,
+          "wer": 0.19893064947318762,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.1899449176918917,
+            0.20753822003011302
+          ]
+        }
+      },
+      "reference_identity_checked": "id, normalized text, resolved source path, offset, duration",
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 8,
+        "predictions_containing_digits": 2,
+        "references_containing_digits": 0
+      },
+      "model": {
+        "repo_id": "nvidia/nv-atc02-finetune-p4",
+        "revision": "4b17d465eb441cc6ddb332a27a340b62aa42d051",
+        "checkpoint_sha256": "974333ba371a4b3a9e2f306edb07bd4881312b49675665d0176410dbde5a42ca"
+      }
+    },
+    "n4": {
+      "source_prediction_sha256": "46dfe7bedac69581ebad9323738d881867d03876eaaa26c8d5c032470ce2f8a9",
+      "status": "rescored_existing_predictions",
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 4925,
+          "substitutions": 3112,
+          "deletions": 1285,
+          "insertions": 528,
+          "wer": 0.224578203374373,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.21542857741550936,
+            0.23421838391506505
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 4259,
+          "substitutions": 2682,
+          "deletions": 1125,
+          "insertions": 452,
+          "wer": 0.2232531320438224,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2137822387278139,
+            0.23268564782298942
+          ]
+        }
+      },
+      "reference_identity_checked": "id, normalized text, resolved source path, offset, duration",
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 10,
+        "predictions_containing_digits": 0,
+        "references_containing_digits": 0
+      },
+      "model": {
+        "repo_id": "nvidia/nv-atc02-finetune-n4",
+        "revision": "bb06688439dd09aca9a072a5c0c52e7f2aef07d1",
+        "checkpoint_sha256": "5f88e503be0985a95b40580159b7465a7b9244e3acf079d2f95c5d246a0274d4"
+      }
+    },
+    "steak-whisper": {
+      "status": "complete",
+      "model": {
+        "slug": "steak-whisper",
+        "kind": "whisper",
+        "repo_id": "camillebrl/whisper-large-v3-synthetic-20k-matched-psd_snrm10_drv6_o4",
+        "revision": "0d2381ed1eed8a5c8170a0252fd890f8ac89ff7b",
+        "weight_files": [
+          "model.safetensors"
+        ]
+      },
+      "receipt": {
+        "slug": "steak-whisper",
+        "kind": "whisper",
+        "repo_id": "camillebrl/whisper-large-v3-synthetic-20k-matched-psd_snrm10_drv6_o4",
+        "revision": "0d2381ed1eed8a5c8170a0252fd890f8ac89ff7b",
+        "weight_files": [
+          "model.safetensors"
+        ],
+        "weights": {
+          "model.safetensors": {
+            "sha256": "d2e6b156bd11f90223c5252c522241aaf677670ef5cf65a5339e11dc393e782b",
+            "bytes": 6174112552
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 6361,
+          "substitutions": 3877,
+          "deletions": 1720,
+          "insertions": 764,
+          "wer": 0.29005927952576377,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2789891201305514,
+            0.3013014817248824
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 5545,
+          "substitutions": 3376,
+          "deletions": 1513,
+          "insertions": 656,
+          "wer": 0.29066415054778005,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.27907294551927336,
+            0.30270918959840076
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 8.059819552996487,
+      "test_wall_seconds": 178.28271759400377,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.02475602847510907,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "2d1ef8ee474200714f53980b366b9c959a2f0690ff22376a22f431329a958b5b",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {
+        "peak_allocated_gpu_bytes": 5237260288
+      },
+      "eos_absent_returned_sequence_count": 261,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 0,
+        "predictions_containing_digits": 0,
+        "references_containing_digits": 0
+      }
+    },
+    "jacktol-whisper": {
+      "status": "complete",
+      "model": {
+        "slug": "jacktol-whisper",
+        "kind": "whisper",
+        "repo_id": "jacktol/whisper-large-v3-finetuned-for-ATC",
+        "revision": "d82c726fc7021239f28988126005285ee91c338e",
+        "weight_files": [
+          "model-00001-of-00002.safetensors",
+          "model-00002-of-00002.safetensors"
+        ]
+      },
+      "receipt": {
+        "slug": "jacktol-whisper",
+        "kind": "whisper",
+        "repo_id": "jacktol/whisper-large-v3-finetuned-for-ATC",
+        "revision": "d82c726fc7021239f28988126005285ee91c338e",
+        "weight_files": [
+          "model-00001-of-00002.safetensors",
+          "model-00002-of-00002.safetensors"
+        ],
+        "weights": {
+          "model-00001-of-00002.safetensors": {
+            "sha256": "aa7eb0c118a689d20d7ff1a8b63608d2c457eef002a349a810168bfe47cf5b07",
+            "bytes": 4993448880
+          },
+          "model-00002-of-00002.safetensors": {
+            "sha256": "341c270b5cd093c637f685afc8977f117fac478f3b6b0d7a84c4d4a271ee45bc",
+            "bytes": 1180663192
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 3574,
+          "substitutions": 2373,
+          "deletions": 748,
+          "insertions": 453,
+          "wer": 0.1629730962152303,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.15285769344819444,
+            0.17363612437097306
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 3351,
+          "substitutions": 2237,
+          "deletions": 672,
+          "insertions": 442,
+          "wer": 0.17565654977197673,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.16443695584365947,
+            0.1877319482906464
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 8.113438501997734,
+      "test_wall_seconds": 279.235973457995,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.03877422222126495,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "761182a4b6a9fd7b407ae8984376d79b52c379a0dceaacbfe25b64c4d360add2",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {
+        "peak_allocated_gpu_bytes": 5389726720
+      },
+      "eos_absent_returned_sequence_count": 252,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 0,
+        "predictions_containing_digits": 1,
+        "references_containing_digits": 0
+      }
+    },
+    "jlvdoorn-whisper": {
+      "status": "complete",
+      "model": {
+        "slug": "jlvdoorn-whisper",
+        "kind": "whisper",
+        "repo_id": "jlvdoorn/whisper-large-v3-atco2-asr",
+        "revision": "f7a0dddfea9de70f9f5b2e1332ae19734e60081f",
+        "weight_files": [
+          "model.safetensors"
+        ]
+      },
+      "receipt": {
+        "slug": "jlvdoorn-whisper",
+        "kind": "whisper",
+        "repo_id": "jlvdoorn/whisper-large-v3-atco2-asr",
+        "revision": "f7a0dddfea9de70f9f5b2e1332ae19734e60081f",
+        "weight_files": [
+          "model.safetensors"
+        ],
+        "weights": {
+          "model.safetensors": {
+            "sha256": "cf49b415ea67378ce91ae66ee6ecb3aebe1c7b002a03658d413f14442d8f3313",
+            "bytes": 3219908024
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 3552,
+          "substitutions": 2356,
+          "deletions": 766,
+          "insertions": 430,
+          "wer": 0.16196990424076607,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.15344315956756352,
+            0.17073163810258057
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 3226,
+          "substitutions": 2154,
+          "deletions": 676,
+          "insertions": 396,
+          "wer": 0.16910415683807725,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.15943701820671144,
+            0.17843000976849888
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 7.740219398998306,
+      "test_wall_seconds": 181.52555775300425,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.025206323626539625,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "b05cf780494a411c0d526e4ed17a86faabfa9657f8f133c63b8e2d10fec35915",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {
+        "peak_allocated_gpu_bytes": 5370037248
+      },
+      "eos_absent_returned_sequence_count": 262,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 1,
+        "predictions_containing_digits": 9,
+        "references_containing_digits": 0
+      }
+    },
+    "xlsr-atcosim": {
+      "status": "complete",
+      "model": {
+        "slug": "xlsr-atcosim",
+        "kind": "ctc",
+        "repo_id": "Jzuluaga/wav2vec2-xls-r-300m-en-atc-atcosim",
+        "revision": "b55f7042e0a6f64b93ec71af2b02ad080941fac1",
+        "weight_files": [
+          "pytorch_model.bin"
+        ]
+      },
+      "receipt": {
+        "slug": "xlsr-atcosim",
+        "kind": "ctc",
+        "repo_id": "Jzuluaga/wav2vec2-xls-r-300m-en-atc-atcosim",
+        "revision": "b55f7042e0a6f64b93ec71af2b02ad080941fac1",
+        "weight_files": [
+          "pytorch_model.bin"
+        ],
+        "weights": {
+          "pytorch_model.bin": {
+            "sha256": "92f00a147a01cfbf9d997364e964c62adb8df2a7f134bc77451664920f2f8367",
+            "bytes": 1262028973
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 19438,
+          "substitutions": 10804,
+          "deletions": 8443,
+          "insertions": 191,
+          "wer": 0.8863657090743274,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.8797796251374571,
+            0.8935103820494362
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 16961,
+          "substitutions": 9340,
+          "deletions": 7459,
+          "insertions": 162,
+          "wer": 0.8890810924149499,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.8820242185524336,
+            0.8960189951970142
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 5.95082430599723,
+      "test_wall_seconds": 14.48630466099712,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.002011543101465555,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "3125f0412d96237754b6c87756218f29b6c6b9489de4c8d25e2ef57fec73e187",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {
+        "peak_allocated_gpu_bytes": 2254078976
+      },
+      "eos_absent_returned_sequence_count": null,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 8,
+        "predictions_containing_digits": 0,
+        "references_containing_digits": 0
+      }
+    },
+    "youtube-fastconformer": {
+      "status": "complete",
+      "model": {
+        "slug": "youtube-fastconformer",
+        "kind": "nemo-rnnt",
+        "repo_id": "niclaswue/youtube-atc-fastconformer",
+        "revision": "71dd41b077fa7633742e303cb298c87b2598c241",
+        "weight_files": [
+          "FastConformer-Hybrid-Transducer-CTC-Char.nemo"
+        ]
+      },
+      "receipt": {
+        "slug": "youtube-fastconformer",
+        "kind": "nemo-rnnt",
+        "repo_id": "niclaswue/youtube-atc-fastconformer",
+        "revision": "71dd41b077fa7633742e303cb298c87b2598c241",
+        "weight_files": [
+          "FastConformer-Hybrid-Transducer-CTC-Char.nemo"
+        ],
+        "weights": {
+          "FastConformer-Hybrid-Transducer-CTC-Char.nemo": {
+            "sha256": "191de1340c33c1ff39cf00e107ff526dc460f43362ee8949e1f8bbbc8df56320",
+            "bytes": 451778560
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 5867,
+          "substitutions": 3844,
+          "deletions": 1321,
+          "insertions": 702,
+          "wer": 0.2675330597355221,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.25699539351950695,
+            0.2786639072406384
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 5170,
+          "substitutions": 3395,
+          "deletions": 1146,
+          "insertions": 629,
+          "wer": 0.2710069717460817,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2583565732150081,
+            0.28270275456606164
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 15.44794583699695,
+      "test_wall_seconds": 26.614398409001296,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.0036956291319360807,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "0f8c7a6192a6c310e893ab2a456ed1d588459e65fef6d0122eedb0180580bf5d",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {},
+      "eos_absent_returned_sequence_count": null,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 1,
+        "predictions_containing_digits": 0,
+        "references_containing_digits": 0
+      }
+    },
+    "us-whisper-turbo": {
+      "status": "complete",
+      "model": {
+        "slug": "us-whisper-turbo",
+        "kind": "whisper-lora",
+        "repo_id": "thomaseibner/whisper-large-v3-turbo-us-atc-v3",
+        "revision": "d1ec48290647ea6daf0602c48ef77c7d288d5983",
+        "weight_files": [
+          "adapter_model.safetensors"
+        ]
+      },
+      "receipt": {
+        "slug": "us-whisper-turbo",
+        "kind": "whisper-lora",
+        "repo_id": "thomaseibner/whisper-large-v3-turbo-us-atc-v3",
+        "revision": "d1ec48290647ea6daf0602c48ef77c7d288d5983",
+        "weight_files": [
+          "adapter_model.safetensors"
+        ],
+        "weights": {
+          "adapter_model.safetensors": {
+            "sha256": "106d8fec0cbcdc4814440033fbcc8208d467723951a238d66d560383d26a0bbb",
+            "bytes": 55769968
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 14628,
+          "substitutions": 8824,
+          "deletions": 4497,
+          "insertions": 1307,
+          "wer": 0.66703146374829,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.6327054112812736,
+            0.7135815365014492
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 12764,
+          "substitutions": 7728,
+          "deletions": 3991,
+          "insertions": 1045,
+          "wer": 0.6690779472663416,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.6353136744720238,
+            0.7149859649685455
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 35.02509137800371,
+      "test_wall_seconds": 76.96144029599964,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.010686731911906047,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "3b488cec6674060f3fe0230286384620aac30bd21baf03a84837404df506746f",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {
+        "adapter_default_metadata_omitted": {
+          "lora_ga_config": null,
+          "monteclora_config": null,
+          "use_bdlora": null,
+          "velora_config": null
+        },
+        "peak_allocated_gpu_bytes": 2010861568
+      },
+      "eos_absent_returned_sequence_count": 268,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 1,
+        "predictions_containing_digits": 1644,
+        "references_containing_digits": 0
+      }
+    },
+    "rasr-parakeet-v1": {
+      "status": "complete",
+      "model": {
+        "slug": "rasr-parakeet-v1",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v1",
+        "revision": "1faf953af2f07946566ff426e4609d0325f61b33",
+        "weight_files": [
+          "rasr-parakeet-v1.nemo"
+        ]
+      },
+      "receipt": {
+        "slug": "rasr-parakeet-v1",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v1",
+        "revision": "1faf953af2f07946566ff426e4609d0325f61b33",
+        "weight_files": [
+          "rasr-parakeet-v1.nemo"
+        ],
+        "weights": {
+          "rasr-parakeet-v1.nemo": {
+            "sha256": "32171df9b141665764153d522b93a2a282aa6836ee80158fe77ff4b6f67f189d",
+            "bytes": 2509332480
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 2788,
+          "substitutions": 1745,
+          "deletions": 693,
+          "insertions": 350,
+          "wer": 0.12713178294573643,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.11986615778227512,
+            0.13449499982549515
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 2548,
+          "substitutions": 1599,
+          "deletions": 626,
+          "insertions": 323,
+          "wer": 0.13356397756460658,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.12585106658938755,
+            0.14102071532865512
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 29.048390607997135,
+      "test_wall_seconds": 43.305983460995776,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.006013393637763751,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "06573ce444cb37d02d0478b5fa1a559dbb79cb749f86f87b03fccf8193608552",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {},
+      "eos_absent_returned_sequence_count": null,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 1,
+        "predictions_containing_digits": 12,
+        "references_containing_digits": 0
+      }
+    },
+    "rasr-parakeet-v2": {
+      "status": "complete",
+      "model": {
+        "slug": "rasr-parakeet-v2",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v2",
+        "revision": "cb6ed4e5e68db54b4a8787dcea9706c2160a1354",
+        "weight_files": [
+          "rasr-parakeet-v2.nemo"
+        ]
+      },
+      "receipt": {
+        "slug": "rasr-parakeet-v2",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v2",
+        "revision": "cb6ed4e5e68db54b4a8787dcea9706c2160a1354",
+        "weight_files": [
+          "rasr-parakeet-v2.nemo"
+        ],
+        "weights": {
+          "rasr-parakeet-v2.nemo": {
+            "sha256": "8e50f7b72e2414aa08d8369dee14abee24a499cad7277fcba85f93cd11dd239a",
+            "bytes": 2509332480
+          }
+        }
+      },
+      "environment": {
+        "gpu": "NVIDIA A100-SXM4-80GB",
+        "versions": {
+          "torch": "2.7.0a0+79aa17489c.nv25.4",
+          "transformers": "5.3.0",
+          "nemo_toolkit": "0.10.1",
+          "peft": "0.18.0",
+          "safetensors": "0.5.3"
+        }
+      },
+      "scores": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 21930,
+          "word_errors": 3263,
+          "substitutions": 2073,
+          "deletions": 787,
+          "insertions": 403,
+          "wer": 0.14879160966712265,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.14074538196744119,
+            0.15695000412375718
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 19077,
+          "word_errors": 2915,
+          "substitutions": 1865,
+          "deletions": 689,
+          "insertions": 361,
+          "wer": 0.1528018032185354,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.14445585340773928,
+            0.1611097107348768
+          ]
+        }
+      },
+      "load_and_smoke_seconds": 28.649637909999,
+      "test_wall_seconds": 43.19802256499679,
+      "test_audio_seconds": 7201.588,
+      "test_rtf": 0.005998402375281229,
+      "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Concurrent 8-model node run.",
+      "prediction_sha256": "5481641880f07113fb3b9c89fa207ee5480dde46c70e2fdf0406e3386465aa8b",
+      "data_contract": {
+        "test": {
+          "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+          "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+          "utterances": 1908,
+          "reference_words": 21930,
+          "hours": 2.0004411111111073,
+          "max_duration": 15.27,
+          "disjoint_utterances": 1695,
+          "disjoint_words": 19077,
+          "source_recordings": 1168
+        },
+        "dev": {
+          "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+          "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+          "utterances": 100,
+          "reference_words": 1108,
+          "hours": 0.10003166666666669,
+          "max_duration": 9.45,
+          "disjoint_utterances": 92,
+          "disjoint_words": 994,
+          "source_recordings": 75
+        },
+        "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+        "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+      },
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+      "runner_sha256": "23e26dfc62e2e08780c32deeb25b764bc01f1de9590b2bb3e061cf8b145588b8",
+      "job_id": "38095055",
+      "metadata": {},
+      "eos_absent_returned_sequence_count": null,
+      "generation_limit_hits": null,
+      "generation_diagnostic_note": "Original runner mislabeled EOS absence as cap reached. Transformers 5.3 Whisper removes EOS during postprocessing; this is not a truncation count. Prediction text and WER are unaffected. The configured Whisper max_new_tokens is 440.",
+      "selected_attempt": "attempt-38095055",
+      "output_diagnostics": {
+        "utterances": 1908,
+        "empty_normalized_predictions": 6,
+        "predictions_containing_digits": 2,
+        "references_containing_digits": 0
+      }
+    }
+  },
+  "paired_comparisons": {
+    "full": {
+      "qenneth": {
+        "p4": {
+          "wer_difference_pp": -4.0857273141814865,
+          "difference_95pct_ci_pp": [
+            -4.77335914603672,
+            -3.3239809765712156
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -6.543547651618788,
+          "difference_95pct_ci_pp": [
+            -7.326184827809698,
+            -5.737419021005542
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "p4": {
+        "p4": {
+          "wer_difference_pp": 0.0,
+          "difference_95pct_ci_pp": [
+            0.0,
+            0.0
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -2.4578203374373007,
+          "difference_95pct_ci_pp": [
+            -3.063149528266887,
+            -1.8280389085930167
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "n4": {
+        "p4": {
+          "wer_difference_pp": 2.4578203374373007,
+          "difference_95pct_ci_pp": [
+            1.828038908593016,
+            3.0631495282668864
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 0.0,
+          "difference_95pct_ci_pp": [
+            0.0,
+            0.0
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "steak-whisper": {
+        "p4": {
+          "wer_difference_pp": 9.00592795257638,
+          "difference_95pct_ci_pp": [
+            8.097471501559541,
+            9.928264755876777
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 6.548107615139079,
+          "difference_95pct_ci_pp": [
+            5.563623730085944,
+            7.543806826699511
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "jacktol-whisper": {
+        "p4": {
+          "wer_difference_pp": -3.702690378476972,
+          "difference_95pct_ci_pp": [
+            -4.668398394855578,
+            -2.632526182350075
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -6.160510715914272,
+          "difference_95pct_ci_pp": [
+            -7.1960013812244785,
+            -5.05055898266268
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "jlvdoorn-whisper": {
+        "p4": {
+          "wer_difference_pp": -3.8030095759233924,
+          "difference_95pct_ci_pp": [
+            -4.573886971236967,
+            -3.0554555633026776
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -6.260829913360694,
+          "difference_95pct_ci_pp": [
+            -7.10347480032463,
+            -5.43786294537019
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "xlsr-atcosim": {
+        "p4": {
+          "wer_difference_pp": 68.63657090743274,
+          "difference_95pct_ci_pp": [
+            67.67754533893412,
+            69.63513236139708
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 66.17875056999544,
+          "difference_95pct_ci_pp": [
+            65.12809904383326,
+            67.2318844112876
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "youtube-fastconformer": {
+        "p4": {
+          "wer_difference_pp": 6.753305973552212,
+          "difference_95pct_ci_pp": [
+            5.815279600929487,
+            7.753600600834286
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 4.295485636114911,
+          "difference_95pct_ci_pp": [
+            3.295302652640338,
+            5.310376233174826
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "us-whisper-turbo": {
+        "p4": {
+          "wer_difference_pp": 46.703146374829004,
+          "difference_95pct_ci_pp": [
+            43.18492446102999,
+            50.96373034720799
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 44.2453260373917,
+          "difference_95pct_ci_pp": [
+            40.72928261823049,
+            48.469654658093916
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "rasr-parakeet-v1": {
+        "p4": {
+          "wer_difference_pp": -7.286821705426356,
+          "difference_95pct_ci_pp": [
+            -8.04130731185571,
+            -6.5429879183317
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -9.744642042863658,
+          "difference_95pct_ci_pp": [
+            -10.573286873626955,
+            -8.88854244066961
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "rasr-parakeet-v2": {
+        "p4": {
+          "wer_difference_pp": -5.120839033287734,
+          "difference_95pct_ci_pp": [
+            -5.861017418465686,
+            -4.366428447821461
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -7.578659370725034,
+          "difference_95pct_ci_pp": [
+            -8.395088938957338,
+            -6.769178454330484
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      }
+    },
+    "known_jacktol_disjoint": {
+      "qenneth": {
+        "p4": {
+          "wer_difference_pp": -3.244744980867013,
+          "difference_95pct_ci_pp": [
+            -3.9731595797651704,
+            -2.5260758807421646
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -5.676993237930493,
+          "difference_95pct_ci_pp": [
+            -6.470287910235975,
+            -4.8906385054395365
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "p4": {
+        "p4": {
+          "wer_difference_pp": 0.0,
+          "difference_95pct_ci_pp": [
+            0.0,
+            0.0
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -2.4322482570634794,
+          "difference_95pct_ci_pp": [
+            -3.063957070912373,
+            -1.7761035233515254
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "n4": {
+        "p4": {
+          "wer_difference_pp": 2.4322482570634794,
+          "difference_95pct_ci_pp": [
+            1.776103523351525,
+            3.063957070912372
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 0.0,
+          "difference_95pct_ci_pp": [
+            0.0,
+            0.0
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "steak-whisper": {
+        "p4": {
+          "wer_difference_pp": 9.173350107459244,
+          "difference_95pct_ci_pp": [
+            8.238735096532068,
+            10.150759106842907
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 6.741101850395764,
+          "difference_95pct_ci_pp": [
+            5.7388487059127735,
+            7.820097713893221
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "jacktol-whisper": {
+        "p4": {
+          "wer_difference_pp": -2.327409970121088,
+          "difference_95pct_ci_pp": [
+            -3.334050363948488,
+            -1.1258202710955245
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -4.759658227184568,
+          "difference_95pct_ci_pp": [
+            -5.827482094724818,
+            -3.5054110288479183
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "jlvdoorn-whisper": {
+        "p4": {
+          "wer_difference_pp": -2.982649263511034,
+          "difference_95pct_ci_pp": [
+            -3.7468492489384513,
+            -2.1981309642661797
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -5.414897520574514,
+          "difference_95pct_ci_pp": [
+            -6.258276556575949,
+            -4.5583372726128735
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "xlsr-atcosim": {
+        "p4": {
+          "wer_difference_pp": 69.01504429417623,
+          "difference_95pct_ci_pp": [
+            68.0010100034658,
+            70.03148461360284
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 66.58279603711276,
+          "difference_95pct_ci_pp": [
+            65.50010334869627,
+            67.63296748365816
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "youtube-fastconformer": {
+        "p4": {
+          "wer_difference_pp": 7.207632227289407,
+          "difference_95pct_ci_pp": [
+            6.190234119535566,
+            8.213554136568327
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 4.775383970225926,
+          "difference_95pct_ci_pp": [
+            3.7438564575849176,
+            5.8325684219489515
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "us-whisper-turbo": {
+        "p4": {
+          "wer_difference_pp": 47.01472977931541,
+          "difference_95pct_ci_pp": [
+            43.666025961386026,
+            51.708500909223645
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": 44.582481522251925,
+          "difference_95pct_ci_pp": [
+            41.256442324912264,
+            49.37900075611432
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "rasr-parakeet-v1": {
+        "p4": {
+          "wer_difference_pp": -6.536667190858101,
+          "difference_95pct_ci_pp": [
+            -7.3072216106957,
+            -5.794368465934315
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -8.968915447921582,
+          "difference_95pct_ci_pp": [
+            -9.813558251441119,
+            -8.144016388381791
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      },
+      "rasr-parakeet-v2": {
+        "p4": {
+          "wer_difference_pp": -4.612884625465219,
+          "difference_95pct_ci_pp": [
+            -5.400355460031863,
+            -3.8158040705049925
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        },
+        "n4": {
+          "wer_difference_pp": -7.0451328825287,
+          "difference_95pct_ci_pp": [
+            -7.892043051174199,
+            -6.185490290551963
+          ],
+          "method": "paired source-recording cluster bootstrap, 2000 draws, seed 20261106; no multiple-comparison correction"
+        }
+      }
+    }
+  },
+  "secondary_english_normalized": {
+    "label": "Secondary standard Whisper English-normalized WER; not the primary study metric",
+    "post_hoc_diagnostic": true,
+    "reason": "US Whisper emits digits while primary references spell numbers; apply one existing standard normalizer uniformly to all 11 systems. No inference or checkpoint changes.",
+    "normalizer": "transformers 5.3.0 EnglishTextNormalizer",
+    "normalizer_source_sha256": "ecc14492d5fc0d1332aea3729a6cdc7c4c48aea72beceacfcbcdb847b6c1ac83",
+    "spelling_map_sha256": "bf1c507dc8724ca9cf9903640dacfb69dae2f00edee4f21ceba106a7392f26dd",
+    "spelling_map_repo": "openai/whisper-large-v3-turbo",
+    "spelling_map_revision": "41f01f3fe87f28c78e2fbf8b568835947dd65ed9",
+    "regex_version": "2024.11.6",
+    "warning": "This normalizer also changes contractions, fillers, spelling and punctuation; it is not a number-only or ATC identifier-accuracy metric. Denominators differ from primary WER.",
+    "scores": {
+      "qenneth": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 3450,
+          "substitutions": 2233,
+          "deletions": 747,
+          "insertions": 470,
+          "wer": 0.19640214049869065,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.1860973932909121,
+            0.20636178401630065
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 3136,
+          "substitutions": 2030,
+          "deletions": 675,
+          "insertions": 431,
+          "wer": 0.20661483726446173,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.19560821213860535,
+            0.2177864445204472
+          ]
+        }
+      },
+      "p4": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 4313,
+          "substitutions": 2867,
+          "deletions": 892,
+          "insertions": 554,
+          "wer": 0.24553113970169646,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.23488339379037473,
+            0.2558923614424683
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 3724,
+          "substitutions": 2479,
+          "deletions": 769,
+          "insertions": 476,
+          "wer": 0.2453551192515483,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.23423949435167102,
+            0.2557077963333595
+          ]
+        }
+      },
+      "n4": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 4838,
+          "substitutions": 3165,
+          "deletions": 1111,
+          "insertions": 562,
+          "wer": 0.2754184219514972,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2640018021316812,
+            0.2867043828011988
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 4178,
+          "substitutions": 2727,
+          "deletions": 962,
+          "insertions": 489,
+          "wer": 0.27526683357491105,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2635305333768182,
+            0.28709337296609116
+          ]
+        }
+      },
+      "steak-whisper": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 6047,
+          "substitutions": 3796,
+          "deletions": 1638,
+          "insertions": 613,
+          "wer": 0.34424456336103837,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.331210492651343,
+            0.3568155953859957
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 5246,
+          "substitutions": 3288,
+          "deletions": 1424,
+          "insertions": 534,
+          "wer": 0.34563183555145605,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.3319907837342307,
+            0.359794343331187
+          ]
+        }
+      },
+      "jacktol-whisper": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 3509,
+          "substitutions": 2309,
+          "deletions": 630,
+          "insertions": 570,
+          "wer": 0.1997609017420016,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18735569433160387,
+            0.21271923136224288
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 3285,
+          "substitutions": 2175,
+          "deletions": 567,
+          "insertions": 543,
+          "wer": 0.2164316774278561,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.20237386739454052,
+            0.2309097092730986
+          ]
+        }
+      },
+      "jlvdoorn-whisper": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 3442,
+          "substitutions": 2306,
+          "deletions": 665,
+          "insertions": 471,
+          "wer": 0.19594671524536036,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18532347841703795,
+            0.20636521759456275
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 3121,
+          "substitutions": 2103,
+          "deletions": 590,
+          "insertions": 428,
+          "wer": 0.20562656476479116,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.19329092515482654,
+            0.21756080914000936
+          ]
+        }
+      },
+      "xlsr-atcosim": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 16880,
+          "substitutions": 10891,
+          "deletions": 5299,
+          "insertions": 690,
+          "wer": 0.960947284526927,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.9539532936345191,
+            0.9681956787696316
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 14634,
+          "substitutions": 9394,
+          "deletions": 4625,
+          "insertions": 615,
+          "wer": 0.9641586506786138,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.956481236359718,
+            0.9719947090931553
+          ]
+        }
+      },
+      "youtube-fastconformer": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 5406,
+          "substitutions": 3449,
+          "deletions": 1474,
+          "insertions": 483,
+          "wer": 0.3077536149379483,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.29569702944648635,
+            0.32015360203012994
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 4729,
+          "substitutions": 3031,
+          "deletions": 1273,
+          "insertions": 425,
+          "wer": 0.3115693767294769,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2972570922107998,
+            0.32499783691586004
+          ]
+        }
+      },
+      "us-whisper-turbo": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 9095,
+          "substitutions": 5941,
+          "deletions": 948,
+          "insertions": 2206,
+          "wer": 0.5177615848798816,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.47473769735906995,
+            0.5748745118716267
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 7853,
+          "substitutions": 5209,
+          "deletions": 812,
+          "insertions": 1832,
+          "wer": 0.5173935959942021,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.47468249396854595,
+            0.5758781290502935
+          ]
+        }
+      },
+      "rasr-parakeet-v1": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 2613,
+          "substitutions": 1685,
+          "deletions": 582,
+          "insertions": 346,
+          "wer": 0.14875327336900832,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.13989295454710526,
+            0.15774055831207162
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 2384,
+          "substitutions": 1538,
+          "deletions": 527,
+          "insertions": 319,
+          "wer": 0.1570694426143102,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.14733706964472368,
+            0.16638080474485237
+          ]
+        }
+      },
+      "rasr-parakeet-v2": {
+        "full": {
+          "utterances": 1908,
+          "reference_words": 17566,
+          "word_errors": 3083,
+          "substitutions": 1996,
+          "deletions": 715,
+          "insertions": 372,
+          "wer": 0.17550950700216328,
+          "source_recordings": 1168,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.16564934669700382,
+            0.1852021680095924
+          ]
+        },
+        "known_jacktol_disjoint": {
+          "utterances": 1695,
+          "reference_words": 15178,
+          "word_errors": 2749,
+          "substitutions": 1786,
+          "deletions": 628,
+          "insertions": 335,
+          "wer": 0.18111740677296087,
+          "source_recordings": 1040,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.17073246176082887,
+            0.19163287478134636
+          ]
+        }
+      }
+    },
+    "python_compatibility": "Evaluated the unmodified Transformers normalizer source with postponed annotation compilation for Python 3.8; no normalization logic changed."
+  },
+  "ctc_development_audit": {
+    "purpose": "Development-only independent scalar FP32 check of BF16 batched greedy CTC path",
+    "utterances": 8,
+    "same_normalized_predictions": 4,
+    "original_errors": 96,
+    "fp32_single_clip_errors": 95,
+    "reference_words": 108
+  },
+  "completion": {
+    "slurm_job": "38095055",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:05:52",
+    "gpus": 8,
+    "ctc_audit_job": "38095237"
+  },
+  "scope": "Eight new ATC-specific shortlisted checkpoints; three identity-verified existing baselines. Not inference of every repository in the inventory.",
+  "interpretation": "Known-Jacktol-disjoint is not proof of independence from other ATCO2-derived training. Offline community inference does not establish native streaming equivalence.",
+  "model_pins": {
+    "models": [
+      {
+        "slug": "steak-whisper",
+        "kind": "whisper",
+        "repo_id": "camillebrl/whisper-large-v3-synthetic-20k-matched-psd_snrm10_drv6_o4",
+        "revision": "0d2381ed1eed8a5c8170a0252fd890f8ac89ff7b",
+        "weight_files": [
+          "model.safetensors"
+        ]
+      },
+      {
+        "slug": "jacktol-whisper",
+        "kind": "whisper",
+        "repo_id": "jacktol/whisper-large-v3-finetuned-for-ATC",
+        "revision": "d82c726fc7021239f28988126005285ee91c338e",
+        "weight_files": [
+          "model-00001-of-00002.safetensors",
+          "model-00002-of-00002.safetensors"
+        ]
+      },
+      {
+        "slug": "jlvdoorn-whisper",
+        "kind": "whisper",
+        "repo_id": "jlvdoorn/whisper-large-v3-atco2-asr",
+        "revision": "f7a0dddfea9de70f9f5b2e1332ae19734e60081f",
+        "weight_files": [
+          "model.safetensors"
+        ]
+      },
+      {
+        "slug": "xlsr-atcosim",
+        "kind": "ctc",
+        "repo_id": "Jzuluaga/wav2vec2-xls-r-300m-en-atc-atcosim",
+        "revision": "b55f7042e0a6f64b93ec71af2b02ad080941fac1",
+        "weight_files": [
+          "pytorch_model.bin"
+        ]
+      },
+      {
+        "slug": "youtube-fastconformer",
+        "kind": "nemo-rnnt",
+        "repo_id": "niclaswue/youtube-atc-fastconformer",
+        "revision": "71dd41b077fa7633742e303cb298c87b2598c241",
+        "weight_files": [
+          "FastConformer-Hybrid-Transducer-CTC-Char.nemo"
+        ]
+      },
+      {
+        "slug": "us-whisper-turbo",
+        "kind": "whisper-lora",
+        "repo_id": "thomaseibner/whisper-large-v3-turbo-us-atc-v3",
+        "revision": "d1ec48290647ea6daf0602c48ef77c7d288d5983",
+        "weight_files": [
+          "adapter_model.safetensors"
+        ]
+      },
+      {
+        "slug": "rasr-parakeet-v1",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v1",
+        "revision": "1faf953af2f07946566ff426e4609d0325f61b33",
+        "weight_files": [
+          "rasr-parakeet-v1.nemo"
+        ]
+      },
+      {
+        "slug": "rasr-parakeet-v2",
+        "kind": "nemo-tdt",
+        "repo_id": "twangodev/rasr-parakeet-v2",
+        "revision": "cb6ed4e5e68db54b4a8787dcea9706c2160a1354",
+        "weight_files": [
+          "rasr-parakeet-v2.nemo"
+        ]
+      }
+    ],
+    "adapter_base": {
+      "slug": "whisper-turbo-base",
+      "repo_id": "openai/whisper-large-v3-turbo",
+      "revision": "41f01f3fe87f28c78e2fbf8b568835947dd65ed9",
+      "weight_files": [
+        "model.safetensors"
+      ]
+    }
+  },
+  "runtime_caveat": "Concurrent 8-model node; HF timing excludes model loading, NeMo includes test reload. Not a controlled latency benchmark."
+}

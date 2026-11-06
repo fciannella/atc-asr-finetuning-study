@@ -4,7 +4,9 @@ Public documentation repository for the ATCO2 and Jacktol ASR adaptation study. 
 
 ## Start here
 
-- [Experiment appendix: ordered reading guide](docs/experiments/README.md) is the current entry point for results, including Nemotron Gold refinement, Jacktol curricula, and fresh greedy n-gram comparisons through October 7, 2026.
+- [Current evaluation tracker — November 6, 2026](docs/evaluation-tracker.md) collects the community benchmark, Jacktol P2 rerun, checkpoint provenance, split corrections, and remaining work.
+- [N4/P4 release checkpoint comparison](docs/checkpoint-comparison-n4-p4.md) records the selected release artifacts and their evaluation results.
+- [Experiment appendix: ordered reading guide](docs/experiments/README.md) organizes the earlier results, including Nemotron Gold refinement, Jacktol curricula, and fresh greedy n-gram comparisons through October 7, 2026.
 - [Fine-tuning guide](docs/fine-tuning-guide.md) explains the skill-guided ASR adaptation workflow.
 - [Earlier experiments narrative](docs/experiments-and-results.md) preserves the historical account; use the appendix above for updated evidence and comparison boundaries.
 - [Fine-tuning blog — concise edition](docs/fine_tuning_blog_1400.md) targets the original 1,400-word editorial limit.

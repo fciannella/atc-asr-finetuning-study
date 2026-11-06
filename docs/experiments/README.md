@@ -1,6 +1,6 @@
 # ASR adaptation experiments: a reading guide
 
-This is the results appendix for the fine-tuning blog. It organizes the recorded study by the question each experiment answered, rather than by job submission order. Evidence is frozen through October 7, 2026; the guide was assembled on October 9. No new training or evaluation was performed to write it.
+This is the results appendix for the fine-tuning blog. It organizes the recorded study by the question each experiment answered, rather than by job submission order. Evidence is frozen through October 7, 2026; the guide was assembled on October 9. No new training or evaluation was performed to write the original guide. The [November 6 evaluation tracker](../evaluation-tracker.md) covers subsequent community runs and the new P2 evaluation; Chapter 3 now includes the verified historical split correction.
 
 ## Read in this order
 

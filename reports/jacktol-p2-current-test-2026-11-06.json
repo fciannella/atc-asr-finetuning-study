@@ -1,0 +1,152 @@
+{
+  "date": "2026-11-06",
+  "new_evaluation": {
+    "status": "complete",
+    "model": {
+      "slug": "our-jacktol-p2",
+      "kind": "nemo-tdt",
+      "weight_files": [
+        "selected.nemo"
+      ],
+      "checkpoint_sha256": "3627bf6b74ea8cf4a041ba3c93eb3a0a89745b3a827c6dcd901018927b80f516"
+    },
+    "receipt": {
+      "slug": "our-jacktol-p2",
+      "kind": "nemo-tdt",
+      "weight_files": [
+        "selected.nemo"
+      ],
+      "checkpoint_sha256": "3627bf6b74ea8cf4a041ba3c93eb3a0a89745b3a827c6dcd901018927b80f516",
+      "weights": {
+        "selected.nemo": {
+          "sha256": "3627bf6b74ea8cf4a041ba3c93eb3a0a89745b3a827c6dcd901018927b80f516",
+          "bytes": 2509322240
+        }
+      }
+    },
+    "environment": {
+      "gpu": "NVIDIA A100-SXM4-80GB",
+      "versions": {
+        "torch": "2.7.0a0+79aa17489c.nv25.4",
+        "transformers": "5.3.0",
+        "nemo_toolkit": "0.10.1",
+        "peft": "0.18.0",
+        "safetensors": "0.5.3"
+      }
+    },
+    "scores": {
+      "full": {
+        "utterances": 1908,
+        "reference_words": 21930,
+        "word_errors": 4030,
+        "substitutions": 2823,
+        "deletions": 783,
+        "insertions": 424,
+        "wer": 0.18376652986776107,
+        "source_recordings": 1168,
+        "wer_95pct_recording_cluster_bootstrap": [
+          0.17567992384034212,
+          0.1925829469040516
+        ]
+      },
+      "known_jacktol_disjoint": {
+        "utterances": 1695,
+        "reference_words": 19077,
+        "word_errors": 3605,
+        "substitutions": 2531,
+        "deletions": 696,
+        "insertions": 378,
+        "wer": 0.18897101221366042,
+        "source_recordings": 1040,
+        "wer_95pct_recording_cluster_bootstrap": [
+          0.17981452663519673,
+          0.19822398201019342
+        ]
+      }
+    },
+    "load_and_smoke_seconds": 28.75903896614909,
+    "test_wall_seconds": 46.882124678231776,
+    "test_audio_seconds": 7201.588,
+    "test_rtf": 0.0065099703951728115,
+    "timing_scope": "NeMo CLI includes test model reload; HF excludes load after dev smoke. Single-model GPU run.",
+    "eos_absent_returned_sequence_count": null,
+    "prediction_sha256": "82267ff867c5300990f71405867d5f213fcf0fb731335647c297fa570733a1eb",
+    "data_contract": {
+      "test": {
+        "source_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+        "materialized_sha256": "cf3db1f53176e296e8329caa090debac03f169869fc17972b396cf1f274a589e",
+        "utterances": 1908,
+        "reference_words": 21930,
+        "hours": 2.0004411111111073,
+        "max_duration": 15.27,
+        "disjoint_utterances": 1695,
+        "disjoint_words": 19077,
+        "source_recordings": 1168
+      },
+      "dev": {
+        "source_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+        "materialized_sha256": "4553bff8e3152d79882198edbc16c4bdde190dccf7f25669691dbeb684f0cb01",
+        "utterances": 100,
+        "reference_words": 1108,
+        "hours": 0.10003166666666669,
+        "max_duration": 9.45,
+        "disjoint_utterances": 92,
+        "disjoint_words": 994,
+        "source_recordings": 75
+      },
+      "overlap_audit_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+      "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96"
+    },
+    "scorer_sha256": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+    "runner_sha256": "465723c4394b41bbb744a13abdf98cc312e2c8a2627ecf9eca7fd9ea22acbcf9",
+    "job_id": "38096604",
+    "metadata": {}
+  },
+  "historical_audit": {
+    "date": "2026-11-06",
+    "historical_test_contract": {
+      "atco2-gold-test": {
+        "records": 1394,
+        "speech_hours": 1.4758105555555545,
+        "sha256": "faaad18713e6fc5400e7d3133c7b6983b2bab13633b88b869062c271b2d2b046"
+      },
+      "atco2-gold-train-jacktol-disjoint": {
+        "records": 685,
+        "speech_hours": 0.6781938888888884,
+        "sha256": "00cc60c87d91819c03a39c94af91af359900c85e2da87ec9649d583b59b4a7cf"
+      },
+      "jacktol-train": {
+        "records": 6497,
+        "speech_hours": 5.895788993333333,
+        "sha256": "577b1b78981fefecb5be86d84141367a7ba6d5721c03d8c4ebc2a03dfeb10e72"
+      }
+    },
+    "historical_scores": {
+      "p2": {
+        "utterances": 1394,
+        "reference_words": 15981,
+        "word_errors": 2843,
+        "normalized_wer": 0.1778987547712909,
+        "normalization": "lowercase, Unicode diacritic fold, punctuation/symbol removal, whitespace normalization",
+        "raw_text_differences": 1394
+      },
+      "gold_additive": {
+        "utterances": 1394,
+        "reference_words": 15981,
+        "word_errors": 2467,
+        "normalized_wer": 0.15437081534322009,
+        "normalization": "lowercase, Unicode diacritic fold, punctuation/symbol removal, whitespace normalization",
+        "raw_text_differences": 1394
+      }
+    },
+    "gold_additive_training_overlap_with_current_2h": {
+      "matching_ids": 554,
+      "matching_source_path_offset_duration": 554,
+      "current_test_utterances": 1908
+    },
+    "p2_checkpoint_sha256": "3627bf6b74ea8cf4a041ba3c93eb3a0a89745b3a827c6dcd901018927b80f516",
+    "p2_uwb_ancestry": true
+  },
+  "training": "Base Parakeet v3 -> A1/A2 with Jacktol, UWB and English -> P1/P2 with Jacktol and English; UWB ancestry persists.",
+  "caveat": "Known-Jacktol-disjoint excludes only the audited Jacktol recordings; no claim of universally clean training history."
+}
