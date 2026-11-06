@@ -1,6 +1,7 @@
 # Frozen reports
 
-- [nemotron-transcribe-atc-pilot-2026-11-06.json](nemotron-transcribe-atc-pilot-2026-11-06.json): submitted bounded training experiment, frozen data counts and job IDs. Data preparation passed; GPU phases are pending. Contains no pilot accuracy claims.
+- [nemotron-transcribe-atc-pilot-8gpu-2026-11-06.json](nemotron-transcribe-atc-pilot-8gpu-2026-11-06.json): current eight-GPU bounded pilot, frozen data counts, requested resources and job IDs. Distributed configuration audit running; GPU phases pending. No pilot accuracy claims.
+- [nemotron-transcribe-atc-pilot-2026-11-06.json](nemotron-transcribe-atc-pilot-2026-11-06.json): superseded one-GPU submission; its four GPU jobs were cancelled before starting.
 
 - [atco2-training-overlap-audit-2026-11-06.json](atco2-training-overlap-audit-2026-11-06.json) and [CSV](atco2-training-overlap-audit-2026-11-06.csv): exact public ATCO2 audio matches, pinned ancestry evidence, preprocessing eligibility and all 12 checkpoints rescored on two common exclusion masks. Private per-utterance evidence is not included.
 

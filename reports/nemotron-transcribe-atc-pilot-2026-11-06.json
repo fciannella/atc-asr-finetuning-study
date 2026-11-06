@@ -1,6 +1,6 @@
 {
   "experiment": "nemotron-transcribe-atc-pilot-2026-11-06",
-  "status": "data_audit_passed_gpu_preflight_queued",
+  "status": "superseded_gpu_jobs_cancelled_before_start",
   "status_observed_at": "2026-11-06T20:59:17.565612+00:00",
   "base": {
     "model_id": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
@@ -87,5 +87,13 @@
   ],
   "metrics": null,
   "training_started": false,
-  "scheduler_pending_reason": "QOSMaxJobsPerUserLimit"
+  "scheduler_pending_reason": null,
+  "superseded_by": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06",
+  "superseded_at": "2026-11-06T22:33:37.525813+00:00",
+  "gpu_jobs_cancelled_before_start": [
+    "38102859",
+    "38102860",
+    "38102861",
+    "38102862"
+  ]
 }
