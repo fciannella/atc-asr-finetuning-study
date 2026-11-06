@@ -25,6 +25,8 @@ Full test: **1,908 utterances / 21,930 words / 2.000441 hours**. The supplementa
 
 RASR v1 has the lowest observed WER, with unresolved ATCO2 training ancestry. N4 remains the selected streaming release path. P2 has inherited UWB training; it does not satisfy the current requirement to exclude UWB throughout training. US Whisper's digit formatting affects primary WER; its secondary standard-English-normalized full WER is 51.78%, versus 66.70% primary. See the benchmark for that normalization applied uniformly to all 11 systems in the original group. P2 has only the primary metric in this update.
 
+The [training-data map](model-training-data.md) lists the source datasets, label origin, inherited training and evidence gaps for all 12 checkpoints.
+
 ## Evidence and completed work
 
 | Work | Status | Record |
