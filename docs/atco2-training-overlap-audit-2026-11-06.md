@@ -1,6 +1,39 @@
-# ATCO2 training-source overlap audit
+# ATCO2 comparison after removing known overlap
 
-Completed **November 6, 2026**. **Exact audio overlap is now confirmed with the published ATCO2 training sources used by RASR and the jlvdoorn project.** This closes the direct ATCO2 source comparison; it does not certify their full inherited training histories.
+Updated **November 6, 2026**. The current results below exclude all overlap identified by the completed Jacktol and public ATCO2 audio audits.
+
+All results below use the **same 1,269 utterances, 13,851 reference words, 768 source recordings and 1.262691 hours (75.76 minutes)**. This subset excludes the union of known Jacktol recording links and exact matches to the audited public ATCO2 training and validation sources.
+
+**Scope: known overlap removed.** No retained utterance has an overlap identified by the completed audits. This is not a guarantee of zero contamination across every model’s full training history: unscanned corpora and incomplete base/teacher manifests remain. The subset was defined after inspecting the original test, so it is not a new blind test.
+
+## Measured results
+
+Lower WER is better. All community checkpoints, P2 and P4 were evaluated offline; N4 uses its established native-streaming condition.
+
+| Checkpoint | Mode evaluated | WER | 95% confidence interval |
+|---|---|---:|---:|
+| RASR Parakeet v1 | Offline | 15.68% | 14.70–16.66% |
+| RASR Parakeet v2 | Offline | 17.33% | 16.26–18.40% |
+| qenneth Parakeet | Offline | 18.18% | 17.17–19.22% |
+| jlvdoorn Whisper large v3 | Offline | 19.82% | 18.72–20.95% |
+| Our Jacktol-trained P2 | Offline | 20.11% | 19.01–21.24% |
+| Our P4 Parakeet | Offline | 20.16% | 19.11–21.25% |
+| Jacktol Whisper large v3 | Offline | 20.29% | 18.91–21.83% |
+| Our N4 Nemotron | Native streaming | 22.32% | 21.21–23.47% |
+| YouTube ATC FastConformer | Offline | 28.50% | 27.05–30.01% |
+| STEAK synthetic Whisper | Offline | 30.50% | 29.11–31.94% |
+| US ATC Whisper Turbo v3 | Offline | 69.25% | 64.91–75.72% |
+| XLS-R ATCOSIM | Offline | 90.39% | 89.56–91.17% |
+
+Intervals use 2,000 bootstrap draws clustered by source recording, with seed 20261106. They describe sampling uncertainty on this subset; they do not establish training independence or a statistically significant ranking between nearby models.
+
+The [comparison CSV](../reports/evaluation-comparison-2026-11-06.csv) contains only this subset, with error counts, confidence intervals, training data and evaluation denominators. The [benchmark](community-atc-benchmark-2026-11-06.md) documents inference and scoring.
+
+## How the evaluation subset was formed
+
+We removed **639 of the original 1,908 utterances**: the union of 213 Jacktol-linked utterances and 638 exact public ATCO2 train/validation matches. Of those, 212 occur in both groups. The same exclusions apply to every model, including matches outside a particular recipe’s duration window.
+
+Existing predictions were rescored using the original lexical normalizer and corpus WER formula. No new inference, fine-tuning, decoding change or checkpoint selection was performed. Original full-test error totals reproduced before rescoring. The previous full-test, Jacktol-only and training-only exclusion views are not included in the current results because they retain identified overlap. Historical artifacts remain available for audit traceability.
 
 ## Confirmed audio findings
 
@@ -27,32 +60,6 @@ The RASR manifest builder also applies the duration filter to its validation inp
 
 Sources: [RASR v1 recipe](https://github.com/twangodev/rasr/blob/ddff2ba501ab78f2820d159325ca3ff26699a94e/configs/train/rtx6kpro/v1-mixed.yaml), [manifest preparation](https://github.com/twangodev/rasr/blob/ddff2ba501ab78f2820d159325ca3ff26699a94e/src/rasr/train/manifest.py), [duration defaults](https://github.com/twangodev/rasr/blob/ddff2ba501ab78f2820d159325ca3ff26699a94e/src/rasr/train/config.py), [pinned v2 recipe](https://huggingface.co/twangodev/rasr-parakeet-v2/blob/cb6ed4e5e68db54b4a8787dcea9706c2160a1354/training_recipe.yaml), and [WhisperATC training script](https://github.com/jlvdoorn/WhisperATC/blob/cd0b71e5e0da9241d589d4bdbfbf16440549e577/Fine-Tune/FineTuning-ATCO2.py). These are source artifacts, not a reconstruction of private training-job logs. RASR's offline dataset-loading fallback can also read all cached Parquet files without enforcing the requested split; no evidence establishes that this fallback was used in these training jobs, so we do not count validation audio as confirmed training exposure.
 
-## A common comparison after removing audited sources
-
-The previous Jacktol-only mask is insufficient for these models. We therefore formed two fixed, common masks and rescored the existing predictions for **all 12 checkpoints**:
-
-- **Jacktol + audited ATCO2 training sources excluded:** remove the union of 560 test utterances; retain **1,348 utterances, 14,874 words, 1.362562 hours**.
-- **Jacktol + audited ATCO2 training and validation sources excluded:** remove the union of 639; retain **1,269 utterances, 13,851 words, 1.262691 hours**. This more conservative view is shown below.
-
-The 639 exclusions are the union of 213 Jacktol-linked utterances and 638 public ATCO2 train/validation matches; 212 occur in both groups. The mask excludes all source matches, including the small number outside recipe windows, rather than constructing a different test for each model.
-
-| Checkpoint | Original full-test WER | Existing Jacktol-excluded WER | New audited-source-excluded WER |
-|---|---:|---:|---:|
-| RASR Parakeet v1 | 12.71% | 13.36% | 15.68% |
-| RASR Parakeet v2 | 14.88% | 15.28% | 17.33% |
-| qenneth Parakeet | 15.91% | 16.65% | 18.18% |
-| jlvdoorn Whisper large v3 | 16.20% | 16.91% | 19.82% |
-| Jacktol Whisper large v3 | 16.30% | 17.57% | 20.29% |
-| Our Jacktol-trained P2 | 18.38% | 18.90% | 20.11% |
-| Our P4 Parakeet | 20.00% | 19.89% | 20.16% |
-| Our N4 Nemotron | 22.46% | 22.33% | 22.32% |
-| YouTube ATC FastConformer | 26.75% | 27.10% | 28.50% |
-| STEAK synthetic Whisper | 29.01% | 29.07% | 30.50% |
-| US ATC Whisper Turbo v3 | 66.70% | 66.91% | 69.25% |
-| XLS-R ATCOSIM | 88.64% | 88.91% | 90.39% |
-
-**Compare models within a column.** Original scores remain unchanged and visible. The new column has a smaller denominator and is an additional post-hoc diagnostic, not a replacement blind test or proof of general training independence. Changes between columns combine source exclusion with changes in test difficulty; they do not measure memorization causally. No new inference, fine-tuning, decoding change or checkpoint selection was performed. All original full-test error totals reproduced before rescoring. The JSON includes the training-only view, substitutions/deletions/insertions and recording-clustered 95% bootstrap intervals.
-
 ## Inherited data and remaining gaps
 
 | Branch | What was traced | What remains unresolved |
@@ -78,6 +85,6 @@ The review also found explicit dataset/base metadata links for **eight inventory
 - Exact PCM comparisons do not establish absence of arbitrary resampling, recropping, time shifts or other transforms among unmatched sources. Negative findings are limited to the stated method.
 - [Executed audit and rescoring scripts](../scripts/atco2-source-audit-2026-11-06/README.md) are preserved byte-for-byte; their hashes appear in the JSON.
 - CPU audit jobs **38098198** and **38098238** completed successfully. The second includes preprocessing checks, independent WAV verification and all 12 rescored checkpoints.
-- [Aggregate audit JSON and source pins](../reports/atco2-training-overlap-audit-2026-11-06.json); [common-mask WER CSV](../reports/atco2-training-overlap-audit-2026-11-06.csv). Row IDs, audio, transcripts, per-utterance matches and masks remain in restricted storage; only their hashes and aggregate results are published.
+- [Aggregate audit JSON and source pins](../reports/atco2-training-overlap-audit-2026-11-06.json) (also retains historical diagnostic views); [current comparison CSV](../reports/evaluation-comparison-2026-11-06.csv). Row IDs, audio, transcripts, per-utterance matches and masks remain in restricted storage; only their hashes and aggregate results are published.
 
 **Status:** direct public ATCO2 audio overlap is established and a common exclusion-based comparison is available. Full-ancestry clearance remains open until exact training manifests, preprocessing/version details and inaccessible base/teacher histories can be reconciled. The [tracker](evaluation-tracker.md) separates these completed findings from the remaining work.

@@ -1,6 +1,6 @@
 # Community ATC model inventory — 2026-11-06
 
-**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) adds scores on a common 1,269-utterance exclusion subset. Earlier metric snapshots below remain unchanged; full-ancestry independence is not established.
+**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) shows only the common 1,269-utterance subset after removing identified overlap. Machine-readable inventory fields preserve historical measurements for provenance; use the current table for comparison. Full-ancestry independence is not established.
 
 This is the full screening ledger supporting the [assessment](community-atc-model-assessment.md). Each repository links to its pinned card or file tree. A listed artifact is not proof that restoration succeeds. Repository counts include variants, incomplete uploads, and false-positive search hits; they are not counts of independent trained models.
 

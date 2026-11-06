@@ -1,6 +1,6 @@
 # Public community ATC ASR models: assessment and evaluation plan
 
-**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) adds scores on a common 1,269-utterance exclusion subset. Earlier metric snapshots below remain unchanged; full-ancestry independence is not established.
+**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) now shows only the common 1,269-utterance subset with identified overlap removed. Full-ancestry independence is not established.
 
 Assessment date: **2026-11-06**. Status: **research and artifact screening completed; first evaluation group completed on all 1,908 test utterances**.
 
@@ -23,27 +23,26 @@ The [complete Markdown ledger](community-atc-model-inventory.md), [CSV inventory
 
 ## What we have actually measured
 
-The community authors did **not** evaluate against our unpublished two-hour package. Our team downloaded a public checkpoint and evaluated it internally. The overlap issue concerns shared upstream recordings, not access to our package.
+All results below use the **same 1,269 utterances, 13,851 reference words, 768 source recordings and 1.262691 hours (75.76 minutes)**. This subset excludes the union of known Jacktol recording links and exact matches to the audited public ATCO2 training and validation sources.
 
-| Model | Full 2h WER | Known-Jacktol-disjoint WER | Prediction source |
-|---|---:|---:|---|
-| RASR Parakeet v1 | 12.71% | 13.36% | New inference |
-| RASR Parakeet v2 | 14.88% | 15.28% | New inference |
-| qenneth Parakeet ATC | 15.91% | 16.65% | Existing, identity-verified and rescored |
-| jlvdoorn Whisper large v3 ATCO2 | 16.20% | 16.91% | New inference |
-| Jacktol Whisper large v3 | 16.30% | 17.57% | New inference |
-| Our P4 Parakeet (offline) | 20.00% | 19.89% | Existing, identity-verified and rescored |
-| Our N4 Nemotron (streaming) | 22.46% | 22.33% | Existing, identity-verified and rescored |
-| YouTube ATC FastConformer | 26.75% | 27.10% | New inference |
-| STEAK synthetic Whisper large v3 | 29.01% | 29.07% | New inference |
-| US ATC Whisper Turbo v3 | 66.70% | 66.91% | New inference |
-| XLS-R 300M ATCOSIM | 88.64% | 88.91% | New inference |
+| Checkpoint | Mode evaluated | WER | 95% confidence interval |
+|---|---|---:|---:|
+| RASR Parakeet v1 | Offline | 15.68% | 14.70–16.66% |
+| RASR Parakeet v2 | Offline | 17.33% | 16.26–18.40% |
+| qenneth Parakeet | Offline | 18.18% | 17.17–19.22% |
+| jlvdoorn Whisper large v3 | Offline | 19.82% | 18.72–20.95% |
+| Our Jacktol-trained P2 | Offline | 20.11% | 19.01–21.24% |
+| Our P4 Parakeet | Offline | 20.16% | 19.11–21.25% |
+| Jacktol Whisper large v3 | Offline | 20.29% | 18.91–21.83% |
+| Our N4 Nemotron | Native streaming | 22.32% | 21.21–23.47% |
+| YouTube ATC FastConformer | Offline | 28.50% | 27.05–30.01% |
+| STEAK synthetic Whisper | Offline | 30.50% | 29.11–31.94% |
+| US ATC Whisper Turbo v3 | Offline | 69.25% | 64.91–75.72% |
+| XLS-R ATCOSIM | Offline | 90.39% | 89.56–91.17% |
 
-Full details, confidence intervals and the secondary normalization check are in the [completed benchmark](community-atc-benchmark-2026-11-06.md). Other candidates below have not been run.
+**Scope: known overlap removed.** No retained utterance has an overlap identified by the completed audits. This is not a guarantee of zero contamination across every model’s full training history: unscanned corpora and incomplete base/teacher manifests remain. The subset was defined after inspecting the original test, so it is not a new blind test.
 
-Full test: **1,908 utterances, 2.0004 hours, 21,930 reference words**. The supplementary view contains **1,695 utterances, 1.7494 hours, 19,077 reference words**. Our recorded audit used transcript candidates followed by acoustic correlation: 213 segments link to known Jacktol recordings, including 197 linked specifically to its training split. This is a source-recording exclusion, not proof that every excluded utterance is an exact training duplicate. The 1,695-utterance view is not a universal clean test for every candidate.
-
-Sources: [data/evaluation contract](experiments/00-data-and-evaluation.md), [community transfer study](experiments/03-jacktol-and-transfer.md), [frozen study report](../reports/jacktol-gold-study.json), and [N4/P4 comparison](checkpoint-comparison-n4-p4.md). The table is a record of measurements, not an independence-controlled ranking.
+Our team evaluated the published checkpoints internally; the community authors did not evaluate on our unpublished package. The [benchmark](community-atc-benchmark-2026-11-06.md) supplies error counts, intervals and inference details; the [source audit](atco2-training-overlap-audit-2026-11-06.md) explains exclusions. Other candidates below remain unmeasured.
 
 ## Recommended first evaluation group
 
@@ -177,7 +176,7 @@ N4 remains the selected streaming release path; an offline model's lower lexical
 
 1. **Freeze inputs and candidates.** Pin model revisions from the JSON snapshot, exact weight files and SHA-256 hashes after download, processor/base revisions for adapters, runtime/container versions, and decoding settings. For ASTRA, specify the subdirectory and actual ASR asset. A repository pin alone does not select one of several checkpoints.
 2. **Verify the test identity.** Use the existing 1,908-record manifest and reference normalization. Its recorded manifest SHA-256 is `4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082`. Confirm against the evaluation artifact before running. Materialize exact source-recording offsets and durations into utterance crops; never feed entire source recordings accidentally.
-3. **Resolve overlap per candidate.** Match source metadata and audio fingerprints against accessible training material, including earlier fine-tuning stages. Reuse the known 1,695-record mask as a labeled supplementary view. If additional overlap requires another mask, score every compared model on that same mask and publish its counts. Do not compare scores with different denominators as a ranking.
+3. **Resolve overlap per candidate.** Match source metadata and audio fingerprints against accessible training material, including earlier fine-tuning stages. Use the current common 1,269-utterance exclusion mask; the earlier Jacktol-only mask retains identified ATCO2 overlap. If additional overlap requires another mask, score every compared model on that same mask and publish its counts. Do not compare scores with different denominators as a ranking.
 4. **Smoke-test on development audio.** Check restoration, English transcription, silence behavior, long clips, precision, batch sizing, truncation, and output parsing on development material. Set decisions before the final test. In particular, inspect rasr's documented 18-second constraint, Whisper's long-input behavior, generation length caps, and raw Canary/ASTRA checkpoint restoration. Do not silently drop unsupported clips.
 5. **Primary ASR condition.** Use audio-only transcription, fixed utterance boundaries, and a declared deterministic decoder. No reference-derived prompts, airport/callsign lists from test labels, external LLM correction, or ADS-B resolver. Preserve established N4/P4 decoding for their comparison. An author's optional n-gram LM, contextual biasing, denoising, or production pipeline gets a separately named condition rather than being silently mixed into the primary score.
 6. **Score consistently.** Use `scripts/score_wer.py`: corpus substitutions + deletions + insertions divided by reference words, with the existing case/Unicode/symbol/whitespace normalization. Preserve raw text as well as normalized text. Do not import a model card's article removal or number folding into the primary scorer. Any secondary number-normalized metric must be fixed and applied to all systems equally.

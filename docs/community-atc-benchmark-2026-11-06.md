@@ -1,76 +1,43 @@
-# Community ATC benchmark on the private two-hour ATCO2 test
+# Community ATC benchmark after removing known overlap
 
-**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) adds scores on a common 1,269-utterance exclusion subset. Earlier metric snapshots below remain unchanged; full-ancestry independence is not established.
+Updated **November 6, 2026**. This page reports measured results for all 12 evaluated checkpoints on the common subset remaining after the completed overlap audits.
 
-Completed **2026-11-06**. All **eight shortlisted ATC-adapted checkpoints** produced predictions for all **1,908 utterances**. Existing qenneth, P4 and N4 predictions were checked against the same audio, offsets, durations and normalized references, then rescored. The wider inventory includes unverified and excluded entries; those were not inferred.
+All results below use the **same 1,269 utterances, 13,851 reference words, 768 source recordings and 1.262691 hours (75.76 minutes)**. This subset excludes the union of known Jacktol recording links and exact matches to the audited public ATCO2 training and validation sources.
 
-**RASR Parakeet v1 has the lowest observed primary WER: 12.71%.** This is an offline comparison with now-confirmed public ATCO2 training-source overlap, not an independent-generalization claim or a streaming replacement decision. N4 remains the selected streaming release path.
+**Scope: known overlap removed.** No retained utterance has an overlap identified by the completed audits. This is not a guarantee of zero contamination across every model’s full training history: unscanned corpora and incomplete base/teacher manifests remain. The subset was defined after inspecting the original test, so it is not a new blind test.
 
 ## Primary results
 
-Lower WER is better. All community runs and P4 are offline; N4 retains its established native-streaming evaluation condition.
+Lower WER is better. Every count and confidence interval in this table belongs to the retained subset.
 
-| Model | Training data used in adaptation | Full 2h WER | Known-Jacktol-disjoint WER | Prediction source |
-|---|---|---:|---:|---|
-| RASR Parakeet v1 | 200k synthetic RadioTalk utterances (dialogue generator disputed; linked dataset identifies Qwen3; Tada speech), plus real ATCO2/ATCOSIM training splits | 12.71% | 13.36% | New inference |
-| RASR Parakeet v2 | Inherits v1; adds 28.8 h / 35,240 TartanAviation US clips with ASR-generated labels + ADS-B correction; ATCO2/ATCOSIM replay | 14.88% | 15.28% | New inference |
-| qenneth Parakeet ATC | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | 15.91% | 16.65% | Existing, identity-verified and rescored |
-| jlvdoorn Whisper large v3 ATCO2 | ATCO2-ASR via WhisperATC; project describes an 80/20 train/validation split | 16.20% | 16.91% | New inference |
-| Jacktol Whisper large v3 | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | 16.30% | 17.57% | New inference |
-| Our P4 Parakeet (offline) | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | 20.00% | 19.89% | Existing, identity-verified and rescored |
-| Our N4 Nemotron (streaming) | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | 22.46% | 22.33% | Existing, identity-verified and rescored |
-| YouTube ATC FastConformer | 800+ h reported YouTube VATSIM/IVAO corpus; human simulator speech with ASR/LLM-generated labels | 26.75% | 27.10% | New inference |
-| STEAK synthetic Whisper large v3 | 20k synthetic STEAK v2 ATC utterances; one pass; no real ATC audio reported in fine-tuning | 29.01% | 29.07% | New inference |
-| US ATC Whisper Turbo v3 | 1,216 human-transcribed Minneapolis-area radio clips; augmentation expands these to 6,080 files | 66.70% | 66.91% | New inference |
-| XLS-R 300M ATCOSIM | ATCOSIM human speech from ATC simulations (Jzuluaga/atcosim_corpus) | 88.64% | 88.91% | New inference |
+| Checkpoint | Mode evaluated | WER | 95% confidence interval | Substitutions | Deletions | Insertions | Total word errors |
+|---|---|---:|---:|---:|---:|---:|---:|
+| RASR Parakeet v1 | Offline | 15.68% | 14.70–16.66% | 1,413 | 500 | 259 | 2,172 |
+| RASR Parakeet v2 | Offline | 17.33% | 16.26–18.40% | 1,590 | 517 | 294 | 2,401 |
+| qenneth Parakeet | Offline | 18.18% | 17.17–19.22% | 1,680 | 598 | 240 | 2,518 |
+| jlvdoorn Whisper large v3 | Offline | 19.82% | 18.72–20.95% | 1,872 | 530 | 343 | 2,745 |
+| Our Jacktol-trained P2 | Offline | 20.11% | 19.01–21.24% | 2,007 | 483 | 295 | 2,785 |
+| Our P4 Parakeet | Offline | 20.16% | 19.11–21.25% | 1,861 | 485 | 446 | 2,792 |
+| Jacktol Whisper large v3 | Offline | 20.29% | 18.91–21.83% | 1,920 | 505 | 385 | 2,810 |
+| Our N4 Nemotron | Native streaming | 22.32% | 21.21–23.47% | 1,966 | 805 | 321 | 3,092 |
+| YouTube ATC FastConformer | Offline | 28.50% | 27.05–30.01% | 2,648 | 805 | 494 | 3,947 |
+| STEAK synthetic Whisper | Offline | 30.50% | 29.11–31.94% | 2,582 | 1,129 | 514 | 4,225 |
+| US ATC Whisper Turbo v3 | Offline | 69.25% | 64.91–75.72% | 5,778 | 2,962 | 852 | 9,592 |
+| XLS-R ATCOSIM | Offline | 90.39% | 89.56–91.17% | 6,755 | 5,636 | 129 | 12,520 |
 
-Training sources for community checkpoints are publisher/project-reported; ours come from internal records. These are adaptation pools, not complete base pretraining histories. See the [12-model combined comparison](evaluation-tracker.md) for per-model evidence caveats and the [training-data map](model-training-data.md) for sources.
+Intervals use 2,000 bootstrap draws clustered by source recording, with seed 20261106. They describe sampling uncertainty on this subset; they do not establish training independence or a statistically significant ranking between nearby models.
 
-The full test has **2.000441 hours, 21,930 reference words and 1,168 source recordings**. The supplementary view has **1,695 utterances, 1.7494 hours, 19,077 words and 1,040 source recordings**. It removes 213 segments linked to known Jacktol source recordings, including 197 linked specifically to its training split. It is **not universally training-disjoint**: the subsequent [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 train-source and 140 validation-source matches, including 347 and 79 respectively that survive this Jacktol-only exclusion.
+RASR v1 has the lowest observed WER here. N4 remains the selected streaming release path; the offline comparison does not establish streaming suitability or controlled latency. Training sources and evidence caveats are listed beside the results in the [evaluation tracker](evaluation-tracker.md).
 
-Community authors did not test on our unpublished package. These are our internal measurements of their published weights. Shared upstream ELDA/ATCO2 recordings can exist even when our selected package has never been published.
+## Dataset exclusions and scoring
 
-See [where training and test audio overlap](evaluation-tracker.md#where-training-and-test-audio-overlap) for the distinction between 213 Jacktol-linked exclusions (197 training-linked), 554 exact duplicates in the excluded Gold-additive variant, and the newly confirmed public ATCO2 matches. That section also defines the supplementary score and explains why these findings are not automatically attributable to P4/N4.
+We removed the union of 213 Jacktol-linked utterances, 498 exact public ATCO2 training-source matches and 140 validation-source matches. Because 212 are present in both the Jacktol and ATCO2 groups, the total removed is **639**, leaving **1,269**. The previous Jacktol-only subset retained identified ATCO2 overlap. The [source audit](atco2-training-overlap-audit-2026-11-06.md) explains exact matches, recipe eligibility and remaining ancestry gaps.
 
-## Number-format sensitivity
+The primary scorer applies NFKD and diacritic folding, lowercase, symbol removal except ASCII apostrophes, and whitespace collapse. It does not convert spoken numbers to digits. WER is the sum of substitutions, deletions and insertions divided by **13,851 reference words**. Empty hypotheses remain in the scoring denominator.
 
-The primary scorer preserves the study's original contract: NFKD and diacritic folding, lowercase, symbol removal except ASCII apostrophes, and whitespace collapse. It does **not** convert spoken numbers to digits. All reference rows spell numbers out; US Whisper Turbo produces digits in 1,644 of 1,908 hypotheses.
+Number formatting affects this metric, particularly for US Whisper Turbo. A secondary English-normalized score has not been computed for this 1,269-utterance subset, so none is reported here. ATC-specific callsign and number accuracy also remain unmeasured.
 
-The table below is a **post-hoc diagnostic**, using the same existing Transformers 5.3.0 Whisper `EnglishTextNormalizer` on every system and both sides of the comparison. No model, decoding setting or prediction was changed. It also changes fillers, contractions, spelling and punctuation, so it is not a number-only metric or callsign correctness score. Word denominators become **17,566 full / 15,178 supplementary**; these percentages must not be directly mixed with primary WER.
-
-| Model | English-normalized full WER | English-normalized disjoint WER |
-|---|---:|---:|
-| RASR Parakeet v1 | 14.88% | 15.71% |
-| RASR Parakeet v2 | 17.55% | 18.11% |
-| qenneth Parakeet ATC | 19.64% | 20.66% |
-| jlvdoorn Whisper large v3 ATCO2 | 19.59% | 20.56% |
-| Jacktol Whisper large v3 | 19.98% | 21.64% |
-| Our P4 Parakeet (offline) | 24.55% | 24.54% |
-| Our N4 Nemotron (streaming) | 27.54% | 27.53% |
-| YouTube ATC FastConformer | 30.78% | 31.16% |
-| STEAK synthetic Whisper large v3 | 34.42% | 34.56% |
-| US ATC Whisper Turbo v3 | 51.78% | 51.74% |
-| XLS-R 300M ATCOSIM | 96.09% | 96.42% |
-
-US Whisper Turbo changes from **66.70%** primary WER to **51.78%** with standard English normalization. Both values belong in the assessment; output formatting alone should not determine the conclusion about this model. The normalizer and spelling-map hashes are recorded in the JSON. ATC-specific digit-sequence and callsign accuracy remain unmeasured.
-
-## Uncertainty and error counts
-
-| Model | Substitutions | Deletions | Insertions | Total errors | Full WER 95% CI |
-|---|---:|---:|---:|---:|---|
-| RASR Parakeet v1 | 1,745 | 693 | 350 | 2,788 | 11.99–13.45% |
-| RASR Parakeet v2 | 2,073 | 787 | 403 | 3,263 | 14.07–15.70% |
-| qenneth Parakeet ATC | 2,260 | 897 | 333 | 3,490 | 15.09–16.70% |
-| jlvdoorn Whisper large v3 ATCO2 | 2,356 | 766 | 430 | 3,552 | 15.34–17.07% |
-| Jacktol Whisper large v3 | 2,373 | 748 | 453 | 3,574 | 15.29–17.36% |
-| Our P4 Parakeet (offline) | 2,905 | 814 | 667 | 4,386 | 19.14–20.83% |
-| Our N4 Nemotron (streaming) | 3,112 | 1,285 | 528 | 4,925 | 21.54–23.42% |
-| YouTube ATC FastConformer | 3,844 | 1,321 | 702 | 5,867 | 25.70–27.87% |
-| STEAK synthetic Whisper large v3 | 3,877 | 1,720 | 764 | 6,361 | 27.90–30.13% |
-| US ATC Whisper Turbo v3 | 8,824 | 4,497 | 1,307 | 14,628 | 63.27–71.36% |
-| XLS-R 300M ATCOSIM | 10,804 | 8,443 | 191 | 19,438 | 87.98–89.35% |
-
-Intervals use 2,000 bootstrap draws clustered by source recording, seed 20261106. The paired RASR v1 minus P4 difference on the supplementary view is **−6.54 percentage points**, 95% CI **[−7.31, −5.79]**. These intervals describe sampling variability within this test; they do not correct training overlap, geographic coverage or multiple comparisons.
+These are our measurements of published weights. Community authors did not evaluate on our unpublished package; shared upstream recordings explain the identified overlap. Results are post-hoc and do not certify full training independence.
 
 ## Checkpoint identity and ATC relevance
 
@@ -90,13 +57,17 @@ Each new candidate has documented air-traffic-control adaptation in its pinned c
 | [thomaseibner/whisper-large-v3-turbo-us-atc-v3](https://huggingface.co/thomaseibner/whisper-large-v3-turbo-us-atc-v3/tree/d1ec48290647ea6daf0602c48ef77c7d288d5983) | `d1ec48290647ea6daf0602c48ef77c7d288d5983` | 1,216 human-transcribed US radio clips plus augmentation |
 | [Jzuluaga/wav2vec2-xls-r-300m-en-atc-atcosim](https://huggingface.co/Jzuluaga/wav2vec2-xls-r-300m-en-atc-atcosim/tree/b55f7042e0a6f64b93ec71af2b02ad080941fac1) | `b55f7042e0a6f64b93ec71af2b02ad080941fac1` | ATCOSIM |
 
+Our historical Jacktol-trained P2 is the checkpoint pinned and hashed in the [P2 evaluation record](jacktol-p2-current-test-2026-11-06.md); it is distinct from the excluded Gold-additive variant.
+
 US Whisper Turbo is a LoRA adapter loaded onto `openai/whisper-large-v3-turbo` at revision `41f01f3fe87f28c78e2fbf8b568835947dd65ed9`. Every newly downloaded weight file was SHA-256 verified before use. File hashes, sizes, exact assets and the base pin are in the [machine-readable report](../reports/community-atc-benchmark-2026-11-06.json). P4/N4 links refer to private release repositories.
 
-## Execution and checks
+## Original inference execution and checks
+
+These conditions describe how the original predictions were generated. The results above select only the retained 1,269 utterances; inference was not rerun. P2 came from its separately documented evaluation. CPU audit/rescoring job **38098238** completed successfully and independently verified all 638 ATCO2 segment matches.
 
 - Successful Slurm job **38095055**, eight A100-SXM4-80GB GPUs, all eight workers exited successfully; elapsed **5m52s**. No test rows were skipped. Empty hypotheses are retained and scored as deletions.
 - Frozen source manifest SHA-256: `4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082`. Exact offset/duration crops were checked sample-for-sample against the original 16 kHz mono PCM. Maximum clip length is 15.27 seconds.
-- Primary scorer SHA-256: `cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96`. Substitution/deletion/insertion totals independently match edit-distance counts for every row. Full and supplementary denominators are identical across models.
+- Primary scorer SHA-256: `cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96`. Substitution/deletion/insertion totals independently match edit-distance counts for every row. The current comparison uses 13,851 reference words for every model.
 - New inference uses BF16, batch 8, no AMP, fixed utterance boundaries, no external LM, audio enhancement, reference-derived prompt, airport resolver or ADS-B context. Eight development utterances were used for loading/inference checks before the test; checkpoints were pinned before test scoring.
 - Whisper: English transcription, greedy decoding, one beam, no sampling, `max_new_tokens=440`, no timestamps, SDPA. The US model's suggested production repetition penalty and resolver are not used; this is a shared disclosed inference condition, not a tuned best-case result.
 - XLS-R: explicit Wav2Vec2 processor, masked/padded batch inputs, greedy CTC argmax and valid-feature-length trimming. NeMo: official standalone evaluator, greedy batch decoding, `max_symbols_per_step=10`, CUDA graph decoding; TDT mode for Parakeet and RNNT for hybrid FastConformer.
@@ -111,17 +82,12 @@ An instrumentation label in the executed Whisper runner mistook missing EOS in a
 
 Per-model elapsed times are retained in JSON, but the eight models shared a node, and NeMo timings include test model reload while HF timings exclude initial loading. They are not a controlled latency ranking. Native streaming latency and callsign/number entity accuracy were not measured here.
 
-## Interpretation and artifacts
+## Artifacts and scope
 
-RASR v1 is the strongest observed offline candidate on both primary views. Its direct public ATCO2 source overlap is now confirmed. The follow-up audit provides a stricter common-mask comparison; synthetic/teacher/base histories and exact training-job manifests remain incomplete. Jacktol-trained qenneth and Whisper have known shared-source concerns; the supplementary view addresses only the already audited Jacktol links. License metadata is not approval of downstream release.
+- [Current comparison CSV](../reports/evaluation-comparison-2026-11-06.csv): only the common 1,269-utterance subset, with training data, error counts and confidence intervals.
+- [Audit JSON](../reports/atco2-training-overlap-audit-2026-11-06.json): use `common_mask_rescoring.scores.<model>.exclude_jacktol_and_audited_atco2_training_and_validation` for the results above. Other views are historical diagnostics.
+- [Original inference evidence](../reports/community-atc-benchmark-2026-11-06.json): checkpoint pins, hashes, decoding conditions and earlier metrics retained for traceability, not the current comparison.
+- [P2 checkpoint and execution evidence](../reports/jacktol-p2-current-test-2026-11-06.json).
+- [Community assessment and remaining candidates](community-atc-model-assessment.md).
 
-This completes the first evaluation group, not all 287 screened repositories or all 38 detailed profiles. Expanded groups remain unmeasured. Results do not alter the selected N4 streaming release.
-
-- [JSON: counts, intervals, pins, hashes and diagnostics](../reports/community-atc-benchmark-2026-11-06.json)
-- [CSV: comparison metrics](../reports/community-atc-benchmark-2026-11-06.csv)
-- [Community assessment and remaining candidates](community-atc-model-assessment.md)
-- [Original N4/P4 release comparison](checkpoint-comparison-n4-p4.md)
-
-Audio, reference transcripts and per-utterance hypotheses remain in the restricted evaluation storage. These repository artifacts contain aggregate results and reproducibility metadata only.
-
-A subsequent [evaluation of our historical Jacktol-trained P2](jacktol-p2-current-test-2026-11-06.md) adds the matched-test result for that separate curriculum and resolves the older Gold-additive split mismatch.
+Only these 12 checkpoints have results in the current comparison; broader inventory entries remain unmeasured. Audio, reference transcripts and per-utterance predictions remain in restricted storage.
