@@ -6,20 +6,22 @@ Updated **November 6, 2026**. This page links the completed evaluations, evidenc
 
 Nine new checkpoint evaluations are complete: eight community checkpoints and our historical Jacktol P2. Existing qenneth, P4 and N4 predictions were identity-verified and rescored, giving **12 compared checkpoints**. This does not mean the entire community inventory has been evaluated.
 
-| Checkpoint | Mode evaluated | Full-test WER | Known-Jacktol-disjoint WER |
-|---|---|---:|---:|
-| RASR Parakeet v1 | Offline | 12.71% | 13.36% |
-| RASR Parakeet v2 | Offline | 14.88% | 15.28% |
-| qenneth Parakeet | Offline | 15.91% | 16.65% |
-| jlvdoorn Whisper large v3 | Offline | 16.20% | 16.91% |
-| Jacktol Whisper large v3 | Offline | 16.30% | 17.57% |
-| Our Jacktol-trained P2 | Offline | 18.38% | 18.90% |
-| Our P4 Parakeet | Offline | 20.00% | 19.89% |
-| Our N4 Nemotron | Native streaming | 22.46% | 22.33% |
-| YouTube ATC FastConformer | Offline | 26.75% | 27.10% |
-| STEAK synthetic Whisper | Offline | 29.01% | 29.07% |
-| US ATC Whisper Turbo v3 | Offline | 66.70% | 66.91% |
-| XLS-R ATCOSIM | Offline | 88.64% | 88.91% |
+| Checkpoint | Mode evaluated | Training data used in adaptation | Evidence / caveat | Full-test WER | Known-Jacktol-disjoint WER |
+|---|---|---|---|---:|---:|
+| RASR Parakeet v1 | Offline | 200k synthetic RadioTalk utterances (Llama dialogue + Tada speech), plus real ATCO2/ATCOSIM training splits | Publisher-reported; exact ATCO2 overlap unresolved | 12.71% | 13.36% |
+| RASR Parakeet v2 | Offline | Inherits v1; adds 28.8 h / 35,240 TartanAviation US clips with ASR-generated labels + ADS-B correction; ATCO2/ATCOSIM replay | Publisher-reported; inherits v1 sources and overlap uncertainty | 14.88% | 15.28% |
+| qenneth Parakeet | Offline | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | Publisher-reported; known Jacktol/ATCO2 recording links | 15.91% | 16.65% |
+| jlvdoorn Whisper large v3 | Offline | ATCO2-ASR via WhisperATC; project describes an 80/20 train/validation split | Project-reported; exact checkpoint training membership unverified | 16.20% | 16.91% |
+| Jacktol Whisper large v3 | Offline | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | Publisher-reported; known Jacktol/ATCO2 recording links | 16.30% | 17.57% |
+| Our Jacktol-trained P2 | Offline | 5.896 h Jacktol + 10.534 h UWB + 100.344 h LibriSpeech across its curriculum; final stages use Jacktol/English | Internal records; inherits UWB; known Jacktol overlap | 18.38% | 18.90% |
+| Our P4 Parakeet | Offline | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | Internal records; Silver uses supplied machine transcripts; no Jacktol/UWB in documented adaptation | 20.00% | 19.89% |
+| Our N4 Nemotron | Native streaming | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | Internal records; Silver uses supplied machine transcripts; no Jacktol/UWB in documented adaptation | 22.46% | 22.33% |
+| YouTube ATC FastConformer | Offline | 800+ h reported YouTube VATSIM/IVAO corpus; human simulator speech with ASR/LLM-generated labels | Publisher-reported corpus size; unique training hours not independently counted | 26.75% | 27.10% |
+| STEAK synthetic Whisper | Offline | 20k synthetic STEAK v2 ATC utterances; one pass; no real ATC audio reported in fine-tuning | Publisher-reported; text/TTS/noise lineage incomplete | 29.01% | 29.07% |
+| US ATC Whisper Turbo v3 | Offline | 1,216 human-transcribed Minneapolis-area radio clips; augmentation expands these to 6,080 files | Publisher-reported; augmented files are not distinct recordings | 66.70% | 66.91% |
+| XLS-R ATCOSIM | Offline | ATCOSIM human speech from ATC simulations (Jzuluaga/atcosim_corpus) | Publisher-reported; this is the ATCOSIM-specific checkpoint | 88.64% | 88.91% |
+
+Training-data entries summarize **adaptation and inherited fine-tuning**, not complete base-model pretraining. Hours are source-pool sizes unless noted; augmented files and sampling weights are not additional unique audio. Source links and full lineage are in the [training-data map](model-training-data.md). [Download this combined comparison as CSV](../reports/evaluation-comparison-2026-11-06.csv).
 
 Full test: **1,908 utterances / 21,930 words / 2.000441 hours**. The supplementary view contains **1,695 utterances / 19,077 words / 1.7494 hours**, excluding known Jacktol-linked source recordings. Both columns use the same lexical normalizer and corpus WER formula. Neither the full package being unpublished nor the Jacktol exclusion proves independence from every candidate's training history.
 

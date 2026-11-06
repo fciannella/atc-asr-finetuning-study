@@ -8,19 +8,21 @@ Completed **2026-11-06**. All **eight shortlisted ATC-adapted checkpoints** prod
 
 Lower WER is better. All community runs and P4 are offline; N4 retains its established native-streaming evaluation condition.
 
-| Model | Full 2h WER | Known-Jacktol-disjoint WER | Prediction source |
-|---|---:|---:|---|
-| RASR Parakeet v1 | 12.71% | 13.36% | New inference |
-| RASR Parakeet v2 | 14.88% | 15.28% | New inference |
-| qenneth Parakeet ATC | 15.91% | 16.65% | Existing, identity-verified and rescored |
-| jlvdoorn Whisper large v3 ATCO2 | 16.20% | 16.91% | New inference |
-| Jacktol Whisper large v3 | 16.30% | 17.57% | New inference |
-| Our P4 Parakeet (offline) | 20.00% | 19.89% | Existing, identity-verified and rescored |
-| Our N4 Nemotron (streaming) | 22.46% | 22.33% | Existing, identity-verified and rescored |
-| YouTube ATC FastConformer | 26.75% | 27.10% | New inference |
-| STEAK synthetic Whisper large v3 | 29.01% | 29.07% | New inference |
-| US ATC Whisper Turbo v3 | 66.70% | 66.91% | New inference |
-| XLS-R 300M ATCOSIM | 88.64% | 88.91% | New inference |
+| Model | Training data used in adaptation | Full 2h WER | Known-Jacktol-disjoint WER | Prediction source |
+|---|---|---:|---:|---|
+| RASR Parakeet v1 | 200k synthetic RadioTalk utterances (Llama dialogue + Tada speech), plus real ATCO2/ATCOSIM training splits | 12.71% | 13.36% | New inference |
+| RASR Parakeet v2 | Inherits v1; adds 28.8 h / 35,240 TartanAviation US clips with ASR-generated labels + ADS-B correction; ATCO2/ATCOSIM replay | 14.88% | 15.28% | New inference |
+| qenneth Parakeet ATC | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | 15.91% | 16.65% | Existing, identity-verified and rescored |
+| jlvdoorn Whisper large v3 ATCO2 | ATCO2-ASR via WhisperATC; project describes an 80/20 train/validation split | 16.20% | 16.91% | New inference |
+| Jacktol Whisper large v3 | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | 16.30% | 17.57% | New inference |
+| Our P4 Parakeet (offline) | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | 20.00% | 19.89% | Existing, identity-verified and rescored |
+| Our N4 Nemotron (streaming) | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | 22.46% | 22.33% | Existing, identity-verified and rescored |
+| YouTube ATC FastConformer | 800+ h reported YouTube VATSIM/IVAO corpus; human simulator speech with ASR/LLM-generated labels | 26.75% | 27.10% | New inference |
+| STEAK synthetic Whisper large v3 | 20k synthetic STEAK v2 ATC utterances; one pass; no real ATC audio reported in fine-tuning | 29.01% | 29.07% | New inference |
+| US ATC Whisper Turbo v3 | 1,216 human-transcribed Minneapolis-area radio clips; augmentation expands these to 6,080 files | 66.70% | 66.91% | New inference |
+| XLS-R 300M ATCOSIM | ATCOSIM human speech from ATC simulations (Jzuluaga/atcosim_corpus) | 88.64% | 88.91% | New inference |
+
+Training sources for community checkpoints are publisher/project-reported; ours come from internal records. These are adaptation pools, not complete base pretraining histories. See the [12-model combined comparison](evaluation-tracker.md) for per-model evidence caveats and the [training-data map](model-training-data.md) for sources.
 
 The full test has **2.000441 hours, 21,930 reference words and 1,168 source recordings**. The supplementary view has **1,695 utterances, 1.7494 hours, 19,077 words and 1,040 source recordings**. It removes 213 segments linked to known Jacktol source recordings, including 197 linked specifically to its training split. It is **not universally training-disjoint**: RASR and jlvdoorn also have ATCO2 ancestry that needs a separate source audit.
 

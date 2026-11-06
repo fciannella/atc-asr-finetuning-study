@@ -1,5 +1,6 @@
 # Frozen reports
 
+- [evaluation-comparison-2026-11-06.csv](evaluation-comparison-2026-11-06.csv): combined 12-checkpoint table with primary WER, mode, adaptation training data, and evidence caveats. Mirrors the evaluation tracker; does not replace the detailed frozen result JSON.
 - [community-atc-benchmark-2026-11-06.json](community-atc-benchmark-2026-11-06.json) and [CSV](community-atc-benchmark-2026-11-06.csv): eight new community evaluations plus three verified existing baselines; primary and secondary normalized metrics, revisions, hashes, intervals, and decoding conditions.
 - [jacktol-p2-current-test-2026-11-06.json](jacktol-p2-current-test-2026-11-06.json): fresh evaluation of our Jacktol P2 on the current two-hour test, plus the historical split and Gold-additive training-overlap audit.
 - [community-atc-model-inventory-2026-11-06.json](community-atc-model-inventory-2026-11-06.json) and [CSV](community-atc-model-inventory-2026-11-06.csv): 287 screened repositories; only explicitly populated measured-result fields represent our evaluations.
