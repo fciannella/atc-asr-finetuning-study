@@ -33,6 +33,10 @@ Candidate pairs were generated from transcript agreement and confirmed using aco
 
 Consequently, cross-corpus transfer claims must report whether they use the full ATCO2 test or the Jacktol-disjoint subset. The study's disjoint ATCO2 view contains 1,695 records and 1.749 hours after removing 213 affected test segments.
 
+The **322** figure covers the audited Gold inventory, whereas **213** is the exclusion count within the current 1,908-utterance test. The **197** training-linked test utterances are a subset of those 213. These are recording-level links, not a claim that every affected utterance is an identical training clip. The supplementary score conservatively removes all 213 and reuses the remaining predictions.
+
+The audit concerns the pinned Jacktol revision below. A community model's declaration that it used Jacktol does not independently establish the exact revision or examples it consumed. This exclusion also does not resolve other models' ATCO2 training ancestry. See the [model-specific overlap explanation](evaluation-tracker.md#where-training-and-test-audio-overlap), which distinguishes this audit from the separate 554 exact Gold-additive training duplicates.
+
 ## Source
 
 Jacktol dataset: <https://huggingface.co/datasets/jacktol/ATC-ASR-Dataset>, pinned in the study to revision `075e736bf8aed80579d829092f74355486b10bc7`.

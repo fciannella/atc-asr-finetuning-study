@@ -28,6 +28,8 @@ The full test has **2.000441 hours, 21,930 reference words and 1,168 source reco
 
 Community authors did not test on our unpublished package. These are our internal measurements of their published weights. Shared upstream ELDA/ATCO2 recordings can exist even when our selected package has never been published.
 
+See [where training and test audio overlap](evaluation-tracker.md#where-training-and-test-audio-overlap) for the distinction between 213 Jacktol-linked exclusions (197 training-linked), 554 exact duplicates in the excluded Gold-additive variant, and unresolved ATCO2 ancestry. That section also defines the supplementary score and explains why these findings are not automatically attributable to P4/N4.
+
 ## Number-format sensitivity
 
 The primary scorer preserves the study's original contract: NFKD and diacritic folding, lowercase, symbol removal except ASCII apostrophes, and whitespace collapse. It does **not** convert spoken numbers to digits. All reference rows spell numbers out; US Whisper Turbo produces digits in 1,644 of 1,908 hypotheses.

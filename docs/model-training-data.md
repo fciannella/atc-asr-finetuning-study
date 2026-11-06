@@ -39,6 +39,8 @@ Hours, utterances and augmented-file counts are different quantities. Pool size 
 
 ## What this tells us about the benchmark
 
+The [overlap explanation beside the comparison table](evaluation-tracker.md#where-training-and-test-audio-overlap) distinguishes confirmed shared recordings, exact training segments and unresolved ancestry, and defines what the supplementary score excludes.
+
 1. **The leading RASR models are not independent of ATCO2 by construction.** Both include European ATCO2 adaptation. RASR v1 also uses substantial synthetic speech; v2 inherits it and adds US audio. Their strong scores do not prove that synthetic data alone explains the improvement.
 2. **Shared dataset names do not mean identical training.** qenneth, Jacktol Whisper and our P2 all use Jacktol, but differ in initialization, other sources, labels, sampling and optimization. P2 includes inherited UWB training.
 3. **Different declared sources are useful transfer comparisons, not proof of total independence.** US radio, simulator-only and synthetic-only adaptation may still have relevant base, teacher, text or noise ancestry. The source-level audit is incomplete.

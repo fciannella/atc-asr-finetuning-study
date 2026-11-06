@@ -29,6 +29,33 @@ RASR v1 has the lowest observed WER, with unresolved ATCO2 training ancestry. N4
 
 The [training-data map](model-training-data.md) lists the source datasets, label origin, inherited training and evidence gaps for all 12 checkpoints.
 
+## Where training and test audio overlap
+
+Overlap means that a model's training material and our evaluation material share audio segments or source recordings. Our two-hour package is unpublished, but it is selected from existing ATCO2 recordings. Other datasets can contain those underlying recordings without their authors ever having access to our package.
+
+| Training source compared with our current test | Evidence | Affected checkpoints and interpretation |
+|---|---|---|
+| **Jacktol dataset ↔ ATCO2 test** | **Confirmed source-recording links:** 213 of the 1,908 test utterances belong to recordings linked to the audited Jacktol dataset. Of those, 197 are linked specifically to its training split. | Applies to our Jacktol-trained P2. Also relevant to qenneth Parakeet and Jacktol Whisper, which report Jacktol training; their exact training dataset revisions and example membership are not independently established. This does not prove that all 213 test utterances were identical training clips for every model. |
+| **Older Gold-additive training ↔ current ATCO2 test** | **Confirmed exact segments:** 554 current test segments match that variant's training IDs, resolved source audio paths, offsets and durations. | Affects the older Gold-additive P2 variant, **not the original P2 in the table**. The additive variant is excluded from this comparison. Its historical 15.44% WER used a different 1,394-utterance / 1.48-hour test. |
+| **Other ATCO2-derived community training ↔ current ATCO2 test** | **Unresolved:** documented ATCO2 training ancestry, but exact recording/segment overlap has not been audited. | RASR v1/v2 and jlvdoorn Whisper. ATCO2 ancestry is a reason to audit, not proof that they trained on particular test utterances. |
+
+The Jacktol audit first generated candidates from transcript agreement and then confirmed links using acoustic correlation. A **shared source recording** can contain several transmissions: it is a broader criterion than an **identical audio segment**. We conservatively exclude every test utterance associated with a known linked recording, even where its precise segment has not been shown to be a training duplicate. The 197 training-linked utterances are included within the 213 total exclusions; the counts must not be added. The separate 554-segment finding concerns another training recipe and must not be added to the Jacktol count to claim a combined overlap total.
+
+### What the supplementary column measures
+
+**Known-Jacktol-disjoint WER** means **WER on the test subset excluding known Jacktol recording overlap**:
+
+- Full-test WER uses **all 1,908 utterances** (2.0004 hours; 21,930 reference words).
+- The supplementary score uses the same saved predictions for the **remaining 1,695 utterances**, after excluding 213 (1.7494 hours; 19,077 reference words).
+- The same exclusion mask and WER calculation are applied to every model. No retraining or additional inference is involved in producing this second score.
+- It addresses the audited Jacktol recording links only. It does **not** establish a universally clean test for RASR, jlvdoorn, or every possible base/teacher training source.
+
+### How this applies to our release candidates
+
+**P4 and N4 follow a separate ATCO2 adaptation path.** Their documented Gold train/development/test contract separates airport-date groups, audio paths, record IDs and source-record IDs. They do not inherit the historical Jacktol/UWB curriculum or the older Gold-additive variant. The overlap findings above therefore must not be attributed to P4/N4 merely because those other experiments were ours. This describes the documented adaptation and Gold split; it is not certification of complete base-model or teacher pretraining independence.
+
+Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.md#cross-dataset-overlap), [exact Gold-additive overlap and P2 rerun](jacktol-p2-current-test-2026-11-06.md#historical-score-correction), [data and split contract](experiments/00-data-and-evaluation.md), and [P4/N4 training lineage](checkpoint-comparison-n4-p4.md#training-lineage-and-selection-rationale).
+
 ## Evidence and completed work
 
 | Work | Status | Record |
