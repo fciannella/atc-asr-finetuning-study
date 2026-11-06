@@ -4,6 +4,8 @@ Public documentation repository for the ATCO2 and Jacktol ASR adaptation study. 
 
 ## Start here
 
+- [Exact ATCO2 training-source overlap audit](docs/atco2-training-overlap-audit-2026-11-06.md) confirms 498 train-source and 140 validation-source matches and compares all 12 checkpoints after common exclusions.
+
 - [Current evaluation tracker — November 6, 2026](docs/evaluation-tracker.md) collects the community benchmark, Jacktol P2 rerun, checkpoint provenance, split corrections, and remaining work.
 - [Training data behind all 12 checkpoints](docs/model-training-data.md) distinguishes internal training records, publisher-reported datasets, synthetic/pseudo-label sources, and unresolved ancestry.
 - [N4/P4 release checkpoint comparison](docs/checkpoint-comparison-n4-p4.md) records the selected release artifacts and their evaluation results.

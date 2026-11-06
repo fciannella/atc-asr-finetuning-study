@@ -1,0 +1,25 @@
+model,view,excluded_utterances,retained_utterances,reference_words,hours,source_recordings,word_errors,substitutions,deletions,insertions,wer_percent
+RASR Parakeet v1,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2299,1500,517,282,15.4565012773968
+RASR Parakeet v1,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2172,1413,500,259,15.68117825427767
+RASR Parakeet v2,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2546,1687,542,317,17.117117117117118
+RASR Parakeet v2,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2401,1590,517,294,17.33448848458595
+qenneth Parakeet,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2648,1769,625,254,17.80287750437004
+qenneth Parakeet,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2518,1680,598,240,18.17919283806223
+jlvdoorn Whisper large v3,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2911,1987,555,369,19.57106360091435
+jlvdoorn Whisper large v3,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2745,1872,530,343,19.8180636777128
+Jacktol Whisper large v3,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2907,1981,529,397,19.54417103670835
+Jacktol Whisper large v3,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2810,1920,505,385,20.287343874088513
+Our Jacktol-trained P2,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2933,2112,510,311,19.71897270404733
+Our Jacktol-trained P2,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2785,2007,483,295,20.106851490867086
+Our P4 Parakeet,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,2980,1986,514,480,20.034960333467797
+Our P4 Parakeet,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,2792,1861,485,446,20.157389358169088
+Our N4 Nemotron,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,3302,2107,848,347,22.199811752050557
+Our N4 Nemotron,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,3092,1966,805,321,22.32329795682622
+YouTube ATC FastConformer,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,4162,2782,857,523,27.981713056339924
+YouTube ATC FastConformer,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,3947,2648,805,494,28.49613746299906
+STEAK synthetic Whisper,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,4452,2731,1178,543,29.931423961274707
+STEAK synthetic Whisper,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,4225,2582,1129,514,30.503212764421338
+US ATC Whisper Turbo v3,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,10208,6166,3154,888,68.62982385370445
+US ATC Whisper Turbo v3,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,9592,5778,2962,852,69.25131759439752
+XLS-R ATCOSIM,exclude_jacktol_and_audited_atco2_training,560,1348,14874,1.362561666666668,818,13385,7304,5944,137,89.98924297431759
+XLS-R ATCOSIM,exclude_jacktol_and_audited_atco2_training_and_validation,639,1269,13851,1.2626911111111105,768,12520,6755,5636,129,90.39058551729117

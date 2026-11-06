@@ -1,0 +1,1256 @@
+{
+  "date": "2026-11-06",
+  "status": "direct_public_ATCO2_source_audit_complete_full_ancestry_not_certified",
+  "audio_audit": {
+    "source_test_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+    "method": "Exact decoded signed 16-bit mono PCM equality at 16kHz, full-source SHA256 identity and sample-for-sample containment of frozen test crops; candidate links via source basename or full-recording PCM hash. No transcript-only match accepted.",
+    "limitations": "Negative results do not exclude arbitrary recropping, retiming, re-encoding or other acoustic transforms of unmatched recordings. Public dataset snapshots are pinned; model authors did not pin all training dataset revisions.",
+    "datasets": [
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "revision": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+        "split": "train",
+        "rows": 446,
+        "hours": 0.8616355555555554,
+        "audio_formats": {
+          "(16000, 1)": 446
+        },
+        "filename_linked_test_sources": 316,
+        "identical_complete_test_source_recordings": 316,
+        "matching_public_rows": 316,
+        "exactly_contained_test_segments": 498,
+        "contained_test_hours": 0.5598211111111108,
+        "contained_test_words": 6186,
+        "matched_in_existing_jacktol_disjoint": 347,
+        "unmatched_test_segments": 1410,
+        "decode_failures": 0,
+        "maximum_public_duration": 32.768,
+        "non_16khz_rows_not_matched": 0,
+        "rasr_recipe_eligible_public_rows": 437,
+        "rasr_recipe_eligible_contained_test_segments": 476,
+        "within_whisper_first_30s_test_segments": 496
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "revision": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+        "split": "validation",
+        "rows": 113,
+        "hours": 0.23473777777777777,
+        "audio_formats": {
+          "(16000, 1)": 113
+        },
+        "filename_linked_test_sources": 83,
+        "identical_complete_test_source_recordings": 83,
+        "matching_public_rows": 83,
+        "exactly_contained_test_segments": 140,
+        "contained_test_hours": 0.1738983333333333,
+        "contained_test_words": 1851,
+        "matched_in_existing_jacktol_disjoint": 79,
+        "unmatched_test_segments": 1768,
+        "decode_failures": 0,
+        "maximum_public_duration": 28.16,
+        "non_16khz_rows_not_matched": 0,
+        "rasr_recipe_eligible_public_rows": 110,
+        "rasr_recipe_eligible_contained_test_segments": 126,
+        "within_whisper_first_30s_test_segments": 140
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "revision": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+        "split": "train",
+        "rows": 8092,
+        "hours": 9.2323646527778,
+        "audio_formats": {
+          "(16000, 1)": 446,
+          "(32000, 1)": 7646
+        },
+        "filename_linked_test_sources": 316,
+        "identical_complete_test_source_recordings": 316,
+        "matching_public_rows": 316,
+        "exactly_contained_test_segments": 498,
+        "contained_test_hours": 0.5598211111111108,
+        "contained_test_words": 6186,
+        "matched_in_existing_jacktol_disjoint": 347,
+        "unmatched_test_segments": 1410,
+        "decode_failures": 0,
+        "maximum_public_duration": 38.88121875,
+        "non_16khz_rows_not_matched": 7646,
+        "rasr_recipe_eligible_public_rows": 8080,
+        "rasr_recipe_eligible_contained_test_segments": 476,
+        "within_whisper_first_30s_test_segments": 496
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "revision": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+        "split": "validation",
+        "rows": 2026,
+        "hours": 2.320875086805557,
+        "audio_formats": {
+          "(16000, 1)": 113,
+          "(32000, 1)": 1913
+        },
+        "filename_linked_test_sources": 83,
+        "identical_complete_test_source_recordings": 83,
+        "matching_public_rows": 83,
+        "exactly_contained_test_segments": 140,
+        "contained_test_hours": 0.1738983333333333,
+        "contained_test_words": 1851,
+        "matched_in_existing_jacktol_disjoint": 79,
+        "unmatched_test_segments": 1768,
+        "decode_failures": 0,
+        "maximum_public_duration": 28.16,
+        "non_16khz_rows_not_matched": 1913,
+        "rasr_recipe_eligible_public_rows": 2023,
+        "rasr_recipe_eligible_contained_test_segments": 126,
+        "within_whisper_first_30s_test_segments": 140
+      }
+    ],
+    "download_receipts": [
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "revision": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+        "files": [
+          {
+            "path": "data/train-00000-of-00001-4907384ef649141a.parquet",
+            "bytes": 98763512,
+            "sha256": "16ca19cc381078cfdf2f6a8c3161a76ffed9653520a7ed89d7da5bb03edf88a0"
+          },
+          {
+            "path": "data/validation-00000-of-00001-b20d1116e523bc85.parquet",
+            "bytes": 26954676,
+            "sha256": "9c345ebf0ff60c6b7b6f79063dd615e7d0e051343f4c04465590ed24f29e159c"
+          }
+        ]
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "revision": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+        "files": [
+          {
+            "path": "data/train-00000-of-00005-c6681348ac8543dc.parquet",
+            "bytes": 406110129,
+            "sha256": "6c73963621be2be83cffc1c36e425167fe957f97f0239d98ed2df13428136666"
+          },
+          {
+            "path": "data/train-00001-of-00005-464e7b29cac82caf.parquet",
+            "bytes": 407150710,
+            "sha256": "5518f7b177765eba9c65aaf39ed39ba0f683f8b970e07d0b33c43513a3161aea"
+          },
+          {
+            "path": "data/train-00002-of-00005-008f85162351773d.parquet",
+            "bytes": 400730825,
+            "sha256": "ee7119f1ac47328e0f226807b27b264f33cf986bf432768b18a3cdd1ce0cd996"
+          },
+          {
+            "path": "data/train-00003-of-00005-13846616069619e5.parquet",
+            "bytes": 386832281,
+            "sha256": "ca6460bf2b02dd754c074e975bc2b1c4c40a9847be0aed3f8e582f531ae9b1e0"
+          },
+          {
+            "path": "data/train-00004-of-00005-0565e63298f50d49.parquet",
+            "bytes": 418670588,
+            "sha256": "2febfaab9851380c3bf4b1c84f7b3a53ac436fae73d4c6e4b0cb314c16de94ef"
+          },
+          {
+            "path": "data/validation-00000-of-00002-7a5ea3756991bf72.parquet",
+            "bytes": 260347543,
+            "sha256": "868ce6301b177ae3159b9ad79a11dbecb2cbf6fc08fd5267e2bc81a3a9fd1b36"
+          },
+          {
+            "path": "data/validation-00001-of-00002-56cef56513136770.parquet",
+            "bytes": 245105255,
+            "sha256": "983d64d32f53cf6b477b8c70b469644606517dceada8bb646d4cb00cddc8a33f"
+          }
+        ]
+      }
+    ],
+    "private_evidence_sha256": "c2defcdb9677abb746c9fd153419aa9b94e812ca40f73b17a349c2cef6b4cc1b"
+  },
+  "common_mask_rescoring": {
+    "matched_train_segments": 498,
+    "matched_validation_segments": 140,
+    "training_matches_remaining_in_jacktol_disjoint": 347,
+    "validation_matches_remaining_in_jacktol_disjoint": 79,
+    "independently_verified_segments": 638,
+    "independently_verified_complete_recordings": 399,
+    "private_mask_sha256": "11b88d3aeb7f2f89b401d3147ea905b0aab6b2d2ef8a98a0bc9a9dc0823f5b61",
+    "views": {
+      "exclude_jacktol_and_audited_atco2_training": {
+        "excluded_utterances": 560,
+        "retained_utterances": 1348,
+        "reference_words": 14874,
+        "hours": 1.362561666666668,
+        "source_recordings": 818
+      },
+      "exclude_jacktol_and_audited_atco2_training_and_validation": {
+        "excluded_utterances": 639,
+        "retained_utterances": 1269,
+        "reference_words": 13851,
+        "hours": 1.2626911111111105,
+        "source_recordings": 768
+      }
+    },
+    "scores": {
+      "qenneth": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2648,
+          "substitutions": 1769,
+          "deletions": 625,
+          "insertions": 254,
+          "reference_words": 14874,
+          "wer": 0.1780287750437004,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.16882490639228262,
+            0.18764305008533633
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2518,
+          "substitutions": 1680,
+          "deletions": 598,
+          "insertions": 240,
+          "reference_words": 13851,
+          "wer": 0.18179192838062233,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.17172432738237883,
+            0.1921776957154716
+          ]
+        }
+      },
+      "p4": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2980,
+          "substitutions": 1986,
+          "deletions": 514,
+          "insertions": 480,
+          "reference_words": 14874,
+          "wer": 0.20034960333467797,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.19046673927838195,
+            0.2110792264255585
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2792,
+          "substitutions": 1861,
+          "deletions": 485,
+          "insertions": 446,
+          "reference_words": 13851,
+          "wer": 0.20157389358169087,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.19112579416341513,
+            0.2124829847210778
+          ]
+        }
+      },
+      "n4": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 3302,
+          "substitutions": 2107,
+          "deletions": 848,
+          "insertions": 347,
+          "reference_words": 14874,
+          "wer": 0.22199811752050558,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2110162712648928,
+            0.2333039136696579
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 3092,
+          "substitutions": 1966,
+          "deletions": 805,
+          "insertions": 321,
+          "reference_words": 13851,
+          "wer": 0.2232329795682622,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.21211228975003063,
+            0.23473474519548249
+          ]
+        }
+      },
+      "steak-whisper": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 4452,
+          "substitutions": 2731,
+          "deletions": 1178,
+          "insertions": 543,
+          "reference_words": 14874,
+          "wer": 0.29931423961274706,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2855815404691514,
+            0.3142242606850814
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 4225,
+          "substitutions": 2582,
+          "deletions": 1129,
+          "insertions": 514,
+          "reference_words": 13851,
+          "wer": 0.3050321276442134,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2911024271655081,
+            0.3193750359437394
+          ]
+        }
+      },
+      "jacktol-whisper": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2907,
+          "substitutions": 1981,
+          "deletions": 529,
+          "insertions": 397,
+          "reference_words": 14874,
+          "wer": 0.1954417103670835,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.1826836390310861,
+            0.2101311959576988
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2810,
+          "substitutions": 1920,
+          "deletions": 505,
+          "insertions": 385,
+          "reference_words": 13851,
+          "wer": 0.20287343874088515,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18910487815669705,
+            0.218272940485015
+          ]
+        }
+      },
+      "jlvdoorn-whisper": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2911,
+          "substitutions": 1987,
+          "deletions": 555,
+          "insertions": 369,
+          "reference_words": 14874,
+          "wer": 0.19571063600914348,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18517754563584288,
+            0.20663921670280844
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2745,
+          "substitutions": 1872,
+          "deletions": 530,
+          "insertions": 343,
+          "reference_words": 13851,
+          "wer": 0.198180636777128,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18717082954328151,
+            0.20948877452893552
+          ]
+        }
+      },
+      "xlsr-atcosim": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 13385,
+          "substitutions": 7304,
+          "deletions": 5944,
+          "insertions": 137,
+          "reference_words": 14874,
+          "wer": 0.899892429743176,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.8918658210436851,
+            0.9076349752671005
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 12520,
+          "substitutions": 6755,
+          "deletions": 5636,
+          "insertions": 129,
+          "reference_words": 13851,
+          "wer": 0.9039058551729117,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.8955895295308364,
+            0.9117313041298586
+          ]
+        }
+      },
+      "youtube-fastconformer": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 4162,
+          "substitutions": 2782,
+          "deletions": 857,
+          "insertions": 523,
+          "reference_words": 14874,
+          "wer": 0.27981713056339924,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.266559623308086,
+            0.294294854919926
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 3947,
+          "substitutions": 2648,
+          "deletions": 805,
+          "insertions": 494,
+          "reference_words": 13851,
+          "wer": 0.2849613746299906,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.2704578724810537,
+            0.300135449478371
+          ]
+        }
+      },
+      "us-whisper-turbo": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 10208,
+          "substitutions": 6166,
+          "deletions": 3154,
+          "insertions": 888,
+          "reference_words": 14874,
+          "wer": 0.6862982385370445,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.6446771396031072,
+            0.7389675403884128
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 9592,
+          "substitutions": 5778,
+          "deletions": 2962,
+          "insertions": 852,
+          "reference_words": 13851,
+          "wer": 0.6925131759439752,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.649064467151584,
+            0.7571887275625007
+          ]
+        }
+      },
+      "rasr-parakeet-v1": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2299,
+          "substitutions": 1500,
+          "deletions": 517,
+          "insertions": 282,
+          "reference_words": 14874,
+          "wer": 0.154565012773968,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.1453369660524503,
+            0.16416939879665512
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2172,
+          "substitutions": 1413,
+          "deletions": 500,
+          "insertions": 259,
+          "reference_words": 13851,
+          "wer": 0.1568117825427767,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.14696959100584803,
+            0.16664262020786327
+          ]
+        }
+      },
+      "rasr-parakeet-v2": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2546,
+          "substitutions": 1687,
+          "deletions": 542,
+          "insertions": 317,
+          "reference_words": 14874,
+          "wer": 0.17117117117117117,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.16165938252858386,
+            0.1807707302820167
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2401,
+          "substitutions": 1590,
+          "deletions": 517,
+          "insertions": 294,
+          "reference_words": 13851,
+          "wer": 0.1733448848458595,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.16260659256645496,
+            0.1839763269738148
+          ]
+        }
+      },
+      "our-jacktol-p2": {
+        "exclude_jacktol_and_audited_atco2_training": {
+          "word_errors": 2933,
+          "substitutions": 2112,
+          "deletions": 510,
+          "insertions": 311,
+          "reference_words": 14874,
+          "wer": 0.1971897270404733,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.18651874515879768,
+            0.2081358514712782
+          ]
+        },
+        "exclude_jacktol_and_audited_atco2_training_and_validation": {
+          "word_errors": 2785,
+          "substitutions": 2007,
+          "deletions": 483,
+          "insertions": 295,
+          "reference_words": 13851,
+          "wer": 0.20106851490867086,
+          "wer_95pct_recording_cluster_bootstrap": [
+            0.1900846642695973,
+            0.2124131599608406
+          ]
+        }
+      }
+    },
+    "post_hoc": true,
+    "interpretation": "These fixed common masks exclude only the audited sources. They are not independent blind tests and do not certify full training ancestry."
+  },
+  "related_declared_descendants": [
+    {
+      "repo_id": "amidstdebug/whisper-large-v3-atco2-asr-ct2-jlvdoorn",
+      "model_revision": "92d36b7d827476026786da87b88a8c037fc4c1b5",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "amidstdebug/whisper-large-v3-atco2-asr-ct2-jlvdoorn",
+      "model_revision": "92d36b7d827476026786da87b88a8c037fc4c1b5",
+      "relation": "base_model_metadata",
+      "declared_parents": [
+        "jlvdoorn/whisper-large-v3-atco2-asr"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "sfabriece/whisper-large-v3-atco2-asr-mlx",
+      "model_revision": "3b7555e02fd857703178e31db7941a333fba95a8",
+      "relation": "base_model_metadata",
+      "declared_parents": [
+        "jlvdoorn/whisper-large-v3-atco2-asr"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "tclin/distil-large-v3.5-atcosim-finetune",
+      "model_revision": "f931ca6e308b12fa9e2c5af8886122b58a74a20b",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "tclin/whisper-large-v3-turbo-atcosim-finetune",
+      "model_revision": "94db4b4d66b6e6ed1cd8d971135d47a34418c329",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "twangodev/rasr-parakeet-v1",
+      "model_revision": "1faf953af2f07946566ff426e4609d0325f61b33",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr",
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "twangodev/rasr-parakeet-v2",
+      "model_revision": "cb6ed4e5e68db54b4a8787dcea9706c2160a1354",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr",
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "twangodev/rasr-parakeet-v2",
+      "model_revision": "cb6ed4e5e68db54b4a8787dcea9706c2160a1354",
+      "relation": "base_model_metadata",
+      "declared_parents": [
+        "twangodev/rasr-parakeet-v1"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "youngsangroh/whisper-large-finetuned-atco2-asr-atcosim",
+      "model_revision": "bb541b4f1457d8bc6683741ed601d7e7139af63c",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    },
+    {
+      "repo_id": "youngsangroh/whisper-small-finetuned-atco2-asr-atcosim",
+      "model_revision": "872c1f2e35aa3731bf10bfb0577220e621830e3e",
+      "relation": "datasets_metadata",
+      "declared_parents": [
+        "jlvdoorn/atco2-asr-atcosim"
+      ],
+      "scope": "Declared metadata relationship only; exact checkpoint training membership not attested."
+    }
+  ],
+  "ancestry_sources": [
+    {
+      "kind": "dataset",
+      "repo_id": "jlvdoorn/atco2-asr",
+      "revision": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+      "file_count": 4,
+      "card_sha256": "0c45fe0f3c85b041ba5e7904e01a926d3b17b0e8d575e7b310e1fcfc19e5f710",
+      "card_url": "https://huggingface.co/datasets/jlvdoorn/atco2-asr/resolve/3b96f5791582cf6f6f348ca46fd502a981918d85/README.md",
+      "history": [
+        {
+          "id": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+          "title": "Delete data/test-00000-of-00001-e4a508bff33e1232.parquet",
+          "date": "2023-06-29T14:31:56.000Z"
+        },
+        {
+          "id": "9e6bf74e0a554430ae2905be9e00f84b1772e99a",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-29T14:31:16.000Z"
+        },
+        {
+          "id": "3b91fe8274b342d85b0c6e9d385960a709f12f16",
+          "title": "Delete data/validation-00000-of-00001-cae90bcbd0981ae6.parquet with huggingface_hub",
+          "date": "2023-06-29T14:31:15.000Z"
+        },
+        {
+          "id": "a54c833abf1ae5f308909cfe360661a35e5fe131",
+          "title": "Upload data/validation-00000-of-00001-b20d1116e523bc85.parquet with huggingface_hub",
+          "date": "2023-06-29T14:31:14.000Z"
+        },
+        {
+          "id": "4492bedf2f47a0f851aafc761edb62007209f3cb",
+          "title": "Delete data/train-00000-of-00001-5270d3a1e32112a9.parquet with huggingface_hub",
+          "date": "2023-06-29T14:31:11.000Z"
+        },
+        {
+          "id": "51135deb5bf93cc0fd260cff8f40ffefd37fb4cf",
+          "title": "Upload data/train-00000-of-00001-4907384ef649141a.parquet with huggingface_hub",
+          "date": "2023-06-29T14:31:10.000Z"
+        },
+        {
+          "id": "da2083b10ab7cdf04783a9889b82443514768688",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-09T13:43:46.000Z"
+        },
+        {
+          "id": "8486ae641b98507c08b45453187df04ba2edd5f3",
+          "title": "Upload data/test-00000-of-00001-e4a508bff33e1232.parquet with huggingface_hub",
+          "date": "2023-06-09T13:43:44.000Z"
+        },
+        {
+          "id": "60b98e0b606500351f4036dde38538524114bfe9",
+          "title": "Upload data/validation-00000-of-00001-cae90bcbd0981ae6.parquet with huggingface_hub",
+          "date": "2023-06-09T13:43:33.000Z"
+        },
+        {
+          "id": "193f10c18383fc78128dd7fd37632e4fb555f8a3",
+          "title": "Delete data/train-00000-of-00001-906d7b6a92deb61a.parquet with huggingface_hub",
+          "date": "2023-06-09T13:43:30.000Z"
+        },
+        {
+          "id": "0d848708c87ec2850763719ed3ca715696344d39",
+          "title": "Upload data/train-00000-of-00001-5270d3a1e32112a9.parquet with huggingface_hub",
+          "date": "2023-06-09T13:43:28.000Z"
+        },
+        {
+          "id": "9d92b20dc84adf5823d0769d36860f125ef6536a",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-05-30T12:08:09.000Z"
+        },
+        {
+          "id": "8c87c6b1e860c218ba8a2728cef80c50e7477b51",
+          "title": "Delete data/train-00000-of-00001-42a40b5b086ce89a.parquet with huggingface_hub",
+          "date": "2023-05-30T12:08:04.000Z"
+        },
+        {
+          "id": "0080d13d830b21ec010e7da8d06e32a88807d64e",
+          "title": "Upload data/train-00000-of-00001-906d7b6a92deb61a.parquet with huggingface_hub",
+          "date": "2023-05-30T12:07:59.000Z"
+        },
+        {
+          "id": "699f8077ed57d2bb3f5b9f54d9576f77fe020d61",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-05-26T12:54:41.000Z"
+        },
+        {
+          "id": "9ed4cf968ef4bf2238be13b78aed5c859418ccd2",
+          "title": "Delete data/train-00000-of-00001-5bd112590e49fd13.parquet with huggingface_hub",
+          "date": "2023-05-26T12:54:37.000Z"
+        },
+        {
+          "id": "1c14fd7b46c203bf17ae92005136f707d0178b32",
+          "title": "Upload data/train-00000-of-00001-42a40b5b086ce89a.parquet with huggingface_hub",
+          "date": "2023-05-26T12:54:35.000Z"
+        },
+        {
+          "id": "b0aa1b2a7b6c60d07b3388b0fb979d81ad105215",
+          "title": "Update README.md",
+          "date": "2023-05-26T12:38:39.000Z"
+        },
+        {
+          "id": "627dc904f011bc793d2a11d6339a6b080559bf2a",
+          "title": "Update README.md",
+          "date": "2023-05-26T12:30:30.000Z"
+        },
+        {
+          "id": "1d927f19598cd53b54917bfddc9185e074b625fe",
+          "title": "Update README.md",
+          "date": "2023-05-26T12:28:55.000Z"
+        },
+        {
+          "id": "91c7880698645e0cb4a10fd524eabe20d549b840",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-05-26T12:26:57.000Z"
+        },
+        {
+          "id": "7ebe616589424a4c5ade96dca9523fb2200b697b",
+          "title": "Upload data/train-00000-of-00001-5bd112590e49fd13.parquet with huggingface_hub",
+          "date": "2023-05-26T12:26:55.000Z"
+        },
+        {
+          "id": "c3622701cd227103348883b15ed57dce06278011",
+          "title": "initial commit",
+          "date": "2023-05-26T11:20:15.000Z"
+        }
+      ]
+    },
+    {
+      "kind": "dataset",
+      "repo_id": "jlvdoorn/atco2-asr-atcosim",
+      "revision": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+      "file_count": 9,
+      "card_sha256": "3a53dcd5f37d36713fb42a87b3537b6d9c8c370ce222a420adf078a249974ac1",
+      "card_url": "https://huggingface.co/datasets/jlvdoorn/atco2-asr-atcosim/resolve/21820a50f2f4d0a8f90838feb4efe88c3db31f95/README.md",
+      "history": [
+        {
+          "id": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+          "title": "Update README.md",
+          "date": "2023-07-07T07:06:05.000Z"
+        },
+        {
+          "id": "a019d73bbe3f4c195912612f448714fe66c5623b",
+          "title": "Delete data/test-00001-of-00002-f2c7ee79fd7a187e.parquet",
+          "date": "2023-06-29T15:09:32.000Z"
+        },
+        {
+          "id": "7aa92aad4a6da0fbd237106a9bebaa73bf712ade",
+          "title": "Delete data/test-00000-of-00002-2e9fdd43fe7e893e.parquet",
+          "date": "2023-06-29T15:09:24.000Z"
+        },
+        {
+          "id": "2aacda505f63902d7003abb95f1b24391ca61c9d",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-29T15:07:37.000Z"
+        },
+        {
+          "id": "6b6651336215a6bc94452022788c336daa7da1d8",
+          "title": "Delete data/validation-00000-of-00001-2b452d4e6775261f.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:36.000Z"
+        },
+        {
+          "id": "973a3272db9444b441cec7af8116781784db2ff1",
+          "title": "Upload data/validation-00001-of-00002-56cef56513136770.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:35.000Z"
+        },
+        {
+          "id": "a7182bcf111bc65d93d9800540e83bb57ce52700",
+          "title": "Upload data/validation-00000-of-00002-7a5ea3756991bf72.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:23.000Z"
+        },
+        {
+          "id": "8f44ea34fd22a72e88869d377181860f0f87a181",
+          "title": "Delete data/train-00003-of-00004-98fb052101ffb842.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:08.000Z"
+        },
+        {
+          "id": "9134bea427ec7e2d0d0cff5d9fb1ea7f105907d6",
+          "title": "Delete data/train-00002-of-00004-74163c509d8943ad.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:08.000Z"
+        },
+        {
+          "id": "1196e3a0d923f6a283f5d35cfd4b1c614636e673",
+          "title": "Delete data/train-00001-of-00004-855f450f3de64731.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:08.000Z"
+        },
+        {
+          "id": "3a826a07b210bd50f13c68d9d4196fc9fcf9deaa",
+          "title": "Delete data/train-00000-of-00004-e80c6bd86d29625a.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:08.000Z"
+        },
+        {
+          "id": "bacc7d86922391fae5b752df6afa3399fb6f07b8",
+          "title": "Upload data/train-00004-of-00005-0565e63298f50d49.parquet with huggingface_hub",
+          "date": "2023-06-29T15:07:05.000Z"
+        },
+        {
+          "id": "fbfaf76f4d6307f1319cea3cf13e04049e178b01",
+          "title": "Upload data/train-00003-of-00005-13846616069619e5.parquet with huggingface_hub",
+          "date": "2023-06-29T15:06:44.000Z"
+        },
+        {
+          "id": "dbca8700027178bd2ea41380d512e41d58e9559b",
+          "title": "Upload data/train-00002-of-00005-008f85162351773d.parquet with huggingface_hub",
+          "date": "2023-06-29T15:06:21.000Z"
+        },
+        {
+          "id": "14190993b035fef44cdb5ee86bf4e51915c066d6",
+          "title": "Upload data/train-00001-of-00005-464e7b29cac82caf.parquet with huggingface_hub",
+          "date": "2023-06-29T15:05:59.000Z"
+        },
+        {
+          "id": "66637c24c27802747bccb4729e55623b7cb86299",
+          "title": "Upload data/train-00000-of-00005-c6681348ac8543dc.parquet with huggingface_hub",
+          "date": "2023-06-29T15:05:37.000Z"
+        },
+        {
+          "id": "4424f151ef33b45765a29a95cca75c757386ea61",
+          "title": "Update README.md",
+          "date": "2023-06-14T13:21:09.000Z"
+        },
+        {
+          "id": "ff6dcc7a4581505a6be07d5faecc726844c27794",
+          "title": "Update README.md",
+          "date": "2023-06-14T13:20:46.000Z"
+        },
+        {
+          "id": "97797ec651bb77028917e0bf26523195fe84e804",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-14T13:17:04.000Z"
+        },
+        {
+          "id": "5ead76f4687750fdfff5447dc3cdb669cc7966f8",
+          "title": "Upload data/test-00001-of-00002-f2c7ee79fd7a187e.parquet with huggingface_hub",
+          "date": "2023-06-14T13:17:03.000Z"
+        },
+        {
+          "id": "eda2e0723f0c63bb416faa52b6d42706e64da7d2",
+          "title": "Upload data/test-00000-of-00002-2e9fdd43fe7e893e.parquet with huggingface_hub",
+          "date": "2023-06-14T13:16:10.000Z"
+        },
+        {
+          "id": "8c506235531dcb67b2bb5514afb358ae3e86134d",
+          "title": "Upload data/validation-00000-of-00001-2b452d4e6775261f.parquet with huggingface_hub",
+          "date": "2023-06-14T13:15:08.000Z"
+        },
+        {
+          "id": "2a79d2bcb256a4420034c6d3390153bb73874844",
+          "title": "Upload data/train-00003-of-00004-98fb052101ffb842.parquet with huggingface_hub",
+          "date": "2023-06-14T13:14:40.000Z"
+        },
+        {
+          "id": "81666d9b59341ef16bd8144d964b4bdd3b7ae7e8",
+          "title": "Upload data/train-00002-of-00004-74163c509d8943ad.parquet with huggingface_hub",
+          "date": "2023-06-14T13:12:21.000Z"
+        },
+        {
+          "id": "436cb6c5752cbf7ef4d2588b4b746124f5cd1690",
+          "title": "Upload data/train-00001-of-00004-855f450f3de64731.parquet with huggingface_hub",
+          "date": "2023-06-14T13:10:52.000Z"
+        },
+        {
+          "id": "e6700daa46ddd39a8ebe8ff6ecb0bce0d74bcb7c",
+          "title": "Upload data/train-00000-of-00004-e80c6bd86d29625a.parquet with huggingface_hub",
+          "date": "2023-06-14T13:09:33.000Z"
+        },
+        {
+          "id": "46fd8f04fa4c1a4a57ae2bec9df3db867d9d42b5",
+          "title": "initial commit",
+          "date": "2023-06-14T13:08:14.000Z"
+        }
+      ]
+    },
+    {
+      "kind": "dataset",
+      "repo_id": "jlvdoorn/atcosim",
+      "revision": "b5839d940475b03bf14cbaf6db28a4ceaf62a2a9",
+      "file_count": 7,
+      "card_sha256": "745c6924826d86724f3afbab103cd4fe6d77a472db838031b787e484c17f0323",
+      "card_url": "https://huggingface.co/datasets/jlvdoorn/atcosim/resolve/b5839d940475b03bf14cbaf6db28a4ceaf62a2a9/README.md",
+      "history": [
+        {
+          "id": "b5839d940475b03bf14cbaf6db28a4ceaf62a2a9",
+          "title": "Delete data/test-00000-of-00001-6622911b023e5586.parquet",
+          "date": "2023-06-29T14:36:14.000Z"
+        },
+        {
+          "id": "a35fa263f535f49313082486231cae9c89003c67",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-29T14:34:53.000Z"
+        },
+        {
+          "id": "89af45818707140fce74e02eebaf1ffd369c13d4",
+          "title": "Delete data/validation-00000-of-00001-c58c8353e78175f7.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:52.000Z"
+        },
+        {
+          "id": "16a8b226a1642e2bebb60c1f813b8c2c24478f4e",
+          "title": "Upload data/validation-00000-of-00001-5f3217ff8bc4239e.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:51.000Z"
+        },
+        {
+          "id": "9e17904d0e5e360b2f5844751218eabe5cbcc24b",
+          "title": "Delete data/train-00003-of-00004-3e23df359448c20f.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:46.000Z"
+        },
+        {
+          "id": "304d38b65a29e22ff63387f3277d009509d9ce5b",
+          "title": "Delete data/train-00002-of-00004-0b55cdca38b5cbee.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:46.000Z"
+        },
+        {
+          "id": "b7477b21c70d9c98294948e6915717de378684c9",
+          "title": "Delete data/train-00001-of-00004-366c230215699067.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:46.000Z"
+        },
+        {
+          "id": "fd4fcd86f1a6d9bf6712a9cd9699bacc4b3f3e3f",
+          "title": "Delete data/train-00000-of-00004-0a6b82dcca3ffb27.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:46.000Z"
+        },
+        {
+          "id": "1034ee90f94e9db5953f89715b7132d72be7ea8d",
+          "title": "Upload data/train-00003-of-00004-ccb1072d21c79105.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:43.000Z"
+        },
+        {
+          "id": "7c69ba637679fefdc01d10042c9e644a336d4022",
+          "title": "Upload data/train-00002-of-00004-41223c43937b53ce.parquet with huggingface_hub",
+          "date": "2023-06-29T14:34:17.000Z"
+        },
+        {
+          "id": "220e583cd8575b18380545ee34bb0aa6c3432f76",
+          "title": "Upload data/train-00001-of-00004-f0456e7f36b0f7b3.parquet with huggingface_hub",
+          "date": "2023-06-29T14:33:52.000Z"
+        },
+        {
+          "id": "677f07944197d266ba4c8681da7655cf4ef562ec",
+          "title": "Upload data/train-00000-of-00004-886704eb3ae55b45.parquet with huggingface_hub",
+          "date": "2023-06-29T14:33:28.000Z"
+        },
+        {
+          "id": "3d57cede06a1539531311ff41d6afc6234db6399",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-06-12T10:10:40.000Z"
+        },
+        {
+          "id": "c80fbf0743e0dfa6d11370e0188459917ac53f38",
+          "title": "Upload data/test-00000-of-00001-6622911b023e5586.parquet with huggingface_hub",
+          "date": "2023-06-12T10:10:38.000Z"
+        },
+        {
+          "id": "726f20fd02e31864b0fef8853ac29d821d094e0f",
+          "title": "Upload data/validation-00000-of-00001-c58c8353e78175f7.parquet with huggingface_hub",
+          "date": "2023-06-12T10:09:16.000Z"
+        },
+        {
+          "id": "d7db665a994b4e7761062c8ee3ebc96cf0dc77c6",
+          "title": "Delete data/train-00005-of-00006-0de2f5e82708f94e.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:49.000Z"
+        },
+        {
+          "id": "5857bf230f81f190745426044956bfefd9a3b5c1",
+          "title": "Delete data/train-00004-of-00006-83481c1157596c49.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:49.000Z"
+        },
+        {
+          "id": "066e5e9ae1d0fd7ebd5ab30adef2cee96babbad2",
+          "title": "Delete data/train-00003-of-00006-6c4d4ea3c49ef200.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:49.000Z"
+        },
+        {
+          "id": "36fc4af941403c9505ee3668ae1009700bddaf54",
+          "title": "Delete data/train-00002-of-00006-76398c071b87355e.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:48.000Z"
+        },
+        {
+          "id": "c794b51d7bffa6d08d99874f57538540edae27e9",
+          "title": "Delete data/train-00001-of-00006-d5b05c2e5565f6a7.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:47.000Z"
+        },
+        {
+          "id": "4a4d05d371a8cbbf67327273e68c379ec000cb6a",
+          "title": "Delete data/train-00000-of-00006-ae90478e20a9f7af.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:47.000Z"
+        },
+        {
+          "id": "17936aca9b64a56dfabd3c1e4d3ca2810cb7c49f",
+          "title": "Upload data/train-00003-of-00004-3e23df359448c20f.parquet with huggingface_hub",
+          "date": "2023-06-12T10:08:41.000Z"
+        },
+        {
+          "id": "74d52679123fee60c429cb3cd3193dd5d4280e59",
+          "title": "Upload data/train-00002-of-00004-0b55cdca38b5cbee.parquet with huggingface_hub",
+          "date": "2023-06-12T10:07:25.000Z"
+        },
+        {
+          "id": "953a92df1cb9d370d8a8bcfc1c3f405f8d6d804f",
+          "title": "Upload data/train-00001-of-00004-366c230215699067.parquet with huggingface_hub",
+          "date": "2023-06-12T10:06:09.000Z"
+        },
+        {
+          "id": "3c24ffe4dfcd33f035943572143d56034b7c13c2",
+          "title": "Upload data/train-00000-of-00004-0a6b82dcca3ffb27.parquet with huggingface_hub",
+          "date": "2023-06-12T10:04:59.000Z"
+        },
+        {
+          "id": "f9223b26b77a9b8c21a5a017e9a98f1c6cd77fd1",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-05-31T11:41:03.000Z"
+        },
+        {
+          "id": "a65bc0f7fab71d90749d8ccfc9fb59c14603004b",
+          "title": "Delete data/train-00005-of-00006-1cc2ce19240cee3a.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:47.000Z"
+        },
+        {
+          "id": "4197c89d874f8149fd896e0401620a0d856ed90d",
+          "title": "Delete data/train-00004-of-00006-639adf5802e0743e.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:47.000Z"
+        },
+        {
+          "id": "2eb800faac7aa548a0c88782a9fa2c3503c42b2f",
+          "title": "Delete data/train-00003-of-00006-73ecf4ac32b83e42.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:46.000Z"
+        },
+        {
+          "id": "d0371b2d1be8330d8084f9d5d1a3fbbceb2137e7",
+          "title": "Delete data/train-00002-of-00006-bc0a93fbee43218d.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:46.000Z"
+        },
+        {
+          "id": "b9e26a9537e49de3b1241db6ad99402e6ad07f0b",
+          "title": "Delete data/train-00001-of-00006-6c2816bb907b5044.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:46.000Z"
+        },
+        {
+          "id": "301327c5413de50cdbec561e6182f338d6f6eaf8",
+          "title": "Delete data/train-00000-of-00006-92437aaa514274bc.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:46.000Z"
+        },
+        {
+          "id": "88ce6964799693f7c7b218077701a3cbec4c0cfa",
+          "title": "Upload data/train-00005-of-00006-0de2f5e82708f94e.parquet with huggingface_hub",
+          "date": "2023-05-31T11:40:38.000Z"
+        },
+        {
+          "id": "07690fba00367ebdd2380704a2cb5830ca5c9bfb",
+          "title": "Upload data/train-00004-of-00006-83481c1157596c49.parquet with huggingface_hub",
+          "date": "2023-05-31T11:39:22.000Z"
+        },
+        {
+          "id": "d4285415ad0dc1a17a02c7325d5eabd6529e689f",
+          "title": "Upload data/train-00003-of-00006-6c4d4ea3c49ef200.parquet with huggingface_hub",
+          "date": "2023-05-31T11:38:24.000Z"
+        },
+        {
+          "id": "7eddc78f6e93822a16fd9cba546c1e5f3625a7c9",
+          "title": "Upload data/train-00002-of-00006-76398c071b87355e.parquet with huggingface_hub",
+          "date": "2023-05-31T11:37:25.000Z"
+        },
+        {
+          "id": "292a6cc570b059c407b16c0af6f8e0971aeca966",
+          "title": "Upload data/train-00001-of-00006-d5b05c2e5565f6a7.parquet with huggingface_hub",
+          "date": "2023-05-31T11:35:25.000Z"
+        },
+        {
+          "id": "d838da4a236e3aac1787773a227ca8dc0241b74c",
+          "title": "Upload data/train-00000-of-00006-ae90478e20a9f7af.parquet with huggingface_hub",
+          "date": "2023-05-31T11:34:27.000Z"
+        },
+        {
+          "id": "e688e543f41c1def0c61ea08fa2495bb8d0a6791",
+          "title": "Upload README.md with huggingface_hub",
+          "date": "2023-05-30T14:14:52.000Z"
+        },
+        {
+          "id": "8b83cb835480c15526ecfa4bae5ed52227d314b7",
+          "title": "Upload data/train-00005-of-00006-1cc2ce19240cee3a.parquet with huggingface_hub",
+          "date": "2023-05-30T14:14:49.000Z"
+        },
+        {
+          "id": "a43e21d43d65e4a8d3a72a525e143acbb57c3e82",
+          "title": "Upload data/train-00004-of-00006-639adf5802e0743e.parquet with huggingface_hub",
+          "date": "2023-05-30T14:13:40.000Z"
+        },
+        {
+          "id": "1da231565e70994db95c85c294a026d0531e404d",
+          "title": "Upload data/train-00003-of-00006-73ecf4ac32b83e42.parquet with huggingface_hub",
+          "date": "2023-05-30T14:12:37.000Z"
+        },
+        {
+          "id": "7f136684f4975b0b0a1feabe784b2c688d3009b2",
+          "title": "Upload data/train-00002-of-00006-bc0a93fbee43218d.parquet with huggingface_hub",
+          "date": "2023-05-30T14:11:28.000Z"
+        },
+        {
+          "id": "e017d0d38faf0c8fb671e1af1e774462d6cd6cfa",
+          "title": "Upload data/train-00001-of-00006-6c2816bb907b5044.parquet with huggingface_hub",
+          "date": "2023-05-30T14:10:14.000Z"
+        },
+        {
+          "id": "8b6b8850437288d33abc35de9f5a4baf66c39773",
+          "title": "Upload data/train-00000-of-00006-92437aaa514274bc.parquet with huggingface_hub",
+          "date": "2023-05-30T14:05:46.000Z"
+        },
+        {
+          "id": "79a3bd2689971c507aa263e04f527cb01f4ab1e4",
+          "title": "Update README.md",
+          "date": "2023-05-29T10:24:21.000Z"
+        },
+        {
+          "id": "dc6dfd2ca5d9d24364e5964eb4df8b250c40a9a2",
+          "title": "Create README.md",
+          "date": "2023-05-29T10:23:25.000Z"
+        },
+        {
+          "id": "4d1db60b14a9e7ffa30d70aad7e32cf3f8acf270",
+          "title": "initial commit",
+          "date": "2023-05-29T10:21:24.000Z"
+        }
+      ]
+    },
+    {
+      "kind": "dataset",
+      "repo_id": "twangodev/radiotalk-us-audio-tada-clean",
+      "revision": "2dbbe7f2bee35525abff91f7c5cf3e29a6a230f9",
+      "file_count": 703,
+      "card_sha256": "d700e067c963e77e554059b238746fe089882f62456aaab7482a5d14a5cbbf34",
+      "card_url": "https://huggingface.co/datasets/twangodev/radiotalk-us-audio-tada-clean/resolve/2dbbe7f2bee35525abff91f7c5cf3e29a6a230f9/README.md"
+    },
+    {
+      "kind": "dataset",
+      "repo_id": "twangodev/radiotalk-us-transcripts-qwen3-100k",
+      "revision": "86fcc379f84de5e16d41dc18ffd81f13fbbfb955",
+      "file_count": 13,
+      "card_sha256": "0d6d48c98cfd1213765742f3430e3f373ad76dab9e547830b5aee8e9171c2eb1",
+      "card_url": "https://huggingface.co/datasets/twangodev/radiotalk-us-transcripts-qwen3-100k/resolve/86fcc379f84de5e16d41dc18ffd81f13fbbfb955/README.md"
+    },
+    {
+      "kind": "dataset",
+      "repo_id": "twangodev/radiotalk-voices-2k",
+      "revision": "6784b7967cb7f201b8b1e841222db55b77412d56",
+      "file_count": 8,
+      "card_sha256": "884fbd42912a1929d87ae71a1321d66979aa6a6086660f65d674d0fab35a8bda",
+      "card_url": "https://huggingface.co/datasets/twangodev/radiotalk-voices-2k/resolve/6784b7967cb7f201b8b1e841222db55b77412d56/README.md"
+    },
+    {
+      "kind": "model",
+      "repo_id": "HumeAI/tada-3b-ml",
+      "revision": "713298b823669995b71fdd76ce7826eac90d81da",
+      "file_count": 13,
+      "card_sha256": "08f916d8d28f98c94702014ed2494dbcad967b39b720e8ddc049d80c269f3bd8",
+      "card_url": "https://huggingface.co/HumeAI/tada-3b-ml/resolve/713298b823669995b71fdd76ce7826eac90d81da/README.md"
+    },
+    {
+      "kind": "model",
+      "repo_id": "nvidia/parakeet-tdt-0.6b-v3",
+      "revision": "541d1f99c6b0c3cd0b11a95167540bb8edefd82b",
+      "file_count": 12,
+      "card_sha256": "7a4306a43f395e3a716e77f1d81c03db18a0a355d7b566bb1d6307213ba0302b",
+      "card_url": "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3/resolve/541d1f99c6b0c3cd0b11a95167540bb8edefd82b/README.md"
+    },
+    {
+      "kind": "model",
+      "repo_id": "nvidia/parakeet-tdt-0.6b-v2",
+      "revision": "ae9ad07059c7c739ffaf932226a8fe64ae2620b0",
+      "file_count": 4,
+      "card_sha256": "e2d10f955eb14a871092de134d2e82a59f494f001a181111fb95c74805763c65",
+      "card_url": "https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2/resolve/ae9ad07059c7c739ffaf932226a8fe64ae2620b0/README.md"
+    },
+    {
+      "kind": "model",
+      "repo_id": "nvidia/canary-qwen-2.5b",
+      "revision": "b1469e1bba1cfe140205529c79c434ca47180960",
+      "file_count": 6,
+      "card_sha256": "0f5d9e5066ecc9a5a8b110f4c225b835f72d931630f2c38cac06d6837767ba8d",
+      "card_url": "https://huggingface.co/nvidia/canary-qwen-2.5b/resolve/b1469e1bba1cfe140205529c79c434ca47180960/README.md"
+    },
+    {
+      "kind": "model",
+      "repo_id": "openai/whisper-large-v3",
+      "revision": "06f233fe06e710322aca913c1bc4249a0d71fce1",
+      "file_count": 21,
+      "card_sha256": "b05416eb578e9fc65ce137f3401bafdf3bc2feac7448e7dd180dcd367b8cfb52",
+      "card_url": "https://huggingface.co/openai/whisper-large-v3/resolve/06f233fe06e710322aca913c1bc4249a0d71fce1/README.md"
+    }
+  ],
+  "recipe_source_commits": {
+    "twangodev/rasr": "ddff2ba501ab78f2820d159325ca3ff26699a94e",
+    "jlvdoorn/WhisperATC": "cd0b71e5e0da9241d589d4bdbfbf16440549e577"
+  },
+  "rasr_embedded_config": {
+    "rasr-parakeet-v1": {
+      "model": "rasr-parakeet-v1",
+      "train_ds": {
+        "sample_rate": 16000,
+        "batch_size": 32,
+        "shuffle": true,
+        "max_duration": 18.0,
+        "min_duration": 0.1
+      },
+      "validation_ds": {
+        "sample_rate": 16000
+      }
+    },
+    "rasr-parakeet-v2": {
+      "model": "rasr-parakeet-v2",
+      "train_ds": {
+        "sample_rate": 16000,
+        "batch_size": 48,
+        "shuffle": true,
+        "max_duration": 18.0,
+        "min_duration": 0.1
+      },
+      "validation_ds": {
+        "sample_rate": 16000
+      }
+    }
+  },
+  "jobs": {
+    "initial_exact_audio_audit": "38098198",
+    "preprocessing_audit_independent_wave_check_and_rescore": "38098238",
+    "final_job_state": "COMPLETED",
+    "final_exit_code": "0:0"
+  },
+  "executed_script_sha256": {
+    "audit_public_audio.py": "c1e97fcbd73937a1f20f4399a7be9c3425be18bc711584ab93c41a99a26aa889",
+    "rescore_masks.py": "43065779658bc2320d126ef48e5790d057988a7f60537535ce38f4503552dc8b"
+  },
+  "limitations": [
+    "Public dataset membership is confirmed, but the model authors did not publish immutable per-checkpoint training manifests or all dataset revisions.",
+    "Rasr source recipe and embedded checkpoint config support the 0.1\u201318s filter; eligible examples are not proof of exact optimizer consumption.",
+    "9,559 combined-corpus ATCOSIM rows at 32kHz were decoded/count-checked but not compared acoustically against the 16kHz test.",
+    "TartanAviation and RadioTalk corpus-wide audio scans were not performed; exact selected manifests and held-out dates are unavailable in the reviewed release.",
+    "The reviewed base/teacher/TTS model cards do not expose a complete exact consumed-example history; private and unpinned ancestry remains unresolved.",
+    "Negative results do not prove absence of transformed or otherwise unmatched audio.",
+    "Common-mask scores are post-hoc diagnostics on repeatedly inspected data; score changes do not isolate a causal effect of memorization."
+  ],
+  "synthetic_sample_lineage": {
+    "repo": "twangodev/radiotalk-us-audio-tada-noisy",
+    "revision": "b513c28d072aaa706e4f7a262161699cd687cddb",
+    "sample_file": "shard-000000.parquet",
+    "rows": 5000,
+    "scope": "One shard only; not verification of every row consumed by the ASR training job.",
+    "fields": {
+      "model": {
+        "Qwen/Qwen3-32B-NVFP4": 5000
+      },
+      "tts_model": {
+        "HumeAI/tada-3b-ml": 5000
+      }
+    }
+  }
+}

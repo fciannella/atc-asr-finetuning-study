@@ -1,8 +1,10 @@
 # Community ATC benchmark on the private two-hour ATCO2 test
 
+**November 6 source-audit update:** [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 exact test segments in public ATCO2 train sources and 140 in validation sources. The [current 12-model table](evaluation-tracker.md) adds scores on a common 1,269-utterance exclusion subset. Earlier metric snapshots below remain unchanged; full-ancestry independence is not established.
+
 Completed **2026-11-06**. All **eight shortlisted ATC-adapted checkpoints** produced predictions for all **1,908 utterances**. Existing qenneth, P4 and N4 predictions were checked against the same audio, offsets, durations and normalized references, then rescored. The wider inventory includes unverified and excluded entries; those were not inferred.
 
-**RASR Parakeet v1 has the lowest observed primary WER: 12.71%.** This is an offline comparison with unresolved ATCO2 training overlap, not an independent-generalization claim or a streaming replacement decision. N4 remains the selected streaming release path.
+**RASR Parakeet v1 has the lowest observed primary WER: 12.71%.** This is an offline comparison with now-confirmed public ATCO2 training-source overlap, not an independent-generalization claim or a streaming replacement decision. N4 remains the selected streaming release path.
 
 ## Primary results
 
@@ -10,7 +12,7 @@ Lower WER is better. All community runs and P4 are offline; N4 retains its estab
 
 | Model | Training data used in adaptation | Full 2h WER | Known-Jacktol-disjoint WER | Prediction source |
 |---|---|---:|---:|---|
-| RASR Parakeet v1 | 200k synthetic RadioTalk utterances (Llama dialogue + Tada speech), plus real ATCO2/ATCOSIM training splits | 12.71% | 13.36% | New inference |
+| RASR Parakeet v1 | 200k synthetic RadioTalk utterances (dialogue generator disputed; linked dataset identifies Qwen3; Tada speech), plus real ATCO2/ATCOSIM training splits | 12.71% | 13.36% | New inference |
 | RASR Parakeet v2 | Inherits v1; adds 28.8 h / 35,240 TartanAviation US clips with ASR-generated labels + ADS-B correction; ATCO2/ATCOSIM replay | 14.88% | 15.28% | New inference |
 | qenneth Parakeet ATC | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | 15.91% | 16.65% | Existing, identity-verified and rescored |
 | jlvdoorn Whisper large v3 ATCO2 | ATCO2-ASR via WhisperATC; project describes an 80/20 train/validation split | 16.20% | 16.91% | New inference |
@@ -24,11 +26,11 @@ Lower WER is better. All community runs and P4 are offline; N4 retains its estab
 
 Training sources for community checkpoints are publisher/project-reported; ours come from internal records. These are adaptation pools, not complete base pretraining histories. See the [12-model combined comparison](evaluation-tracker.md) for per-model evidence caveats and the [training-data map](model-training-data.md) for sources.
 
-The full test has **2.000441 hours, 21,930 reference words and 1,168 source recordings**. The supplementary view has **1,695 utterances, 1.7494 hours, 19,077 words and 1,040 source recordings**. It removes 213 segments linked to known Jacktol source recordings, including 197 linked specifically to its training split. It is **not universally training-disjoint**: RASR and jlvdoorn also have ATCO2 ancestry that needs a separate source audit.
+The full test has **2.000441 hours, 21,930 reference words and 1,168 source recordings**. The supplementary view has **1,695 utterances, 1.7494 hours, 19,077 words and 1,040 source recordings**. It removes 213 segments linked to known Jacktol source recordings, including 197 linked specifically to its training split. It is **not universally training-disjoint**: the subsequent [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md) confirms 498 train-source and 140 validation-source matches, including 347 and 79 respectively that survive this Jacktol-only exclusion.
 
 Community authors did not test on our unpublished package. These are our internal measurements of their published weights. Shared upstream ELDA/ATCO2 recordings can exist even when our selected package has never been published.
 
-See [where training and test audio overlap](evaluation-tracker.md#where-training-and-test-audio-overlap) for the distinction between 213 Jacktol-linked exclusions (197 training-linked), 554 exact duplicates in the excluded Gold-additive variant, and unresolved ATCO2 ancestry. That section also defines the supplementary score and explains why these findings are not automatically attributable to P4/N4.
+See [where training and test audio overlap](evaluation-tracker.md#where-training-and-test-audio-overlap) for the distinction between 213 Jacktol-linked exclusions (197 training-linked), 554 exact duplicates in the excluded Gold-additive variant, and the newly confirmed public ATCO2 matches. That section also defines the supplementary score and explains why these findings are not automatically attributable to P4/N4.
 
 ## Number-format sensitivity
 
@@ -111,7 +113,7 @@ Per-model elapsed times are retained in JSON, but the eight models shared a node
 
 ## Interpretation and artifacts
 
-RASR v1 is the strongest observed offline candidate on both primary views. Its ATCO2 ancestry and synthetic/teacher lineage require an exact source audit before interpreting the difference as generalization or considering release eligibility. Jacktol-trained qenneth and Whisper have known shared-source concerns; the supplementary view addresses only the already audited Jacktol links. License metadata is not approval of downstream release.
+RASR v1 is the strongest observed offline candidate on both primary views. Its direct public ATCO2 source overlap is now confirmed. The follow-up audit provides a stricter common-mask comparison; synthetic/teacher/base histories and exact training-job manifests remain incomplete. Jacktol-trained qenneth and Whisper have known shared-source concerns; the supplementary view addresses only the already audited Jacktol links. License metadata is not approval of downstream release.
 
 This completes the first evaluation group, not all 287 screened repositories or all 38 detailed profiles. Expanded groups remain unmeasured. Results do not alter the selected N4 streaming release.
 
