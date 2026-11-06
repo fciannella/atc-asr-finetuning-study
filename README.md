@@ -4,6 +4,8 @@ Public documentation repository for the ATCO2 and Jacktol ASR adaptation study. 
 
 ## Start here
 
+- [Nemotron Transcribe ATC pilot](docs/nemotron-transcribe-atc-pilot-2026-11-06.md): bounded 30B-A4B LoRA training submitted; data audit passed, GPU preflight queued.
+
 - [Exact ATCO2 training-source overlap audit](docs/atco2-training-overlap-audit-2026-11-06.md) reports only the common 1,269-utterance comparison after excluding known overlap, with confidence intervals and the supporting audio audit.
 
 - [Current evaluation tracker — November 6, 2026](docs/evaluation-tracker.md) collects the community benchmark, Jacktol P2 rerun, checkpoint provenance, split corrections, and remaining work.

@@ -1,0 +1,91 @@
+{
+  "experiment": "nemotron-transcribe-atc-pilot-2026-11-06",
+  "status": "data_audit_passed_gpu_preflight_queued",
+  "status_observed_at": "2026-11-06T20:59:17.565612+00:00",
+  "base": {
+    "model_id": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
+    "model_revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
+    "weight_sha256": "fe3b898b42a65837180c65dedd2e62b92836cee704ae3cbee2f473946fc7d0c9",
+    "speech_revision": "e5d79d5a49cbec49d79440b0070aac0c32a8dbb8"
+  },
+  "jobs": {
+    "data": "38102754",
+    "freeze": "38102857",
+    "preflight": "38102859",
+    "train": "38102860",
+    "select": "38102861",
+    "test": "38102862"
+  },
+  "data": {
+    "silver": {
+      "count": 25822,
+      "hours": 20.000166666666516,
+      "skipped_before_target": {
+        "heldout_eight_word_text": 1344
+      }
+    },
+    "english": {
+      "count": 1423,
+      "hours": 5.001900138888883,
+      "skipped_before_target": {}
+    },
+    "validation": {
+      "count": 100,
+      "hours": 0.10003166666666669,
+      "reference_words": 1108
+    },
+    "test": {
+      "count": 1269,
+      "hours": 1.2626909722222217,
+      "reference_words": 13851
+    },
+    "guard": {
+      "count": 128,
+      "hours": 0.26909170138888877,
+      "reference_words": 2645
+    }
+  },
+  "training_count": 27245,
+  "schedule": {
+    "updates": 500,
+    "warmup": 50,
+    "checkpoint_steps": [
+      100,
+      250,
+      500
+    ],
+    "validation_interval": 100,
+    "batch_tokens": 2048,
+    "lr": 0.0001,
+    "lora_rank": 32,
+    "lora_alpha": 64,
+    "trainable": "LoRA and modality projection only"
+  },
+  "selection": {
+    "metric": "decoded_atc_development_wer",
+    "max_guard_absolute_wer_increase": 0.02,
+    "ties": "earlier step",
+    "all_fail": "diagnostic only",
+    "locked_before_test": true
+  },
+  "recipe_sha256": "955172c72e10f1e26f8f2f3bc9976db7da19cd6f7f21bc17779a006b3df2c3fc",
+  "data_audit_sha256": "956c2b735d7d6331c51c548bc6852985c6eb41aa1e7c4431289305973e71ee46",
+  "inference": {
+    "seed": 1012,
+    "batch_size": 1,
+    "thinking": false,
+    "sampling": false,
+    "max_tokens": "min(512,max(128,ceil(duration*12)))",
+    "dtype": "bfloat16"
+  },
+  "limitations": [
+    "Silver training labels are supplied machine transcripts.",
+    "Full pretrained/teacher ancestry is unknown; completed overlap checks do not exclude every possible transformed recording.",
+    "The 1269-row test has known overlap removed but is repeatedly inspected, not a new blind test.",
+    "The 128-clip English retention guard is a custom subset and participates in selection.",
+    "No streaming, timestamp-accuracy or release-approval conclusion follows."
+  ],
+  "metrics": null,
+  "training_started": false,
+  "scheduler_pending_reason": "QOSMaxJobsPerUserLimit"
+}

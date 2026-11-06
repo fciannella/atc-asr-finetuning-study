@@ -73,6 +73,10 @@ Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.
 | Number-format diagnostic and CTC development check | Complete | Community benchmark; no model tuning or prediction changes |
 | Direct public ATCO2 audio audit and common-mask rescoring | Complete: 498 train + 140 validation matches; independent WAV verification; all 12 checkpoints rescored | [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md), [JSON](../reports/atco2-training-overlap-audit-2026-11-06.json), [CSV](../reports/atco2-training-overlap-audit-2026-11-06.csv) |
 
+## New training experiment
+
+The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06.md) uses the original 30B-A4B SpeechLM base, a 20h Silver + 5h English sample, and 500 LoRA/projection updates. Data checks passed; GPU preflight is queued and subsequent jobs depend on success. It will use the same 1,269-utterance final evaluation subset. **No result row is added until evaluation completes.** N4 remains the selected streaming release candidate.
+
 ## Remaining work
 
 | Item | Status / next evidence needed |
