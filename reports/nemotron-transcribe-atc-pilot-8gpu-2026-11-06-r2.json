@@ -1,0 +1,178 @@
+{
+  "experiment": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2",
+  "status": "recovery_preflight_running_training_pending",
+  "status_observed_at": "2026-11-06T23:44:16.276427+00:00",
+  "base": {
+    "model_id": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
+    "model_revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
+    "weight_sha256": "fe3b898b42a65837180c65dedd2e62b92836cee704ae3cbee2f473946fc7d0c9",
+    "speech_revision": "e5d79d5a49cbec49d79440b0070aac0c32a8dbb8"
+  },
+  "jobs": {
+    "reused_data": "38102754",
+    "reused_sampler_audit": "38106371",
+    "preflight": "38109816",
+    "smoke": "38109817",
+    "train": "38109818",
+    "select": "38109819",
+    "test": "38109820"
+  },
+  "data": {
+    "silver": {
+      "count": 25822,
+      "hours": 20.000166666666516,
+      "skipped_before_target": {
+        "heldout_eight_word_text": 1344
+      }
+    },
+    "english": {
+      "count": 1423,
+      "hours": 5.001900138888883,
+      "skipped_before_target": {}
+    },
+    "validation": {
+      "count": 100,
+      "hours": 0.10003166666666669,
+      "reference_words": 1108
+    },
+    "test": {
+      "count": 1269,
+      "hours": 1.2626909722222217,
+      "reference_words": 13851
+    },
+    "guard": {
+      "count": 128,
+      "hours": 0.26909170138888877,
+      "reference_words": 2645
+    }
+  },
+  "training_count": 27245,
+  "schedule": {
+    "updates": 500,
+    "warmup": 50,
+    "checkpoint_steps": [
+      100,
+      250,
+      500
+    ],
+    "validation_interval": 100,
+    "batch_tokens_per_gpu": 2048,
+    "global_batch_tokens": 16384,
+    "world_size": 8,
+    "dp_size": 8,
+    "dp_replicate_size": 1,
+    "tp_size": 1,
+    "pp_size": 1,
+    "cp_size": 1,
+    "ep_size": 1,
+    "lr": 0.0001,
+    "lora_rank": 32,
+    "lora_alpha": 64,
+    "trainable": "LoRA and modality projection only",
+    "validation_interval_rule": "min(100, floor(0.6 * measured batches per rank per epoch)); at least 1",
+    "strategy": "FSDP2",
+    "effective_batch_change": "Eightfold per-update token budget versus the superseded one-GPU plan; still 500 updates and unchanged learning rate.",
+    "init_from_checkpoint_strict": false
+  },
+  "selection": {
+    "metric": "decoded_atc_development_wer",
+    "max_guard_absolute_wer_increase": 0.02,
+    "ties": "earlier step",
+    "all_fail": "diagnostic only",
+    "locked_before_test": true
+  },
+  "recipe_sha256": "9fe097dbabd0cb4be41614b86b002483906424d1f33cb93c7b76ad1af24ac6d8",
+  "data_audit_sha256": "956c2b735d7d6331c51c548bc6852985c6eb41aa1e7c4431289305973e71ee46",
+  "inference": {
+    "seed": 1012,
+    "batch_size": 1,
+    "thinking": false,
+    "sampling": false,
+    "max_tokens": "min(512,max(128,ceil(duration*12)))",
+    "dtype": "bfloat16"
+  },
+  "limitations": [
+    "Silver training labels are supplied machine transcripts.",
+    "Full pretrained/teacher ancestry is unknown; completed overlap checks do not exclude every possible transformed recording.",
+    "The 1269-row test has known overlap removed but is repeatedly inspected, not a new blind test.",
+    "The 128-clip English retention guard is a custom subset and participates in selection.",
+    "No streaming, timestamp-accuracy or release-approval conclusion follows."
+  ],
+  "metrics": null,
+  "training_started": false,
+  "scheduler_pending_reason": null,
+  "resources": {
+    "preflight": {
+      "gpus": 1,
+      "cpus": 8,
+      "memory": "192G",
+      "nodes": 1,
+      "workers": 1
+    },
+    "smoke": {
+      "gpus": 8,
+      "cpus": 64,
+      "memory": "768G",
+      "nodes": 1,
+      "workers": 8
+    },
+    "train": {
+      "gpus": 8,
+      "cpus": 64,
+      "memory": "768G",
+      "nodes": 1,
+      "workers": 8
+    },
+    "select": {
+      "gpus": 1,
+      "cpus": 8,
+      "memory": "192G",
+      "nodes": 1,
+      "workers": 1
+    },
+    "test": {
+      "gpus": 1,
+      "cpus": 8,
+      "memory": "192G",
+      "nodes": 1,
+      "workers": 1
+    }
+  },
+  "supersedes": {
+    "experiment": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06",
+    "recipe_sha256": "ead70318fb3341c8a3057df72b50aebd2c402ee0917f0b0ff39e29c89572c278",
+    "reason": "Recover failed eight-GPU smoke: permit new LoRA initialization while retaining exact restoration checks."
+  },
+  "distributed_runtime_verified": false,
+  "distributed_sampler_audit": "passed",
+  "gpu_job_time_limit": "03:45:00",
+  "maximum_gpu_allocation_hours": 71.25,
+  "data_byte_identical_to_original_pilot": true,
+  "frozen_code_and_input_hashes_verified": true,
+  "sampler": {
+    "unique_examples": 27245,
+    "draws": 27245,
+    "missing_examples": 0,
+    "tail_padding_repeated_examples": 0,
+    "batches_per_rank": 176,
+    "approximate_epochs_for_500_updates": 2.840909090909091
+  },
+  "config_sha256": "d6576eaa90194c16157abd5c35af0384dbdc55064fcd21f5017f48d5351c4b09",
+  "coverage_config_sha256": "c6d1afd49acd0a447ec903905c3801420e7b7e5e7c54ff1fbb8c2388d9b19d99",
+  "preflight_sampler_sha256": "d542e716bc59c97bb16026fd16801c3b37a85066e24c2f79668992281e9f235b",
+  "recovery": {
+    "previous_smoke_job": "38106406",
+    "cause": "Strict distributed restore rejected 244 new LoRA parameters",
+    "fix": "init_from_checkpoint_strict=false with mandatory exact base restoration callback checks",
+    "prior_sampler_audit_reused": true,
+    "prior_sampler_sha256": "d542e716bc59c97bb16026fd16801c3b37a85066e24c2f79668992281e9f235b"
+  },
+  "initialization_checks": "Before optimization, require exact restoration of all 1307 original tensors at loaded dtype; only new LoRA parameters may be additional; LoRA B must start at zero.",
+  "job_outcomes": {
+    "preflight": "RUNNING",
+    "smoke": "PENDING dependency",
+    "train": "PENDING dependency",
+    "select": "PENDING dependency",
+    "test": "PENDING dependency"
+  }
+}

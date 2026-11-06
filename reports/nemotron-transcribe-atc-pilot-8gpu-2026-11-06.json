@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06",
-  "status": "distributed_configuration_audit_running_gpu_phases_pending",
-  "status_observed_at": "2026-11-06T22:33:37.525813+00:00",
+  "status": "smoke_failed_before_optimization_downstream_cancelled",
+  "status_observed_at": "2026-11-06T23:43:51.751114+00:00",
   "base": {
     "model_id": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "model_revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -56,7 +56,7 @@
       250,
       500
     ],
-    "validation_interval": null,
+    "validation_interval": 100,
     "batch_tokens_per_gpu": 2048,
     "global_batch_tokens": 16384,
     "world_size": 8,
@@ -100,7 +100,7 @@
   ],
   "metrics": null,
   "training_started": false,
-  "scheduler_pending_reason": "Dependency",
+  "scheduler_pending_reason": null,
   "resources": {
     "preflight": {
       "gpus": 1,
@@ -144,7 +144,7 @@
     "reason": "User requested eight GPUs before old GPU phases started."
   },
   "distributed_runtime_verified": false,
-  "distributed_sampler_audit": "pending",
+  "distributed_sampler_audit": "passed",
   "gpu_job_time_limit": "03:45:00",
   "maximum_gpu_allocation_hours": 71.25,
   "data_byte_identical_to_original_pilot": true,
@@ -154,5 +154,28 @@
     "38102860": "CANCELLED before start",
     "38102861": "CANCELLED before start",
     "38102862": "CANCELLED before start"
+  },
+  "recovery_experiment": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2",
+  "job_outcomes": {
+    "config": "COMPLETED",
+    "preflight": "COMPLETED",
+    "smoke": "FAILED",
+    "train": "CANCELLED before start",
+    "select": "CANCELLED before start",
+    "test": "CANCELLED before start"
+  },
+  "failure": {
+    "phase": "smoke_model_initialization",
+    "job": "38106406",
+    "cause": "Distributed strict checkpoint loader rejected 244 newly introduced LoRA parameters absent from the original base checkpoint.",
+    "optimizer_steps": 0
+  },
+  "sampler": {
+    "unique_examples": 27245,
+    "draws": 27245,
+    "missing_examples": 0,
+    "tail_padding_repeated_examples": 0,
+    "batches_per_rank": 176,
+    "approximate_epochs_for_500_updates": 2.840909090909091
   }
 }

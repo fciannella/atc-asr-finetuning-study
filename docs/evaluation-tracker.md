@@ -75,7 +75,7 @@ Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.
 
 ## New training experiment
 
-The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06.md) uses the original 30B-A4B SpeechLM base, a 20h Silver + 5h English sample, and 500 LoRA/projection updates on eight GPUs. The original one-GPU jobs were cancelled before starting. Data checks passed; the eight-rank configuration audit is running and GPU phases depend on success. The global packed-token budget is now 16,384 per update, eight times the original plan. It will use the same 1,269-utterance final evaluation subset. **No result row is added until evaluation completes.** N4 remains the selected streaming release candidate.
+The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06.md) uses the original 30B-A4B SpeechLM base, a 20h Silver + 5h English sample, and 500 LoRA/projection updates on eight GPUs. The original one-GPU jobs were cancelled before starting. Data and sampler checks passed. The first eight-GPU smoke failed before optimization because the loader required new LoRA weights in the base checkpoint; a corrected recovery run is submitted, with training gated on successful smoke. The global packed-token budget is now 16,384 per update, eight times the original plan. It will use the same 1,269-utterance final evaluation subset. **No result row is added until evaluation completes.** N4 remains the selected streaming release candidate.
 
 ## Remaining work
 
