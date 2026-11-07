@@ -1,6 +1,7 @@
 # Frozen reports
 
-- [nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2.json](nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2.json): current eight-GPU recovery submission; corrects initialization of new LoRA parameters and repeats GPU checks. No completed training or accuracy claims.
+- [nemotron-transcribe-p4-curriculum-2026-11-07.json](nemotron-transcribe-p4-curriculum-2026-11-07.json): current two-stage curriculum, input pools, source weights, job chain and engineering checks; no new accuracy claims.
+- [nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2.json](nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2.json): completed 500-update pilot; development/guard scores recorded, repetitive output stopped selection and final test did not run.
 - [nemotron-transcribe-atc-pilot-8gpu-2026-11-06.json](nemotron-transcribe-atc-pilot-8gpu-2026-11-06.json): first eight-GPU attempt; data/sampler audit and preflight passed, smoke failed before optimization, dependent jobs cancelled.
 - [nemotron-transcribe-atc-pilot-2026-11-06.json](nemotron-transcribe-atc-pilot-2026-11-06.json): superseded one-GPU submission; its four GPU jobs were cancelled before starting.
 

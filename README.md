@@ -4,7 +4,8 @@ Public documentation repository for the ATCO2 and Jacktol ASR adaptation study. 
 
 ## Start here
 
-- [Nemotron Transcribe ATC pilot](docs/nemotron-transcribe-atc-pilot-2026-11-06.md): eight-GPU 30B-A4B LoRA pilot recovery submitted after a checkpoint-loading failure; training has not started.
+- [Nemotron Transcribe P4-style curriculum](docs/nemotron-transcribe-p4-curriculum-2026-11-07.md): two-stage, eight-GPU run scheduled; continuation check passed; full data audit running.
+- [Nemotron Transcribe ATC pilot](docs/nemotron-transcribe-atc-pilot-2026-11-06.md): 500-update pilot completed; development regression and repetitive outputs motivated the two-stage curriculum.
 
 - [Exact ATCO2 training-source overlap audit](docs/atco2-training-overlap-audit-2026-11-06.md) reports only the common 1,269-utterance comparison after excluding known overlap, with confidence intervals and the supporting audio audit.
 

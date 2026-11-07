@@ -75,7 +75,7 @@ Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.
 
 ## New training experiment
 
-The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06.md) uses the original 30B-A4B SpeechLM base, a 20h Silver + 5h English sample, and 500 LoRA/projection updates on eight GPUs. The original one-GPU jobs were cancelled before starting. Data and sampler checks passed. The first eight-GPU smoke failed before optimization because the loader required new LoRA weights in the base checkpoint; a corrected recovery run is submitted, with training gated on successful smoke. The global packed-token budget is now 16,384 per update, eight times the original plan. It will use the same 1,269-utterance final evaluation subset. **No result row is added until evaluation completes.** N4 remains the selected streaming release candidate.
+The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06.md) completed 500 LoRA/projection updates on eight GPUs using 20h Silver + 5h English. Development WER regressed from 44.49% to 48.38% at the best tied candidates because repetitive insertions outweighed fewer substitutions/deletions. Selection stopped on capped outputs; final test did not run. **No row is added to the common-test table.** N4 remains the selected streaming release candidate.
 
 ## Remaining work
 
@@ -92,3 +92,5 @@ The [Nemotron Transcribe bounded pilot](nemotron-transcribe-atc-pilot-2026-11-06
 For each new run, add a dated report with checkpoint identity/hash, dataset manifest hash, decoding settings, complete utterance and reference-word counts, errors and WER, and overlap limitations. Link it here and in the reports index. Keep historical snapshots intact and explicitly document corrections; never substitute a different split without labeling it. Model-card claims and our measured scores remain separate.
 
 Only aggregate results and reproducibility metadata belong in this public repository. Source audio, transcripts, per-utterance predictions, model weights and private storage manifests remain outside it.
+
+The [P4-style Transcribe curriculum](nemotron-transcribe-p4-curriculum-2026-11-07.md) supersedes the pilot as the active training experiment: full audited source pools, 20,000 Silver/English updates followed by 2,000 human-Gold/English updates, encoder adaptation and eight GPUs. The eight-GPU continuation check passed; main training waits for the full data audit. No test result is available yet.

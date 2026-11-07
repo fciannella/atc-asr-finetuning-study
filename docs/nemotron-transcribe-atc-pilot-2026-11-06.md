@@ -1,6 +1,6 @@
 # Nemotron Transcribe ATC bounded pilot
 
-**Status:** the distributed configuration/sampler audit and one-GPU preflight passed. The first eight-GPU smoke failed during checkpoint initialization before optimization; its dependent training/evaluation jobs were cancelled. A separate recovery attempt (`r2`) corrects initialization of the new LoRA parameters and its GPU preflight is now running. Training has not started and no pilot WER is reported. This is a dated submission record, not a live dashboard.
+**Status:** the eight-GPU recovery completed all 500 training updates in 32m55s, with checkpoints at 100/250/500 and three validation events. All candidate development/English-guard decodes completed, but the original selection check stopped on token-capped repetitive outputs; final test evaluation was cancelled before starting. The [P4-style two-stage curriculum](nemotron-transcribe-p4-curriculum-2026-11-07.md) is now the active experiment.
 
 The user selected a bounded pilot on November 6, 2026. Goal: measure whether a small ATC LoRA adaptation improves decoded ATCO2 development WER over the same original base, while limiting general-English regression. This is a separate offline SpeechLM experiment; N4 remains the streaming release candidate.
 
@@ -41,11 +41,11 @@ The experiment is adapted from the user's Dante strategy and its archived `finet
 | Eight-rank configuration and sampler audit | 38106371 | 0 | Completed; unchanged sampler evidence reused |
 | First GPU preflight and base development/guard | 38106405 | 1 | Completed |
 | First distributed smoke | 38106406 | 8 | Failed during checkpoint initialization; zero optimization steps |
-| Recovery GPU preflight and base development/guard | 38109816 | 1 | Running |
-| Recovery distributed 20-update smoke | 38109817 | 8 | Waiting for preflight |
-| Recovery 500-update training | 38109818 | 8 | Waiting for smoke |
-| Recovery export, development/guard and selection | 38109819 | 1 | Waiting for training |
-| Recovery matched base/selected test and report | 38109820 | 1 | Waiting for selection |
+| Recovery GPU preflight and base development/guard | 38109816 | 1 | Completed |
+| Recovery distributed 20-update smoke | 38109817 | 8 | Passed |
+| Recovery 500-update training | 38109818 | 8 | Completed, 32m55s |
+| Recovery export, development/guard and selection | 38109819 | 1 | Exports/decodes completed; selection stopped on output cap |
+| Recovery matched base/selected test and report | 38109820 | 1 | Cancelled before starting |
 
 The original one-GPU jobs **38102859–38102862 were cancelled before starting**. After the first eight-GPU smoke failed, **38106410, 38106411 and 38106413** were automatically cancelled before starting. Every recovery GPU phase requires the preceding phase to succeed; invalid dependencies cancel downstream jobs.
 
@@ -53,10 +53,23 @@ The original one-GPU jobs **38102859–38102862 were cancelled before starting**
 
 The pinned distributed loader defaults to requiring every model parameter in the checkpoint. The original base has no fine-tuning adapters, so it rejected the 244 newly created LoRA tensors before optimization. Recovery sets `model.init_from_checkpoint_strict=false`, the loader's supported option for intentional partial initialization. The mandatory pre-optimization callbacks still require all **1,307 original tensors** to restore exactly at loaded dtype, permit only new LoRA parameters as additional tensors, require initially zero LoRA B and keep timestamp parameters frozen. Missing base weights remain a fatal error in these checks.
 
-The failed run remains unchanged in restricted storage. Recovery uses a new run directory and frozen hashes, repeats GPU preflight and the eight-GPU smoke, and retains the same dataset, optimizer and evaluation rules. The completed sampler audit is reused after verifying unchanged sampler settings and byte-identical relocated manifests. GPU validation of the initialization fix is still pending.
+The failed run remains unchanged in restricted storage. Recovery uses a new run directory and frozen hashes, repeats GPU preflight and the eight-GPU smoke, and retains the same dataset, optimizer and evaluation rules. The completed sampler audit is reused after verifying unchanged sampler settings and byte-identical relocated manifests. The eight-GPU smoke and full training validated the initialization fix.
 
 The frozen training data contains **25,822 Silver clips / 20.000167 hours** plus **1,423 English clips / 5.001900 hours**, totaling **27,245 clips**. Before reaching the ATC sampling target, 1,344 candidates were excluded for eight-word overlap with held-out references. The completed checks found no remaining source metadata, exact source-file or cropped-PCM collision with the protected held-out sets; this does not certify absence of transformed audio or pretraining overlap.
 
 Development contains **100 utterances / 1,108 reference words**. The custom English guard contains **128 utterances / 2,645 words**. Final test is the same **1,269 utterances / 13,851 words** as the [current comparison](evaluation-tracker.md). All test results will remain unreported until base and selected checkpoint decoding complete.
 
 [Aggregate submission record](../reports/nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2.json) records exact checkpoint/configuration identities, dataset counts and job IDs. Large weights, row-level training/evaluation data and predictions stay in restricted storage. This submission does not upload or release a new model to Hugging Face.
+
+## Completed development measurements
+
+These are the 100-utterance development and 128-utterance custom English guard, not the 1,269-utterance final test. All outputs, including capped repetitions, remain included in the observed WER.
+
+| Checkpoint | ATC development WER | English guard WER | Capped outputs |
+|---|---:|---:|---:|
+| Original Transcribe base | 44.49% | 1.66% | 0 |
+| Step 100 | 73.47% | 1.85% | 3 |
+| Step 250 | 48.38% | 1.70% | 1 |
+| Step 500 | 48.38% | 1.81% | 1 |
+
+At step 250, substitutions/deletions fell from 404 to 303 relative to base, while insertions rose from 89 to 233. One short clip produced repeated number words and accounted for 126 of 536 total errors. No candidate improved development WER over the original base. No final-test score or release recommendation is made.

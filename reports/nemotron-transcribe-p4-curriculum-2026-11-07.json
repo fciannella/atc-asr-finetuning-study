@@ -1,0 +1,286 @@
+{
+  "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
+  "status": "engineering_smoke_passed_data_audit_running_main_training_pending",
+  "observed_at": "2026-11-07T12:58:42.759649+00:00",
+  "base": {
+    "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
+    "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
+    "weights_sha256": "fe3b898b42a65837180c65dedd2e62b92836cee704ae3cbee2f473946fc7d0c9",
+    "speech_revision": "e5d79d5a49cbec49d79440b0070aac0c32a8dbb8"
+  },
+  "code_freeze_sha256": "14816a19c1471b25947a9a0833d06fc83750e2c5c9dc5c7e725edba3f268f19b",
+  "stages": [
+    {
+      "name": "silver",
+      "updates": 20000,
+      "lr": 0.0001,
+      "warmup": 200,
+      "lr_floor": 1e-06,
+      "seed": 42,
+      "weights": {
+        "silver": 0.8,
+        "english": 0.2
+      },
+      "candidate_steps": [
+        9000,
+        15000,
+        20000
+      ],
+      "batch_tokens_per_gpu": 2048,
+      "global_batch_tokens": 16384
+    },
+    {
+      "name": "gold",
+      "updates": 2000,
+      "lr": 1e-05,
+      "warmup": 100,
+      "lr_floor": 1e-06,
+      "seed": 42,
+      "weights": {
+        "gold": 0.85,
+        "english": 0.15
+      },
+      "candidate_steps": [
+        500,
+        1000,
+        2000
+      ],
+      "examples_per_gpu": 2,
+      "global_example_batch": 16
+    }
+  ],
+  "source_pool_hours_before_audit": {
+    "silver": 314.71609166666167,
+    "english": 314.721,
+    "gold": 0.41787666666666623
+  },
+  "gold_source_records": 393,
+  "gold_human_rechecker_accepted_records": 393,
+  "source_records_with_numeric_digits": {
+    "silver": 0,
+    "english": 0,
+    "gold": 0
+  },
+  "actual_retained_pools": null,
+  "training_gpus": 8,
+  "precision": "bf16-true",
+  "trainable": "ASR encoder branch and normalization, modality projection, rank32/alpha64 LoRA",
+  "weight_decay": 0.001,
+  "chunk_updates": 1000,
+  "checkpoint_resume": "Passed 20-to-40 update continuation on eight GPUs; full model/optimizer/scheduler, per-rank data-loader and RNG states restored",
+  "engineering_sampler_prefix": {
+    "expected": {
+      "silver": 0.8,
+      "english": 0.2
+    },
+    "observed": {
+      "silver": 0.8015933813390531,
+      "english": 0.19840661866094683
+    },
+    "all_eight_streams_distinct": true
+  },
+  "launch": {
+    "submitted_at": "2026-11-07T12:49:26.340116+00:00",
+    "data_audit_job": "38144905",
+    "engineering_resume_smoke_job": "38145388",
+    "jobs": [
+      {
+        "stage": "silver",
+        "phase": "configure",
+        "end_step": null,
+        "gpus": 0,
+        "job": "38145663",
+        "afterok": "38144905:38145388"
+      },
+      {
+        "stage": "silver",
+        "phase": "preflight",
+        "end_step": null,
+        "gpus": 1,
+        "job": "38145669",
+        "afterok": "38145663"
+      },
+      {
+        "stage": "silver",
+        "phase": "smoke",
+        "end_step": null,
+        "gpus": 8,
+        "job": "38145672",
+        "afterok": "38145669"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 1000,
+        "gpus": 8,
+        "job": "38145673",
+        "afterok": "38145672"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 2000,
+        "gpus": 8,
+        "job": "38145689",
+        "afterok": "38145673"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 3000,
+        "gpus": 8,
+        "job": "38145690",
+        "afterok": "38145689"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 4000,
+        "gpus": 8,
+        "job": "38145691",
+        "afterok": "38145690"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 5000,
+        "gpus": 8,
+        "job": "38145692",
+        "afterok": "38145691"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 6000,
+        "gpus": 8,
+        "job": "38145694",
+        "afterok": "38145692"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 7000,
+        "gpus": 8,
+        "job": "38145695",
+        "afterok": "38145694"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 8000,
+        "gpus": 8,
+        "job": "38145699",
+        "afterok": "38145695"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 9000,
+        "gpus": 8,
+        "job": "38145701",
+        "afterok": "38145699"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 10000,
+        "gpus": 8,
+        "job": "38145703",
+        "afterok": "38145701"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 11000,
+        "gpus": 8,
+        "job": "38145704",
+        "afterok": "38145703"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 12000,
+        "gpus": 8,
+        "job": "38145705",
+        "afterok": "38145704"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 13000,
+        "gpus": 8,
+        "job": "38145706",
+        "afterok": "38145705"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 14000,
+        "gpus": 8,
+        "job": "38145707",
+        "afterok": "38145706"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 15000,
+        "gpus": 8,
+        "job": "38145709",
+        "afterok": "38145707"
+      },
+      {
+        "stage": "silver",
+        "phase": "train",
+        "end_step": 16000,
+        "gpus": 8,
+        "job": "38145710",
+        "afterok": "38145709"
+      }
+    ],
+    "gpu_partition": "interactive_singlenode",
+    "time_limit_per_gpu_job": "03:45:00",
+    "training_gpus": 8,
+    "submission_status": "queued_through_silver_16000_tail_dispatch_scheduled",
+    "tail_dispatch_job": "38145848",
+    "tail_afterok": "38145709",
+    "tail_phases": "Silver17000-20000, parent selection, full Gold stage and final evaluations",
+    "tail_code_sha256": "4ee12395147b6cb47ec0b663d5e3f94fadd058870f66bda4981401da7db35b41",
+    "dependency_policy": "afterok; invalid dependencies cancel descendants"
+  },
+  "engineering_first_failure": {
+    "job": "38145241",
+    "phase": "CUDA initialization before training",
+    "retry": "38145388",
+    "excluded_failed_node": true
+  },
+  "evaluation": {
+    "development_rows": 100,
+    "development_words": 1108,
+    "guard_rows": 128,
+    "guard_words": 2645,
+    "test_rows": 1269,
+    "test_words": 13851,
+    "guard_max_absolute_wer_increase": 0.02,
+    "selection": "Development WER among guard-passing candidates; ties earlier; all-fail diagnostic only",
+    "capped_output_policy": "Keep all capped outputs and insertion errors in WER; report cap counts; no post-hoc text trimming",
+    "test_after_selection_lock": true
+  },
+  "main_training_started": false,
+  "metrics": null,
+  "comparison_scope": "P4-style curriculum across architectures; not exact Parakeet model/compute reproduction",
+  "engineering_result": {
+    "status": "passed",
+    "job": "38145388",
+    "world_size": 8,
+    "steps": 40,
+    "finite_gradient_steps_per_rank": 40,
+    "checkpoint_resume_verified": true,
+    "resume_global_step": 20,
+    "optimizer_state_entries_restored": 733,
+    "scheduler_states_restored": 1,
+    "encoder_tensors_updated": 356,
+    "projection_tensors_updated": 2,
+    "lora_b_tensors_updated": 99,
+    "accuracy_claim": null
+  }
+}

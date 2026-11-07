@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-atc-pilot-8gpu-2026-11-06-r2",
-  "status": "recovery_preflight_running_training_pending",
-  "status_observed_at": "2026-11-06T23:44:16.276427+00:00",
+  "status": "training_completed_selection_stopped_on_capped_repetitions_test_not_run",
+  "status_observed_at": "2026-11-07T12:51:08.918234+00:00",
   "base": {
     "model_id": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "model_revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -98,8 +98,46 @@
     "The 128-clip English retention guard is a custom subset and participates in selection.",
     "No streaming, timestamp-accuracy or release-approval conclusion follows."
   ],
-  "metrics": null,
-  "training_started": false,
+  "metrics": {
+    "scope": "development and selection guard only; final test not run",
+    "development_rows": 100,
+    "reference_words": 1108,
+    "models": [
+      {
+        "checkpoint": "base",
+        "development_errors": 493,
+        "development_wer": 0.44494584837545126,
+        "guard_errors": 44,
+        "guard_wer": 0.0166351606805293,
+        "token_limit_hits": 0
+      },
+      {
+        "checkpoint": "step-100",
+        "development_errors": 814,
+        "development_wer": 0.7346570397111913,
+        "guard_errors": 49,
+        "guard_wer": 0.018525519848771266,
+        "token_limit_hits": 3
+      },
+      {
+        "checkpoint": "step-250",
+        "development_errors": 536,
+        "development_wer": 0.48375451263537905,
+        "guard_errors": 45,
+        "guard_wer": 0.017013232514177693,
+        "token_limit_hits": 1
+      },
+      {
+        "checkpoint": "step-500",
+        "development_errors": 536,
+        "development_wer": 0.48375451263537905,
+        "guard_errors": 48,
+        "guard_wer": 0.018147448015122872,
+        "token_limit_hits": 1
+      }
+    ]
+  },
+  "training_started": true,
   "scheduler_pending_reason": null,
   "resources": {
     "preflight": {
@@ -143,7 +181,7 @@
     "recipe_sha256": "ead70318fb3341c8a3057df72b50aebd2c402ee0917f0b0ff39e29c89572c278",
     "reason": "Recover failed eight-GPU smoke: permit new LoRA initialization while retaining exact restoration checks."
   },
-  "distributed_runtime_verified": false,
+  "distributed_runtime_verified": true,
   "distributed_sampler_audit": "passed",
   "gpu_job_time_limit": "03:45:00",
   "maximum_gpu_allocation_hours": 71.25,
@@ -169,10 +207,23 @@
   },
   "initialization_checks": "Before optimization, require exact restoration of all 1307 original tensors at loaded dtype; only new LoRA parameters may be additional; LoRA B must start at zero.",
   "job_outcomes": {
-    "preflight": "RUNNING",
-    "smoke": "PENDING dependency",
-    "train": "PENDING dependency",
-    "select": "PENDING dependency",
-    "test": "PENDING dependency"
-  }
+    "preflight": "COMPLETED",
+    "smoke": "COMPLETED",
+    "train": "COMPLETED",
+    "select": "FAILED at cap guard after exports and all candidate dev/guard decodes",
+    "test": "CANCELLED before start"
+  },
+  "training_result": {
+    "steps": 500,
+    "world_size": 8,
+    "finite_gradient_steps_per_rank": 500,
+    "checkpoint_steps": [
+      100,
+      250,
+      500
+    ],
+    "elapsed": "00:32:55",
+    "validation_events": 3
+  },
+  "superseded_by": "nemotron-transcribe-p4-curriculum-2026-11-07-r2"
 }
