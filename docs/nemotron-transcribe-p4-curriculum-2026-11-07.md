@@ -1,6 +1,6 @@
 # Nemotron Transcribe: P4-style two-stage curriculum
 
-**Status:** the eight-GPU, 40-update engineering continuation test passed. The full-pool data audit is running, and the main curriculum is queued behind it; main curriculum training has not started. This is a dated experiment record, not a live dashboard.
+**Status, November 9:** the full data audit passed and Silver training reached update 7,797 before a job timed out. The last complete checkpoint is update 7,000. Recovery is validating an exact packing optimizations and shorter jobs on eight GPUs. Gold refinement and final evaluation have not started. This is a dated experiment record, not a live dashboard.
 
 The November 7 run transfers Parakeet P4's successful Silver → human-Gold curriculum to `nvidia/Nemotron-3.5-Transcribe-30B-A4B`. It starts from the original Transcribe base, not the earlier 500-update pilot. It is a curriculum reproduction across architectures, not an identical Parakeet training run.
 
@@ -19,7 +19,7 @@ The November 7 run transfers Parakeet P4's successful Silver → human-Gold curr
 | Optimizer | AdamW, weight decay 0.001 | Fresh AdamW and schedule, weight decay 0.001 |
 | Hardware | Eight OCI A100 80GB GPUs | Eight OCI A100 80GB GPUs |
 
-Source weights control repeated dataset draws, not a fixed 80/20 split of unique audio hours. The complete eligible source pools are available to the sampler. Final eligible counts must come from the completed audit; the pool sizes above are not claims that every source row passed the new filters.
+Source weights control repeated dataset draws, not a fixed 80/20 split of unique audio hours. The complete eligible source pools are available to the sampler. The completed audit retained 377,400 Silver clips / 290.341636 h, 90,069 English clips / 314.717682 h, and all 393 Gold clips / 0.417877 h. It excluded 19,050 Silver clips and one English clip under the conservative eight-word held-out-reference filter; a text match alone does not establish audio contamination.
 
 Both stages train the speech encoder's ASR branch and normalization, modality projection, and rank-32/alpha-64 LoRA adapters on the language backbone. Other encoder branches, routers and the timestamp head remain frozen. Gold begins from the merged Silver model with fresh LoRA adapters. Silver uses BF16 and 2,048 packed tokens per GPU, giving a 16,384-token global budget per update. Gold retains BF16 but uses two examples per GPU (global batch 16), matching P4's Gold example-batch size.
 
@@ -40,7 +40,7 @@ The existing test has been repeatedly inspected. This audit does not certify unk
 
 ## Execution and validation
 
-The regular OCI partition limits jobs to four hours. Main training uses 1,000-update chunks with 3h45m allocation limits: 20 chunks for Silver and two for Gold. The full 20,000/2,000-update scheduler horizons remain fixed. Each continuation restores model weights, optimizer, scheduler, all eight data-loader states, callback counters and per-rank random state.
+The regular OCI partition limits jobs to four hours. The original submission used 1,000-update chunks with 3h45m allocation limits. Recovery switches to 500-update chunks after two short continuation checks. The full 20,000/2,000-update scheduler horizons remain fixed. Each continuation restores model weights, optimizer, scheduler, all eight data-loader states, callback counters and per-rank random state.
 
 An engineering smoke on the previously audited small pool first tests 20 updates, checkpoint save, and 20 further updates after restoring the distributed checkpoint. Each actual stage also repeats this smoke against its own configuration and inputs. Smoke weights are discarded. Mandatory checks include exact parent-weight restoration, zero new LoRA B, finite gradients, real encoder/projection/LoRA changes, distinct rank sampler streams, observed source-mixture proportions and validation events.
 
@@ -54,21 +54,20 @@ The earlier pilot completed 500 updates but did not reproduce P4's curriculum: i
 
 This experiment changes data scale, weighted sampling, encoder adaptation and Gold refinement together. It can test whether the combined curriculum improves Transcribe; it cannot identify which ingredient caused any gain or regression.
 
-## Tracking
+## November 9 timeout and recovery
 
-| Phase | Slurm job | Submission status |
-|---|---:|---|
-| Complete source-pool audit | 38144905 | Running |
-| Engineering save/resume smoke | 38145388 | Passed all 40 updates, including checkpoint continuation |
-| Silver configuration | 38145663 | Waiting for data audit; engineering check passed |
-| Silver preflight | 38145669 | Dependent |
-| Full-pool Silver smoke | 38145672 | Dependent |
-| First 1,000 Silver updates | 38145673 | Dependent; eight GPUs |
-| Automatic remaining-job submission | 38145848 | Runs after Silver step 15,000 |
+The original jobs completed through Silver update 7,000. Job `38145699` timed out during the next chunk at update 7,797, and its dependent jobs were cancelled. The update-7,000 checkpoint exists with all eight distributed shards and metadata; its model, optimizer and scheduler state had already restored successfully in that final attempt. Updates 7,001–7,797 were not checkpointed and must be repeated.
 
-Silver chunks through step 16,000 are queued. The cluster's per-user submission limit prevents queueing the entire chain at once. The CPU submission job will queue the remaining Silver chunks, selection, Gold refinement and final evaluations after earlier jobs free queue slots. Each remains gated on successful predecessors.
+The main issue was growing data-loader replay overhead. Before the timed-out chunk, restoring the streaming sampler took approximately three hours; steady-state model updates remained around three seconds. Merely reducing the number of new updates per job would eventually fail as the replay grew.
 
+Recovery uses a separately frozen runtime overlay, retaining the original code, checkpoints, manifests and training configurations. It memoizes immutable per-example token lengths inside the exact packing sampler's 10,000-example buffer. It also stops subset-sum search once the earliest full-capacity solution is found: later candidates cannot improve utilization and the original tie rule already prefers the earlier solution. Exhaustive and randomized tests compare the exact selected indices across 65,732 cases, including 10,000-item buffers. Both optimizations preserve batch choices, data order, rank sharding and checkpoint format. Two eight-rank comparisons passed: exact ordered batch identities, audio crops and token arrays matched before and after both optimizations, including continuation from the preceding sampler implementation. The original versus final 100-batch sampling test took approximately 257 versus 56–58 seconds per rank (about 4.5× faster). This measures sampler work, not end-to-end training throughput or WER. CPU audit jobs `38273475` and `38273732` completed successfully.
 
-[Aggregate run record](../reports/nemotron-transcribe-p4-curriculum-2026-11-07.json) records job IDs, pins and current verification status. Source audio, row-level manifests, predictions and checkpoints remain in restricted storage. This run does not publish a model or establish release approval.
+The current GPU recovery job is `38274206`, running on one node with eight GPUs, 64 CPUs and 768 GiB RAM. The first recovery chunk has not yet completed at this observation.
+
+The recovery sequence is update 7,000 → 7,020 → 7,040 → 7,500, then 500-update chunks through 20,000. Gold also uses 500-update chunks through 2,000. Both short recovery jobs must finish within 60 minutes before allowing their successors. All GPU allocations remain below the four-hour partition limit, at 3h45m. Each successful job submits only its next dependent job, avoiding the earlier queue-submission limit. Training and smoke phases use eight GPUs; standalone evaluation uses one.
+
+The original 20,000/2,000-update scheduler horizons, source weights, candidate checkpoints, development selection rule and final evaluation protocol remain unchanged. No new final WER is available.
+
+[Aggregate run record](../reports/nemotron-transcribe-p4-curriculum-2026-11-07.json) records pins, the original job history and recovery status. Source audio, row-level manifests, predictions and checkpoints remain in restricted storage. This run does not publish a model or establish release approval.
 
 References: [P4 lineage](checkpoint-comparison-n4-p4.md#training-lineage-and-selection-rationale), [Gold experiments](experiments/02-gold-refinement.md), [earlier Transcribe pilot](nemotron-transcribe-atc-pilot-2026-11-06.md), [current common-test comparison](evaluation-tracker.md).

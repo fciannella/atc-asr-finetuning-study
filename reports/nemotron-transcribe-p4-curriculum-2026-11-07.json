@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
-  "status": "engineering_smoke_passed_data_audit_running_main_training_pending",
-  "observed_at": "2026-11-07T12:58:42.759649+00:00",
+  "status": "silver_recovery_running_startup",
+  "observed_at": "2026-11-09T17:09:04.741669+00:00",
   "base": {
     "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -61,12 +61,25 @@
     "english": 0,
     "gold": 0
   },
-  "actual_retained_pools": null,
+  "actual_retained_pools": {
+    "silver": {
+      "count": 377400,
+      "hours": 290.34163611111285
+    },
+    "english": {
+      "count": 90069,
+      "hours": 314.7176821874961
+    },
+    "gold": {
+      "count": 393,
+      "hours": 0.41787666666666673
+    }
+  },
   "training_gpus": 8,
   "precision": "bf16-true",
   "trainable": "ASR encoder branch and normalization, modality projection, rank32/alpha64 LoRA",
   "weight_decay": 0.001,
-  "chunk_updates": 1000,
+  "chunk_updates": 500,
   "checkpoint_resume": "Passed 20-to-40 update continuation on eight GPUs; full model/optimizer/scheduler, per-rank data-loader and RNG states restored",
   "engineering_sampler_prefix": {
     "expected": {
@@ -265,7 +278,7 @@
     "capped_output_policy": "Keep all capped outputs and insertion errors in WER; report cap counts; no post-hoc text trimming",
     "test_after_selection_lock": true
   },
-  "main_training_started": false,
+  "main_training_started": true,
   "metrics": null,
   "comparison_scope": "P4-style curriculum across architectures; not exact Parakeet model/compute reproduction",
   "engineering_result": {
@@ -282,5 +295,294 @@
     "projection_tensors_updated": 2,
     "lora_b_tensors_updated": 99,
     "accuracy_claim": null
-  }
+  },
+  "interruption": {
+    "job": "38145699",
+    "state": "TIMEOUT",
+    "last_observed_update": 7797,
+    "last_complete_checkpoint": 7000,
+    "time_limit": "03:45:00",
+    "gold_started": false,
+    "final_evaluation_started": false
+  },
+  "recovery": {
+    "experiment": "nemotron-transcribe-p4-recovery-2026-11-09",
+    "status": "all_equivalence_checks_passed_recovery_job_running",
+    "sampler_audit_job": "38273475",
+    "training_gpus": 8,
+    "resume_step": 7000,
+    "initial_end_steps": [
+      7020,
+      7040,
+      7500
+    ],
+    "subsequent_chunk_updates": 500,
+    "short_resume_gate_seconds": 3600,
+    "job_time_limit": "03:45:00",
+    "successor_policy": "Submit one next job after successful phase completion; afterok dependency",
+    "method": "Memoize immutable per-example token lengths and stop exact subset-sum search at earliest full-capacity solution; preserve original batch selections and checkpoint state",
+    "metrics": null,
+    "fast_packing_audit_job": "38273732",
+    "launch": {
+      "original_run": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
+      "resume_step": 7000,
+      "jobs": [
+        {
+          "stage": "silver",
+          "phase": "train",
+          "gpus": 8,
+          "start": 7000,
+          "end": 7020,
+          "index": 0,
+          "job": "38274206",
+          "afterok": "38273732",
+          "submitted_at": "2026-11-09T17:07:27.464465+00:00"
+        }
+      ],
+      "status": "automatic_successor_chain_active"
+    },
+    "code_freeze": {
+      "packing_cache.py": "7d19682f0fdb521720e4780020b32c7ceebbfe5d82237c1e6add46b29cfee7a3",
+      "audit_cache.py": "8042f266f82fed861c08f4edb01cbf66358643e85ba06e857a98c3d10cf33c79",
+      "audit-code-freeze.json": "e0ad884f41d7db505fafb081e3a72ece8588edeedf99f3e39ef1654843b9435d",
+      "pipeline.py": "2e4239ed1452c8c1c7b1fc3a5c6886bc04640cf580a26edafe4affccc3e9e88c",
+      "train_recovery.py": "5351f6c9982abb5c33ff9bc9eab569be1051656db0ea405db374c5eb00102cb5",
+      "submit_next.py": "f0fe1bc9792162dfc02d51241bbbe3cd875917bd10aa8a18a9e027d17243e219",
+      "verify_recovery.py": "eb976a4f3d617f9d1ff653900d12d5623a682376da7734c8dea5e1cbeb25d657",
+      "dispatch.py": "9e0108d1b4db6d1b1dcc3cff361ac4e649a63b6ac3a3f69bb3de529d06319146",
+      "chain.json": "9d164e1223a81a9a0ad5384190518b4d9d334e886a9846661825f72d69bc02c4",
+      "job.sbatch": "bab5f6490975586cb9b1a3978fa35e20abafa04808580406fc6e79b5523658a1",
+      "inside.sh": "9b46d51204c387d0ca04153d04390921e96787a19630c1d5671f89be4a0e1142",
+      "packing_fast.py": "33fc22b47cd04a74ae6882cf327ac35164abc5720311500b31c9be5cb5a4daca",
+      "audit_fast.py": "e52864aad7cd8aced90e250fc371532a60a25d7b35687b31ce273293029f2af8"
+    },
+    "cache_audit": [
+      {
+        "status": "passed",
+        "rank": 0,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.93915121187456,
+        "cached_seconds": 62.7805601649452,
+        "cached_resume_seconds": 58.86090826592408,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "e9607e7af9fd93c30a187709c6162b8413c657d94f6e0c3d350d24c0dad2619c"
+      },
+      {
+        "status": "passed",
+        "rank": 1,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.87978579313494,
+        "cached_seconds": 60.202720100060105,
+        "cached_resume_seconds": 59.08440308691934,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "7ce3f0c539b51038d0a02f40409dc1903cbc19b733569d93dcdc7c4409a5c883"
+      },
+      {
+        "status": "passed",
+        "rank": 2,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.8892502649687,
+        "cached_seconds": 62.760059932945296,
+        "cached_resume_seconds": 58.47127277916297,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "8747642116b3c54ff8671985a1ff8e8a561e481d5219f1f7e17017f25a532b60"
+      },
+      {
+        "status": "passed",
+        "rank": 3,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.91630765912123,
+        "cached_seconds": 62.73494490701705,
+        "cached_resume_seconds": 59.2406135101337,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "5b1a71316ae31fa34cef452186f8efa2de6b3c2a69ec2743193821076ef27980"
+      },
+      {
+        "status": "passed",
+        "rank": 4,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.89783204207197,
+        "cached_seconds": 62.7109420360066,
+        "cached_resume_seconds": 58.949055783916265,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "c3160aa6fecc2b1130c9f23171269b045a8e9c1c69b7629a5973a7e1ba6f8a01"
+      },
+      {
+        "status": "passed",
+        "rank": 5,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.89720050408505,
+        "cached_seconds": 60.21072110813111,
+        "cached_resume_seconds": 58.92240247898735,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "05deb8214ab3308ed1ec83ef6c5dace4d41227cf2b007f01455ad0d66ffd219f"
+      },
+      {
+        "status": "passed",
+        "rank": 6,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.90393232600763,
+        "cached_seconds": 62.75668419897556,
+        "cached_resume_seconds": 59.47888776101172,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "291c8dbf0f5dfb3f950578ee9fd58be64ffb2fe979bc84afa287d18c63afcd12"
+      },
+      {
+        "status": "passed",
+        "rank": 7,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 256.9096615088638,
+        "cached_seconds": 62.74557574605569,
+        "cached_resume_seconds": 58.304069033125415,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "c92a239808e4fdb35dcb88e1b67d0b9cf8dd9aead54c9a9ff3ada0a35566f5d1"
+      }
+    ],
+    "subset_sum_exact_selection_test_cases": 65732,
+    "cancelled_pending_submission": {
+      "original_run": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
+      "resume_step": 7000,
+      "jobs": [
+        {
+          "stage": "silver",
+          "phase": "train",
+          "gpus": 8,
+          "start": 7000,
+          "end": 7020,
+          "index": 0,
+          "job": "38273831",
+          "afterok": "38273732",
+          "submitted_at": "2026-11-09T17:01:11.760886+00:00"
+        }
+      ],
+      "status": "cancelled_while_pending_to_adjust_continuation_time_gate"
+    },
+    "fast_packing_audit": [
+      {
+        "status": "passed",
+        "rank": 0,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 70.72201960114762,
+        "cached_seconds": 57.136105119017884,
+        "cached_resume_seconds": 56.4922578020487,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "e9607e7af9fd93c30a187709c6162b8413c657d94f6e0c3d350d24c0dad2619c"
+      },
+      {
+        "status": "passed",
+        "rank": 1,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 70.7284280359745,
+        "cached_seconds": 56.28759296191856,
+        "cached_resume_seconds": 55.98632508190349,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "7ce3f0c539b51038d0a02f40409dc1903cbc19b733569d93dcdc7c4409a5c883"
+      },
+      {
+        "status": "passed",
+        "rank": 2,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 70.70979976491071,
+        "cached_seconds": 56.53932809899561,
+        "cached_resume_seconds": 56.44832083815709,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "8747642116b3c54ff8671985a1ff8e8a561e481d5219f1f7e17017f25a532b60"
+      },
+      {
+        "status": "passed",
+        "rank": 3,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 69.86366896890104,
+        "cached_seconds": 57.39164488995448,
+        "cached_resume_seconds": 56.654067805968225,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "5b1a71316ae31fa34cef452186f8efa2de6b3c2a69ec2743193821076ef27980"
+      },
+      {
+        "status": "passed",
+        "rank": 4,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 69.83720623701811,
+        "cached_seconds": 57.68366570188664,
+        "cached_resume_seconds": 56.21479076310061,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "c3160aa6fecc2b1130c9f23171269b045a8e9c1c69b7629a5973a7e1ba6f8a01"
+      },
+      {
+        "status": "passed",
+        "rank": 5,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 70.70948980888352,
+        "cached_seconds": 55.885651601012796,
+        "cached_resume_seconds": 56.35765657201409,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "05deb8214ab3308ed1ec83ef6c5dace4d41227cf2b007f01455ad0d66ffd219f"
+      },
+      {
+        "status": "passed",
+        "rank": 6,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 70.75033228006214,
+        "cached_seconds": 55.937165782088414,
+        "cached_resume_seconds": 56.31292620184831,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "291c8dbf0f5dfb3f950578ee9fd58be64ffb2fe979bc84afa287d18c63afcd12"
+      },
+      {
+        "status": "passed",
+        "rank": 7,
+        "world_size": 8,
+        "prefix_batches": 80,
+        "continuation_batches": 20,
+        "baseline_seconds": 69.94710156694055,
+        "cached_seconds": 57.36907481518574,
+        "cached_resume_seconds": 56.57430127891712,
+        "exact_batch_hashes_match": true,
+        "ordered_prefix_sha256": "c92a239808e4fdb35dcb88e1b67d0b9cf8dd9aead54c9a9ff3ada0a35566f5d1"
+      }
+    ],
+    "sampler_prefix_speedup_range": [
+      4.45356287462275,
+      4.596836453445403
+    ],
+    "resume_on_gpu_verified": false,
+    "scheduler_state": "RUNNING",
+    "allocated_resources": {
+      "nodes": 1,
+      "gpus": 8,
+      "cpus": 64,
+      "memory_gib": 768
+    }
+  },
+  "original_chunk_updates": 1000
 }

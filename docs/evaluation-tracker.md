@@ -93,4 +93,4 @@ For each new run, add a dated report with checkpoint identity/hash, dataset mani
 
 Only aggregate results and reproducibility metadata belong in this public repository. Source audio, transcripts, per-utterance predictions, model weights and private storage manifests remain outside it.
 
-The [P4-style Transcribe curriculum](nemotron-transcribe-p4-curriculum-2026-11-07.md) supersedes the pilot as the active training experiment: full audited source pools, 20,000 Silver/English updates followed by 2,000 human-Gold/English updates, encoder adaptation and eight GPUs. The eight-GPU continuation check passed; main training waits for the full data audit. No test result is available yet.
+The [P4-style Transcribe curriculum](nemotron-transcribe-p4-curriculum-2026-11-07.md) supersedes the pilot as the active training experiment: full audited source pools, 20,000 Silver/English updates followed by 2,000 human-Gold/English updates, encoder adaptation and eight GPUs. The data audit passed. Silver reached update 7,797 before a job timeout; recovery starts from the saved update-7,000 checkpoint with shorter jobs and faster sampler restoration. No test result is available yet.
