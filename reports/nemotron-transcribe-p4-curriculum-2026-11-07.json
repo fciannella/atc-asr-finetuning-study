@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
-  "status": "silver_recovery_running_startup",
-  "observed_at": "2026-11-09T17:09:04.741669+00:00",
+  "status": "silver_recovery_retry_running",
+  "observed_at": "2026-11-10T13:23:01.236623+00:00",
   "base": {
     "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -307,7 +307,7 @@
   },
   "recovery": {
     "experiment": "nemotron-transcribe-p4-recovery-2026-11-09",
-    "status": "all_equivalence_checks_passed_recovery_job_running",
+    "status": "retry_from_7040_running_data_loader_setup",
     "sampler_audit_job": "38273475",
     "training_gpus": 8,
     "resume_step": 7000,
@@ -337,9 +337,67 @@
           "job": "38274206",
           "afterok": "38273732",
           "submitted_at": "2026-11-09T17:07:27.464465+00:00"
+        },
+        {
+          "stage": "silver",
+          "phase": "train",
+          "gpus": 8,
+          "start": 7020,
+          "end": 7040,
+          "index": 1,
+          "job": "38276171",
+          "afterok": "38274206",
+          "submitted_at": "2026-11-09T18:04:18.140240+00:00"
+        },
+        {
+          "stage": "silver",
+          "phase": "train",
+          "gpus": 8,
+          "start": 7040,
+          "end": 7500,
+          "index": 2,
+          "job": "38328460",
+          "afterok": null,
+          "submitted_at": "2026-11-10T13:19:29.400320+00:00",
+          "prior_attempts": [
+            {
+              "stage": "silver",
+              "phase": "train",
+              "gpus": 8,
+              "start": 7040,
+              "end": 7500,
+              "index": 2,
+              "job": "38279510",
+              "afterok": "38276171",
+              "submitted_at": "2026-11-09T19:02:11.689874+00:00",
+              "state": "TIMEOUT",
+              "training_started": false,
+              "no_training_log_observed": true
+            }
+          ],
+          "excluded_node_count": 1
+        },
+        {
+          "stage": "silver",
+          "phase": "train",
+          "gpus": 8,
+          "start": 7500,
+          "end": 8000,
+          "index": 3,
+          "job": "38328494",
+          "afterok": "38328460",
+          "submitted_at": "2026-11-10T13:22:12.451591+00:00",
+          "excluded_node_count": 1
         }
       ],
-      "status": "automatic_successor_chain_active"
+      "status": "automatic_successor_chain_active",
+      "retry_reason": "Previous node flagged for network diagnostics; no training step or stdout log observed; exact cause unconfirmed.",
+      "submission_wrapper": {
+        "sha256": "e04d7ba868cc221532becab74613fe79f08d3708a520b133ac059e68dccfdf97",
+        "purpose": "Explicit --exclude and --export=ALL on all successor submissions; PATH propagated from prequeued bridge job",
+        "first_wrapper_job": "38328494",
+        "excluded_node_count": 1
+      }
     },
     "code_freeze": {
       "packing_cache.py": "7d19682f0fdb521720e4780020b32c7ceebbfe5d82237c1e6add46b29cfee7a3",
@@ -575,13 +633,64 @@
       4.45356287462275,
       4.596836453445403
     ],
-    "resume_on_gpu_verified": false,
+    "resume_on_gpu_verified": true,
     "scheduler_state": "RUNNING",
     "allocated_resources": {
       "nodes": 1,
       "gpus": 8,
       "cpus": 64,
       "memory_gib": 768
+    },
+    "completed_continuations": [
+      {
+        "status": "passed",
+        "steps": 7020,
+        "finite_gradient_steps": 7020,
+        "world_size": 8,
+        "saved_steps": [
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          7020
+        ]
+      },
+      {
+        "status": "passed",
+        "steps": 7040,
+        "finite_gradient_steps": 7040,
+        "world_size": 8,
+        "saved_steps": [
+          1000,
+          2000,
+          3000,
+          4000,
+          5000,
+          6000,
+          7000,
+          7020,
+          7040
+        ]
+      }
+    ],
+    "latest_verified_checkpoint": 7040,
+    "retry_job": "38328460",
+    "next_job": "38328494",
+    "retry_optimization_progress_verified": false,
+    "prior_resume_seconds": {
+      "7000": 3081.5,
+      "7020": 3187.8
+    },
+    "startup_timeout": {
+      "job": "38279510",
+      "state": "TIMEOUT",
+      "duration": "03:45:29",
+      "no_training_log_observed": true,
+      "node_flagged_for_network_diagnostics": true,
+      "cause": "Not established; startup or node-access failure suspected"
     }
   },
   "original_chunk_updates": 1000

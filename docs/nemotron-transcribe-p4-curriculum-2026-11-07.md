@@ -1,6 +1,6 @@
 # Nemotron Transcribe: P4-style two-stage curriculum
 
-**Status, November 9:** the full data audit passed and Silver training reached update 7,797 before a job timed out. The last complete checkpoint is update 7,000. Recovery is validating an exact packing optimizations and shorter jobs on eight GPUs. Gold refinement and final evaluation have not started. This is a dated experiment record, not a live dashboard.
+**Status, November 10:** both eight-GPU recovery checks completed and saved checkpoints at updates 7,020 and 7,040. The next job timed out before producing a training log. Retry **38328460** is running on a different node, has reached the training launcher and data-loader setup, and is resuming from **7,040** toward **7,500**. Its successor **38328494** is queued for updates 7,500–8,000. Gold refinement and final evaluation have not started. This is a dated experiment record, not a live dashboard.
 
 The November 7 run transfers Parakeet P4's successful Silver → human-Gold curriculum to `nvidia/Nemotron-3.5-Transcribe-30B-A4B`. It starts from the original Transcribe base, not the earlier 500-update pilot. It is a curriculum reproduction across architectures, not an identical Parakeet training run.
 
@@ -62,7 +62,11 @@ The main issue was growing data-loader replay overhead. Before the timed-out chu
 
 Recovery uses a separately frozen runtime overlay, retaining the original code, checkpoints, manifests and training configurations. It memoizes immutable per-example token lengths inside the exact packing sampler's 10,000-example buffer. It also stops subset-sum search once the earliest full-capacity solution is found: later candidates cannot improve utilization and the original tie rule already prefers the earlier solution. Exhaustive and randomized tests compare the exact selected indices across 65,732 cases, including 10,000-item buffers. Both optimizations preserve batch choices, data order, rank sharding and checkpoint format. Two eight-rank comparisons passed: exact ordered batch identities, audio crops and token arrays matched before and after both optimizations, including continuation from the preceding sampler implementation. The original versus final 100-batch sampling test took approximately 257 versus 56–58 seconds per rank (about 4.5× faster). This measures sampler work, not end-to-end training throughput or WER. CPU audit jobs `38273475` and `38273732` completed successfully.
 
-The current GPU recovery job is `38274206`, running on one node with eight GPUs, 64 CPUs and 768 GiB RAM. The first recovery chunk has not yet completed at this observation.
+The short recovery jobs `38274206` and `38276171` completed in 56m04s and 57m42s, respectively. They verified finite gradients on all eight ranks, saved complete checkpoints at 7,020 and 7,040, and successfully continued the model/optimizer/scheduler state. Sampler restoration took approximately 51.4 and 53.1 minutes.
+
+The following job, `38279510`, timed out after 3h45m29s without a training log or recorded training step. Its node was subsequently observed flagged for network diagnostics. That supports investigating a startup or node-access problem; it does not establish the exact cause.
+
+Retry `38328460` keeps the frozen training code and configuration and resumes from 7,040 on another node. Its launch explicitly excludes the flagged node. A separately recorded submission wrapper passes the same explicit exclusion to successor jobs; `38328494` is prequeued behind the retry and its exclusion was verified. The retry has reached data-loader setup. Its first new optimization chunk is not yet complete.
 
 The recovery sequence is update 7,000 → 7,020 → 7,040 → 7,500, then 500-update chunks through 20,000. Gold also uses 500-update chunks through 2,000. Both short recovery jobs must finish within 60 minutes before allowing their successors. All GPU allocations remain below the four-hour partition limit, at 3h45m. Each successful job submits only its next dependent job, avoiding the earlier queue-submission limit. Training and smoke phases use eight GPUs; standalone evaluation uses one.
 
