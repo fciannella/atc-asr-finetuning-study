@@ -1,0 +1,157 @@
+{
+  "build": {
+    "version": "atco2-known-overlap-removed-v2-2026-11-13",
+    "files": 1509,
+    "release_json_sha256": "432ec4640ae77277bb6324d34a17e70d213d3bc76a9504f60c2f0eb13002eb26",
+    "checksums_sha256": "c3a5f334876d67a6768f6a0b6885ffbc21fb85e5b28075e6c77f98d8027f6f1e",
+    "builder_sha256": "7ea27d840592ab00b3bfb75e5e1bc8007fe754233d7aa34a6c0fd859be92308b",
+    "private_source_manifest_sha256": "cf675e16517aa1a8653833e54d6bc6e3f9612b681a8514885ef48358e32dfa8d",
+    "archive_sha256": "0bacca4f94c255c2590820679329a3a75e7155167756456f603c4d72e00bafb2",
+    "archive_bytes": 159291557
+  },
+  "local_validation": {
+    "status": "passed",
+    "package_files": 1509,
+    "wav_files": 1503,
+    "configs": {
+      "default": {
+        "test": 1269,
+        "extension": 234
+      },
+      "combined": {
+        "test": 1503
+      }
+    },
+    "all_file_checksums_verified": true,
+    "all_wav_pcm_hashes_verified": true,
+    "all_transcripts_match": true,
+    "datasets_version": "5.2.0",
+    "checksums_sha256": "c3a5f334876d67a6768f6a0b6885ffbc21fb85e5b28075e6c77f98d8027f6f1e"
+  },
+  "upload": {
+    "repo": "nvidia/atco2-eval",
+    "private": true,
+    "old_revision": "0b408685369df18230bfbfc73e03e4070e128b23",
+    "uploaded_revision": "a00133fd832bc15e86de584085a209f2724e45e1",
+    "remote_files_verified": 1509,
+    "remote_wav_files_verified": 1503,
+    "exact_remote_file_set_matches": true,
+    "checksums_sha256": "c3a5f334876d67a6768f6a0b6885ffbc21fb85e5b28075e6c77f98d8027f6f1e",
+    "legacy_files_absent_from_main": true
+  },
+  "publication": {
+    "repo": "nvidia/atco2-eval",
+    "private": true,
+    "uploaded_revision": "a00133fd832bc15e86de584085a209f2724e45e1",
+    "cleanup_errors": [],
+    "release_revision": "747770ceb0adaf061e28e7948beddb3bd332f631",
+    "main_history_commits": 1,
+    "tag": "v2-2026-11-13",
+    "old_preview_deleted": true,
+    "old_main_revision_resolves": true,
+    "old_converted_revision_resolves": true,
+    "refs": {
+      "branches": [
+        {
+          "name": "main",
+          "target_commit": "747770ceb0adaf061e28e7948beddb3bd332f631"
+        }
+      ],
+      "converts": [],
+      "tags": [
+        {
+          "name": "v2-2026-11-13",
+          "target_commit": "2024146984cfd349d9446a15876b246dc957da0a"
+        }
+      ]
+    },
+    "remote_wav_files_verified": 1503,
+    "checksums_sha256": "c3a5f334876d67a6768f6a0b6885ffbc21fb85e5b28075e6c77f98d8027f6f1e",
+    "historical_cleanup_blocker": {
+      "http_status": 403,
+      "action": "create_fresh_private_dataset_repository",
+      "attempted_repo": "nvidia/atco2-eval-v2-2026-11-13",
+      "reason": "Current account/token lacks rights to create a dataset in nvidia. Existing repo replaced and history squashed, but old commit-addressed dataset revisions still resolve."
+    }
+  },
+  "published_validation": {
+    "status": "passed",
+    "repo": "nvidia/atco2-eval",
+    "private": true,
+    "tag": "v2-2026-11-13",
+    "revision": "747770ceb0adaf061e28e7948beddb3bd332f631",
+    "remote_metadata_counts": {
+      "test": 1269,
+      "extension": 234
+    },
+    "remote_metadata_bytes_match": true,
+    "remote_sample_audio_verified_per_split": 1,
+    "remote_streaming_configurations_verified": [
+      "default/test",
+      "default/extension",
+      "combined/test"
+    ]
+  },
+  "package_release": {
+    "version": "atco2-known-overlap-removed-v2-2026-11-13",
+    "clips": 1503,
+    "audio_minutes": 90.64109062499999,
+    "splits": {
+      "test": {
+        "clips": 1269,
+        "audio_seconds": 4545.687499999998,
+        "audio_minutes": 75.76145833333331,
+        "manifest_minutes": 75.76146666666664,
+        "source_recordings": 768,
+        "metadata_sha256": "aa0047a5382a1ef0673622298dd45c45c495ab8f3b2db50dfdf38ec0284156ca",
+        "previously_used_for_p4_n4_training": false
+      },
+      "extension": {
+        "clips": 234,
+        "audio_seconds": 892.7779375000006,
+        "audio_minutes": 14.879632291666676,
+        "manifest_minutes": 14.879633333333343,
+        "source_recordings": 147,
+        "metadata_sha256": "500bbe982ba2e443441ba36c6e2077e9bc289daa369806bb1a81431f7bf3ed1b",
+        "previously_used_for_p4_n4_training": true
+      }
+    },
+    "selection": "Remove the union of known Jacktol source-recording links and audited public ATCO2 train/validation matches; extend with Gold clips surviving the November 13 exact, acoustic and source-recording audit.",
+    "inputs": {
+      "gold-community-test.jsonl": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+      "gold-train.jsonl": "e73737113cea302971ac1e5f46e7800b5863d9e4cf9d3a109b8cf6730408c106",
+      "private-exclusion-masks.json": "11b88d3aeb7f2f89b401d3147ea905b0aab6b2d2ef8a98a0bc9a9dc0823f5b61",
+      "private-gold-exclusion-mask.json": "476b5d22a4867568c1682a3421249fc74715e9c93ea47651b07a2ebacec7a7f8"
+    },
+    "builder_sha256": "7ea27d840592ab00b3bfb75e5e1bc8007fe754233d7aa34a6c0fd859be92308b",
+    "crop_policy": "start=int(offset_seconds*16000); frames=int(manifest_duration_seconds*16000), matching the audited/evaluated PCM; preserve original signed-int16 mono samples and transcript text.",
+    "verification": {
+      "input_hashes_passed": true,
+      "excluded_ids_absent": true,
+      "unique_ids": 1503,
+      "unique_complete_pcm_hashes": 1503,
+      "all_audio_independently_decoded": true,
+      "original_test_audio_matches_evaluated_pcm": 1269,
+      "shared_source_records_between_splits": 0,
+      "shared_airport_date_groups_between_splits": 0
+    },
+    "scope": "Known overlap removed against the frozen audited snapshots; no certification of every public corpus, arbitrary transformed audio or full model ancestry.",
+    "existing_model_eligibility": "P4/N4 use only default/test (1269 clips). All 234 extension clips were in their Gold training pool. Combined evaluation requires a lineage excluding the extension and linked recordings throughout training and selection."
+  },
+  "build_job": {
+    "id": "38488021",
+    "state": "COMPLETED",
+    "exit_code": "0:0",
+    "elapsed": "00:00:26"
+  },
+  "script_sha256": {
+    "build_release.py": "7ea27d840592ab00b3bfb75e5e1bc8007fe754233d7aa34a6c0fd859be92308b",
+    "validate_download.py": "f6d2bfa8746e2e8fd209fccb348e40525eb60f57af9b15d0184cd60e192bb637",
+    "verify_published.py": "ea424f83a8a2dfe177edaba6319818e4ff632f786743de1b65ac56d256b62436"
+  },
+  "viewer_check": {
+    "http_status": 500,
+    "message": "The server is busier than usual and the response is not ready yet. Please retry later.",
+    "interpretation": "Remote datasets-library loading and audio checks passed; web Dataset Viewer playback is not verified."
+  }
+}

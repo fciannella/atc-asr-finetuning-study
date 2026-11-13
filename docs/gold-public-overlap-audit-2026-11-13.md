@@ -4,6 +4,8 @@ Audit completed **November 13, 2026** on OCI. **The full Gold training pool is n
 
 These remaining clips are candidates for a **future** evaluation split only after removing them and their linked recordings from all training and checkpoint-selection ancestry, including Silver exposure. **P4 and N4 already trained on this Gold pool, so none of its clips can become held-out evaluation for those existing checkpoints.**
 
+**Packaging follow-up:** the retained test and Gold pools are now materialized in the [frozen v2 dataset release](atco2-overlap-removed-release-2026-11-13.md), with separate provenance splits and a conditional combined view. The audit findings and existing-model eligibility limits below remain unchanged.
+
 ## Gold audit result
 
 The outcome rows below are disjoint and sum to the 393-clip input.

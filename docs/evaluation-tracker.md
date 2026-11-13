@@ -73,6 +73,12 @@ Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.
 | Number-format diagnostic and CTC development check | Complete | Community benchmark; no model tuning or prediction changes |
 | Direct public ATCO2 audio audit and common-mask rescoring | Complete: 498 train + 140 validation matches; independent WAV verification; all 12 checkpoints rescored | [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md), [JSON](../reports/atco2-training-overlap-audit-2026-11-06.json), [CSV](../reports/atco2-training-overlap-audit-2026-11-06.csv) |
 
+## Canonical packaged dataset
+
+The [frozen November 13 v2 release](atco2-overlap-removed-release-2026-11-13.md) is available in the private NVIDIA HF repository at tag `v2-2026-11-13`: **1,269 test clips plus 234 separately labeled former-Gold clips**, 1,503 clips / 90.6411 minutes overall. Existing P4/N4 use `default/test`; the extension is not held out for them. The combined configuration is conditional on eligible model ancestry. All package and remote file checks passed.
+
+The old personal preview is deleted and current HF content is replaced. **Old NVIDIA commit-addressed data still resolve despite history squashing**; complete historical removal needs an NVIDIA admin because fresh-repository creation returned HTTP 403. The release record tracks this remaining cleanup separately from the verified new package.
+
 ## Gold data proposed for evaluation expansion
 
 The [November 13 Gold/public audit](gold-public-overlap-audit-2026-11-13.md) found **159 of the 393 Gold training clips / 10.1930 of 25.0726 minutes** overlap audited public audio: 158 exact crop duplicates and one additional strongly correlated 4.14-second clip. Conservative source-recording checks add no further clips. **234 clips / 14.8796 minutes** have no identified overlap under the documented scope.
