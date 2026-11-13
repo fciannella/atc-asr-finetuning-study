@@ -1,6 +1,6 @@
 # ATC evaluation tracker
 
-Updated **November 6, 2026**. This page links the completed evaluations, evidence, and open work. It is a dated record, not an automated job dashboard.
+Updated **November 13, 2026**. This page links the completed evaluations, evidence, and open work. It is a dated record, not an automated job dashboard.
 
 ## Current comparison after removing known overlap
 
@@ -72,6 +72,12 @@ Supporting evidence: [Jacktol recording-overlap audit](atco2-jacktol-comparison.
 | Historical Gold-additive split audit | Complete: older test was 1,394 rows / 1.48h; 554 training segments overlap current test | Same P2 report; additive variant excluded from the current comparison |
 | Number-format diagnostic and CTC development check | Complete | Community benchmark; no model tuning or prediction changes |
 | Direct public ATCO2 audio audit and common-mask rescoring | Complete: 498 train + 140 validation matches; independent WAV verification; all 12 checkpoints rescored | [ATCO2 source audit](atco2-training-overlap-audit-2026-11-06.md), [JSON](../reports/atco2-training-overlap-audit-2026-11-06.json), [CSV](../reports/atco2-training-overlap-audit-2026-11-06.csv) |
+
+## Gold data proposed for evaluation expansion
+
+The [November 13 Gold/public audit](gold-public-overlap-audit-2026-11-13.md) found **159 of the 393 Gold training clips / 10.1930 of 25.0726 minutes** overlap audited public audio: 158 exact crop duplicates and one additional strongly correlated 4.14-second clip. Conservative source-recording checks add no further clips. **234 clips / 14.8796 minutes** have no identified overlap under the documented scope.
+
+For future checkpoints that exclude this Gold remainder and its linked recordings throughout their training/selection ancestry, the conditional total would be **90.6411 minutes**, leaving **29.3589 minutes** to reach two hours. P4/N4 already trained on this Gold pool, so it contributes **zero held-out minutes for those existing checkpoints**. The audit does not change the common evaluation subset or its WER results.
 
 ## New training experiment
 

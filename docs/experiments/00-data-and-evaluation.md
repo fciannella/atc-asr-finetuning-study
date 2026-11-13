@@ -24,6 +24,8 @@ Gold denotes per-record human acceptance in this study, not permission to train 
 
 The Gold train/development/test split was isolated by airport-date, audio path, record ID, and source-record ID. Some historical exploratory runs deliberately broke that boundary; they remain [diagnostics](03-jacktol-and-transfer.md), not eligible benchmark checkpoints.
 
+The [November 13 public-overlap audit of the 393 Gold training clips](../gold-public-overlap-audit-2026-11-13.md) identifies **159 clips / 10.1930 minutes** for exclusion from a proposed public-overlap-removed evaluation pool. The other **234 clips / 14.8796 minutes** have no overlap identified by those checks, but remain training data for existing P4/N4 checkpoints. A future reassignment requires excluding their full recording lineage from training and selection.
+
 ## ATCO2 and Jacktol are related, not interchangeable
 
 Both contain air traffic control speech. This does not establish that their recording channels, speakers, airports, annotation conventions, or difficulty distributions match. Our [dataset comparison](../atco2-jacktol-comparison.md) records these observable differences:

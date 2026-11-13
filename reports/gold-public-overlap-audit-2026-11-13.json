@@ -1,0 +1,323 @@
+{
+  "date": "2026-11-13",
+  "gold_manifest_sha256": "e73737113cea302971ac1e5f46e7800b5863d9e4cf9d3a109b8cf6730408c106",
+  "gold": {
+    "clips": 393,
+    "minutes": 25.072599999999973,
+    "source_recordings": 253
+  },
+  "exact_clip_overlap": {
+    "clips": 158,
+    "minutes": 10.123966666666668,
+    "source_recordings": 105
+  },
+  "additional_acoustic_clip_overlap": {
+    "clips": 1,
+    "minutes": 0.06899999999999999,
+    "source_recordings": 1
+  },
+  "additional_source_recording_exclusions": {
+    "clips": 0,
+    "minutes": 0.0,
+    "source_recordings": 0
+  },
+  "conservative_exclusion_union": {
+    "clips": 159,
+    "minutes": 10.192966666666669,
+    "source_recordings": 106
+  },
+  "no_identified_overlap": {
+    "clips": 234,
+    "minutes": 14.879633333333343,
+    "source_recordings": 147
+  },
+  "evaluation_budget": {
+    "existing_known_overlap_removed_minutes": 75.76146666666664,
+    "potential_additional_gold_minutes": 14.879633333333343,
+    "conditional_combined_minutes": 90.64109999999998,
+    "remaining_to_120_minutes": 29.35890000000002,
+    "eligible_added_minutes_for_existing_p4_n4": 0,
+    "conditions": "Only for future checkpoints whose entire training/selection ancestry excludes these Gold clips and linked recordings, including Silver exposure. No full-ancestry certification is established."
+  },
+  "gold_vs_original_test_identity_check": {
+    "gold_clips": 393,
+    "test_clips": 1908,
+    "shared_ids": 0,
+    "shared_audio_paths": 0,
+    "shared_source_record_ids": 0,
+    "shared_airport_date_groups": 0
+  },
+  "direct_audio_audit": {
+    "date": "2026-11-13",
+    "job_id": "38487111",
+    "gold_manifest_sha256": "e73737113cea302971ac1e5f46e7800b5863d9e4cf9d3a109b8cf6730408c106",
+    "gold_clips": 393,
+    "gold_minutes": 25.072599999999973,
+    "gold_source_recordings": 253,
+    "method": "Exact 16-kHz mono signed-int16 decoded PCM containment in both directions, independent WAV verification for every positive; no filename or transcript requirement. All eligible rows searched. Additional transcript-candidate acoustic check against Jacktol.",
+    "datasets": [
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "split": "train",
+        "rows_decoded": 446,
+        "rows_compared": 446,
+        "affected_clips": 130,
+        "affected_clip_minutes": 8.733466666666667,
+        "fully_contained_clips": 130,
+        "fully_contained_minutes": 8.733466666666667,
+        "matched_audio_minutes": 8.733465625000001,
+        "identical_complete_source_recordings": 86
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "split": "validation",
+        "rows_decoded": 113,
+        "rows_compared": 113,
+        "affected_clips": 28,
+        "affected_clip_minutes": 1.3905000000000003,
+        "fully_contained_clips": 28,
+        "fully_contained_minutes": 1.3905000000000003,
+        "matched_audio_minutes": 1.3905,
+        "identical_complete_source_recordings": 19
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "split": "train",
+        "rows_decoded": 8092,
+        "rows_compared": 446,
+        "rows_skipped_other_format": 7646,
+        "affected_clips": 130,
+        "affected_clip_minutes": 8.733466666666667,
+        "fully_contained_clips": 130,
+        "fully_contained_minutes": 8.733466666666667,
+        "matched_audio_minutes": 8.733465625000001,
+        "identical_complete_source_recordings": 86
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "split": "validation",
+        "rows_decoded": 2026,
+        "rows_compared": 113,
+        "rows_skipped_other_format": 1913,
+        "affected_clips": 28,
+        "affected_clip_minutes": 1.3905000000000003,
+        "fully_contained_clips": 28,
+        "fully_contained_minutes": 1.3905000000000003,
+        "matched_audio_minutes": 1.3905,
+        "identical_complete_source_recordings": 19
+      },
+      {
+        "repo_id": "jacktol/ATC-ASR-Dataset",
+        "split": "train",
+        "rows_decoded": 6497,
+        "rows_compared": 6497,
+        "affected_clips": 113,
+        "affected_clip_minutes": 6.934966666666667,
+        "fully_contained_clips": 113,
+        "fully_contained_minutes": 6.934966666666667,
+        "matched_audio_minutes": 6.934965625,
+        "identical_complete_source_recordings": 0
+      },
+      {
+        "repo_id": "jacktol/ATC-ASR-Dataset",
+        "split": "validation",
+        "rows_decoded": 812,
+        "rows_compared": 812,
+        "affected_clips": 13,
+        "affected_clip_minutes": 0.9413333333333332,
+        "fully_contained_clips": 13,
+        "fully_contained_minutes": 0.9413333333333332,
+        "matched_audio_minutes": 0.9413333333333332,
+        "identical_complete_source_recordings": 0
+      },
+      {
+        "repo_id": "jacktol/ATC-ASR-Dataset",
+        "split": "test",
+        "rows_decoded": 813,
+        "rows_compared": 813,
+        "affected_clips": 17,
+        "affected_clip_minutes": 1.0539999999999998,
+        "fully_contained_clips": 17,
+        "fully_contained_minutes": 1.0539999999999998,
+        "matched_audio_minutes": 1.054,
+        "identical_complete_source_recordings": 0
+      }
+    ],
+    "exact_union": {
+      "affected_clips": 158,
+      "affected_clip_minutes": 10.123966666666668,
+      "fully_contained_clips": 158,
+      "fully_contained_minutes": 10.123966666666668,
+      "matched_audio_minutes": 10.123965625,
+      "identical_complete_source_recordings": 105
+    },
+    "exact_train_union": {
+      "affected_clips": 149,
+      "affected_clip_minutes": 9.68746666666667,
+      "fully_contained_clips": 149,
+      "fully_contained_minutes": 9.68746666666667,
+      "matched_audio_minutes": 9.687465625,
+      "identical_complete_source_recordings": 86
+    },
+    "exact_validation_union": {
+      "affected_clips": 39,
+      "affected_clip_minutes": 2.201333333333333,
+      "fully_contained_clips": 39,
+      "fully_contained_minutes": 2.201333333333333,
+      "matched_audio_minutes": 2.2013333333333334,
+      "identical_complete_source_recordings": 19
+    },
+    "positive_controls": {
+      "expected": 2,
+      "recovered": 2
+    },
+    "jacktol_candidate_audit": {
+      "candidate_pairs": 263,
+      "confirmed_pairs": 139,
+      "confirmed_clips": 139,
+      "confirmed_clip_minutes": 8.895299999999999,
+      "additional_clips_beyond_exact": 1,
+      "fuzzy_threshold": 0.65
+    },
+    "exact_unmatched_clips": 235,
+    "exact_unmatched_minutes": 14.948633333333342,
+    "limitations": [
+      "Negative results do not exclude partial overlaps where neither full clip contains the other, arbitrary audio transformations, missing public snapshots or inaccessible pretraining corpora.",
+      "9559 ATCOSIM 32-kHz rows decoded but not compared in the exact 16-kHz pass.",
+      "Jacktol acoustic candidate pass is transcript/duration filtered and uses the existing heuristic correlation criteria; it is not a complete transformed-audio search.",
+      "These Gold clips were used by P4/N4; public overlap absence would not make them held-out evaluation for those checkpoints."
+    ],
+    "public_download_receipts": [
+      {
+        "repo_id": "jlvdoorn/atco2-asr",
+        "revision": "3b96f5791582cf6f6f348ca46fd502a981918d85",
+        "files": [
+          {
+            "path": "data/train-00000-of-00001-4907384ef649141a.parquet",
+            "bytes": 98763512,
+            "sha256": "16ca19cc381078cfdf2f6a8c3161a76ffed9653520a7ed89d7da5bb03edf88a0"
+          },
+          {
+            "path": "data/validation-00000-of-00001-b20d1116e523bc85.parquet",
+            "bytes": 26954676,
+            "sha256": "9c345ebf0ff60c6b7b6f79063dd615e7d0e051343f4c04465590ed24f29e159c"
+          }
+        ]
+      },
+      {
+        "repo_id": "jlvdoorn/atco2-asr-atcosim",
+        "revision": "21820a50f2f4d0a8f90838feb4efe88c3db31f95",
+        "files": [
+          {
+            "path": "data/train-00000-of-00005-c6681348ac8543dc.parquet",
+            "bytes": 406110129,
+            "sha256": "6c73963621be2be83cffc1c36e425167fe957f97f0239d98ed2df13428136666"
+          },
+          {
+            "path": "data/train-00001-of-00005-464e7b29cac82caf.parquet",
+            "bytes": 407150710,
+            "sha256": "5518f7b177765eba9c65aaf39ed39ba0f683f8b970e07d0b33c43513a3161aea"
+          },
+          {
+            "path": "data/train-00002-of-00005-008f85162351773d.parquet",
+            "bytes": 400730825,
+            "sha256": "ee7119f1ac47328e0f226807b27b264f33cf986bf432768b18a3cdd1ce0cd996"
+          },
+          {
+            "path": "data/train-00003-of-00005-13846616069619e5.parquet",
+            "bytes": 386832281,
+            "sha256": "ca6460bf2b02dd754c074e975bc2b1c4c40a9847be0aed3f8e582f531ae9b1e0"
+          },
+          {
+            "path": "data/train-00004-of-00005-0565e63298f50d49.parquet",
+            "bytes": 418670588,
+            "sha256": "2febfaab9851380c3bf4b1c84f7b3a53ac436fae73d4c6e4b0cb314c16de94ef"
+          },
+          {
+            "path": "data/validation-00000-of-00002-7a5ea3756991bf72.parquet",
+            "bytes": 260347543,
+            "sha256": "868ce6301b177ae3159b9ad79a11dbecb2cbf6fc08fd5267e2bc81a3a9fd1b36"
+          },
+          {
+            "path": "data/validation-00001-of-00002-56cef56513136770.parquet",
+            "bytes": 245105255,
+            "sha256": "983d64d32f53cf6b477b8c70b469644606517dceada8bb646d4cb00cddc8a33f"
+          }
+        ]
+      }
+    ],
+    "jacktol_manifest_sha256": {
+      "train": "252f6ca2365f1cfbda45b52ca776383c380f5bb3b1cd34931a0bd5982615a7cc",
+      "validation": "3c6735b73cb8571c37a3eef9656bde035cdefb1d2dfdd818c60b5bc02355ca1f",
+      "test": "02b7fa9207fcf3431f5ccf6f18a1c26779ffdfd4eaa2ec4c84701a3f7f246de2"
+    },
+    "script_sha256": "731bf69879e55fab71134f4a116b2396cb3df873dd3b6de29634972f4335b572",
+    "jacktol_helper_sha256": "d78ebaf14cc3c8ce710c8ccab12b1f5279bcf83e5c664b1eaff50be54907552e",
+    "private_exact_evidence_sha256": "d820a9ac3ad5231caa0fc06febe82e4257fa9227c153b42fea20b439664d195b",
+    "private_jacktol_candidates_sha256": "302cf332f9ca5cbe264bd950f92c876b633092d489fd4806905182d36e09f0ce"
+  },
+  "recording_audit": {
+    "job_id": "38487185",
+    "jacktol_rows_checked": 8122,
+    "gold_source_recordings": 253,
+    "by_split": {
+      "train": {
+        "source_recordings": 86,
+        "gold_clips": 135,
+        "gold_minutes": 8.674133333333334
+      },
+      "validation": {
+        "source_recordings": 13,
+        "gold_clips": 23,
+        "gold_minutes": 1.6121999999999999
+      },
+      "test": {
+        "source_recordings": 17,
+        "gold_clips": 26,
+        "gold_minutes": 1.4706000000000001
+      }
+    },
+    "exact_recording_links": {
+      "source_recordings": 102,
+      "gold_clips": 154,
+      "gold_minutes": 9.957966666666668
+    },
+    "prior_acoustic_recording_links": {
+      "source_recordings": 64,
+      "gold_clips": 101,
+      "gold_minutes": 6.182599999999998
+    },
+    "recording_link_union": {
+      "source_recordings": 103,
+      "gold_clips": 155,
+      "gold_minutes": 10.026966666666668
+    },
+    "prior_evidence_sha256": "214506a42cc63384cbad5ee4aafb666b7bb532b9c5b23ebee8b80630d2f7ebbf",
+    "script_sha256": "01f0f86c68e89ee9d4758524b3d140c2d1554b008458b0a0edb298c8f6c941c9",
+    "private_evidence_sha256": "e66c8adf6df6983949cb7246dc505d1a75e207260b82836decd12e4a584674c5"
+  },
+  "prior_test_rescoring_sha256": "a4f8f7569c53e1c6e4e51b1ad6fa5154bce8c627c50ab05898324623efb45e28",
+  "combine_script_sha256": "a5364035a3ab34961a6070702363b8895cbfe321ab6b3389ca237699e2512c31",
+  "private_exclusion_mask_sha256": "476b5d22a4867568c1682a3421249fc74715e9c93ea47651b07a2ebacec7a7f8",
+  "additional_acoustic_independent_verification": {
+    "method": "Independent Python wave decoder; native 16-kHz PCM; zero-lag Pearson correlation without resampling or envelope matching.",
+    "clips": 1,
+    "seconds": 4.14,
+    "sample_rate": 16000,
+    "samples_each": 66240,
+    "zero_lag_pearson_correlation": 0.974137163517749,
+    "exact_sample_fraction": 0.9890398550724637
+  },
+  "job_completion": {
+    "38487111": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:08:23"
+    },
+    "38487185": {
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "elapsed": "00:05:52"
+    }
+  }
+}
