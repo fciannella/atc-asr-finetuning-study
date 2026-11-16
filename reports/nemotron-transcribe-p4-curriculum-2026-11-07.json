@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
   "status": "silver_eight_gpu_recovery_running_gold_held",
-  "observed_at": "2026-11-16T12:42:25.943014+00:00",
+  "observed_at": "2026-11-16T12:44:08.066780+00:00",
   "base": {
     "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -812,7 +812,7 @@
       "revised_data_freeze_sha256": "5d7abcd6ab24193b5d9e621207541e56ef57025610e21b6fb47df161cd304a82",
       "revised_run": "nemotron-transcribe-p4-eval-protected-2026-11-16"
     },
-    "status": "running_startup",
+    "status": "checkpoint_restored_legacy_sampler_replay_running",
     "sampler_audit": [
       {
         "status": "passed",
@@ -1015,7 +1015,10 @@
       "frozen_code_and_manifests": "passed",
       "container_sha256": "passed",
       "eight_rank_sampler_tests": "passed",
-      "new_checkpoint_saved": false
+      "new_checkpoint_saved": false,
+      "model_optimizer_scheduler_restore": "passed_step_9000",
+      "all_eight_cuda_ranks_initialized": true,
+      "guarded_sampler_restore": "active"
     }
   },
   "actual_retained_pools_note": "Original November 7 audit. Gold was not trained; the November 16 preparation retains 47 rows after protecting the new evaluation release and recording groups, and is held by user decision."
