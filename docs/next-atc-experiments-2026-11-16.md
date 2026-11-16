@@ -1,6 +1,6 @@
 # Next ATC experiments: close the gap to the public checkpoints
 
-Planning record, November 16, 2026. No new training or inference jobs are launched by this plan. The active Nemotron Transcribe Silver recovery continues under its existing contract. Gold remains held until a new experiment is explicitly started. The user has accepted allowing shared airport/date groups while retaining source-identity and audio-overlap exclusions.
+Execution amendment, November 16, 2026: the user authorized stopping Transcribe and starting the Parakeet/synthetic campaign. Transcribe was stopped at its saved 9,000-step checkpoint. The original P3 Silver parent failed the checkpoint-selection overlap audit (528 common-test, 105 extension and 17 development clips), so P-G3 is withheld. P-G2, the pretrained → reclaimed Gold control, is the active path. The user accepts shared airport/date groups while retaining source/audio exclusions. See the [execution record](parakeet-gold-synthetic-2026-11-16.md). The proposed matrix below records the earlier plan; T-S/T-G3 are cancelled, not queued.
 
 ## Measured starting point
 
@@ -13,7 +13,7 @@ The November 6 common-mask comparison contains nine public community checkpoints
 | 3 | qenneth Parakeet | 18.18% | Offline |
 | 4 | jlvdoorn Whisper large v3 | 19.82% | Offline |
 | 5 | Our Jacktol-trained P2 | 20.11% | Offline; inherits UWB |
-| 6 | Our P4 Parakeet | 20.16% | Offline |
+| 6 | Our P4 Parakeet (historical; selection-exposed) | 20.16% | Offline |
 | 7 | Jacktol Whisper large v3 | 20.29% | Offline |
 | 8 | Our N4 Nemotron | 22.32% | Native streaming |
 | 9 | YouTube ATC FastConformer | 28.50% | Offline |
@@ -27,7 +27,7 @@ RASR v1 has 2,172 word errors versus P4's 2,792: a gap of 620 errors, 4.48 WER p
 
 ## Benchmark and data contract
 
-1. Keep the 1,269-clip common test as the primary historical comparison. All new runs report it unchanged.
+1. Keep the 1,269-clip common test frozen for historical comparison. P4's historical score is now flagged for newly discovered parent checkpoint-selection overlap; do not call it an independent held-out result. All new eligible runs report the unchanged split.
 2. Establish a separate 1,503-clip / 90.6411-minute comparison for eligible model lineages. Score the 234-clip extension for the nine pinned community checkpoints, reuse original-test predictions only after verifying the matching checkpoint, inference settings and PCM, and recompute combined corpus WER from summed edit/reference counts. Never average the two split WER percentages. Report the extension separately too. A new model can have different rankings on the two views.
 3. Existing P4/N4 cannot enter the combined comparison: all 234 extension clips were in their Gold training. For new runs, audit the full adaptation lineage, including the pre-Gold Silver parent, against evaluation and development sources. Unknown base/teacher ancestry remains a limitation for both public and internal models.
 4. Prepare a versioned candidate Gold training pool from the 639 excluded original-test clips plus 159 excluded former-Gold clips: 798 clips / 54.4580 minutes before final training-format checks. Source identity, complete-file SHA256 and exact crop-PCM checks against the 1,503 evaluation clips and 100 development clips passed. Permit shared airport/date groups under the newly accepted policy. Finish full candidate-pool deduplication, crop/label validation, duration filtering and source/version recording before training; publish any resulting count changes. Do not use the frozen evaluation recordings or references for augmentation, language-model fitting, checkpoint selection or decoder tuning.
@@ -37,7 +37,7 @@ RASR v1 has 2,172 word errors versus P4's 2,792: a gap of 620 errors, 4.48 WER p
 
 ## Proposed first experiments
 
-These are hypotheses and proposed budgets, not approved jobs or guaranteed gains. Prioritize the offline WER objective; retain N4 as a separate streaming reference.
+The following is the original proposed matrix. P-G2 is now authorized and submitted; P-G3 is withheld by the ancestry audit; T-S/T-G3 are cancelled. Synthetic generation has started as previews; larger synthetic training arms still require data QC. No gains are guaranteed.
 
 | Order / ID | Experiment | Starting point | Proposed treatment | What it establishes |
 |---|---|---|---|---|

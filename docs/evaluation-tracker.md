@@ -1,12 +1,14 @@
 # ATC evaluation tracker
 
+**November 16 correction — internal P3/P4 selection overlap:** A new audit found that the validation manifest used to select our P3 Silver parent contains **528 of these 1,269 common-test clips**, plus 105 clips from the later extension and 17 development clips. Its Silver/English training manifests had zero identified source/audio matches. P4 inherits that selected parent, so its 20.16% result is historical and selection-exposed, not an independently held-out result. The numerical measurements below are preserved for traceability; the previous blanket “no identified overlap” statement no longer applies to P3/P4 selection ancestry. This finding does not establish the same exposure for N4 or community checkpoints. See the [audit and replacement experiment](parakeet-gold-synthetic-2026-11-16.md).
+
 Updated **November 13, 2026**. This page links the completed evaluations, evidence, and open work. It is a dated record, not an automated job dashboard.
 
 ## Current comparison after removing known overlap
 
 All results below use the **same 1,269 utterances, 13,851 reference words, 768 source recordings and 1.262691 hours (75.76 minutes)**. This subset excludes the union of known Jacktol recording links and exact matches to the audited public ATCO2 training and validation sources.
 
-**Scope: known overlap removed.** No retained utterance has an overlap identified by the completed audits. This is not a guarantee of zero contamination across every model’s full training history: unscanned corpora and incomplete base/teacher manifests remain. The subset was defined after inspecting the original test, so it is not a new blind test.
+**Scope: known overlap removed.** The November 6 public-source audit found no retained matches; the November 16 internal parent-selection audit supersedes that conclusion for P3/P4. This is not a guarantee of zero contamination across every model’s full training history: unscanned corpora and incomplete base/teacher manifests remain. The subset was defined after inspecting the original test, so it is not a new blind test.
 
 Twelve checkpoints are compared: nine community checkpoints and our P2, P4 and N4. Existing predictions were rescored with the same fixed exclusion mask and lexical normalizer. Lower WER is better.
 
@@ -17,7 +19,7 @@ Twelve checkpoints are compared: nine community checkpoints and our P2, P4 and N
 | qenneth Parakeet | Offline | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | Publisher-reported; known Jacktol/ATCO2 recording links | 18.18% | 17.17–19.22% |
 | jlvdoorn Whisper large v3 | Offline | ATCO2-ASR via WhisperATC; project describes an 80/20 train/validation split | 498 exact train-source matches; 496 within first 30 seconds; exact job membership unavailable | 19.82% | 18.72–20.95% |
 | Our Jacktol-trained P2 | Offline | 5.896 h Jacktol + 10.534 h UWB + 100.344 h LibriSpeech across its curriculum; final stages use Jacktol/English | Internal records; inherits UWB; known Jacktol overlap | 20.11% | 19.01–21.24% |
-| Our P4 Parakeet | Offline | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | Internal records; Silver uses supplied machine transcripts; no Jacktol/UWB in documented adaptation | 20.16% | 19.11–21.25% |
+| Our P4 Parakeet (selection-exposed) | Offline | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | Internal records; Silver uses supplied machine transcripts; no Jacktol/UWB in documented adaptation | 20.16% | 19.11–21.25% |
 | Jacktol Whisper large v3 | Offline | Jacktol ATC-ASR dataset; exact training amount/revision not documented in reviewed card | Publisher-reported; known Jacktol/ATCO2 recording links | 20.29% | 18.91–21.83% |
 | Our N4 Nemotron | Native streaming | 314.716 h ATCO2 Silver + 314.721 h LibriSpeech; then 0.418 h human-accepted Gold + English replay | Internal records; Silver uses supplied machine transcripts; no Jacktol/UWB in documented adaptation | 22.32% | 21.21–23.47% |
 | YouTube ATC FastConformer | Offline | 800+ h reported YouTube VATSIM/IVAO corpus; human simulator speech with ASR/LLM-generated labels | Publisher-reported corpus size; unique training hours not independently counted | 28.50% | 27.05–30.01% |

@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
-  "status": "silver_eight_gpu_recovery_running_gold_held",
-  "observed_at": "2026-11-16T13:06:06.816773+00:00",
+  "status": "stopped_by_user",
+  "observed_at": "2026-11-16T13:21:08.820625+00:00",
   "base": {
     "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -1018,9 +1018,9 @@
       "new_checkpoint_saved": false,
       "model_optimizer_scheduler_restore": "passed_step_9000",
       "all_eight_cuda_ranks_initialized": true,
-      "guarded_sampler_restore": "active"
+      "guarded_sampler_restore": "stopped_by_user"
     },
-    "live_observation": {
+    "observation_before_user_stop": {
       "job": "38636736",
       "scheduler_state": "RUNNING",
       "elapsed": "00:25:21",
@@ -1030,7 +1030,8 @@
       "sampler_restore_started_at": "2026-11-16T12:43:34+00:00",
       "sampler_restore_done_observed": false,
       "new_checkpoint_saved": false
-    }
+    },
+    "latest_scheduler_state": "CANCELLED"
   },
   "actual_retained_pools_note": "Original November 7 audit. Gold was not trained; the November 16 preparation retains 47 rows after protecting the new evaluation release and recording groups, and is held by user decision.",
   "gold_policy_amendment": {
@@ -1040,5 +1041,14 @@
     "source_and_audio_exclusions_retained": true,
     "gold_training_status": "still_held",
     "current_silver_inputs_changed": false
+  },
+  "user_stop": {
+    "job": "38636736",
+    "scheduler_state": "CANCELLED",
+    "last_complete_step": 9000,
+    "successor_chain_disabled": true,
+    "checkpoints_preserved": true,
+    "reason": "Switch to Parakeet Gold and controlled synthetic-data experiments",
+    "replacement": "parakeet-gold-synthetic-2026-11-16"
   }
 }

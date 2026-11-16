@@ -1,5 +1,7 @@
 # Gold training candidates after freezing the 90.64-minute evaluation set
 
+**Execution amendment:** The user subsequently authorized new Gold experiments and stopped Transcribe. The full 798-clip / 54.458-minute pool passed training-format and duplicate checks. It is now used by the pretrained Parakeet control; the proposed P3 parent was excluded because of checkpoint-selection overlap. [Execution record](parakeet-gold-synthetic-2026-11-16.md).
+
 **Protocol update, November 16:** The user accepted relaxing airport/date grouping. Shared airport/date groups alone no longer exclude candidate Gold data; source identity and audio-overlap checks against the frozen evaluation and development sets remain mandatory. This makes the 798 clips / 54.46 minutes the candidate pool under the accepted policy. It does not change the running Silver data, restart Gold training, or remove the prior hold on Gold. The stricter counts below are retained as a comparison.
 
 Read-only audit completed November 16, 2026. The frozen evaluation set contains 1,503 clips / 90.6411 minutes. The existing development set contains 100 clips / 6.0019 minutes. Neither is included in the candidate training pool. Current Nemotron training remains Silver-only; Gold is held by user decision. No training manifest or job was changed by this audit.

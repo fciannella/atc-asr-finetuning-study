@@ -1,5 +1,7 @@
 # Nemotron N4 and Parakeet P4 checkpoint comparison
 
+**November 16 correction — internal P3/P4 selection overlap:** A new audit found that the validation manifest used to select our P3 Silver parent contains **528 of these 1,269 common-test clips**, plus 105 clips from the later extension and 17 development clips. Its Silver/English training manifests had zero identified source/audio matches. P4 inherits that selected parent, so its 20.16% result is historical and selection-exposed, not an independently held-out result. The numerical measurements below are preserved for traceability; the previous blanket “no identified overlap” statement no longer applies to P3/P4 selection ancestry. This finding does not establish the same exposure for N4 or community checkpoints. See the [audit and replacement experiment](parakeet-gold-synthetic-2026-11-16.md).
+
 Prepared November 2, 2026; updated November 3 with the N4 UWB evaluation. Both checkpoints are uploaded to private repositories in the NVIDIA Hugging Face organization. Their remote file sizes and SHA-256 hashes match the saved upload records. Nemotron N4 is the chosen streaming release direction; Parakeet P4 is the offline alternative. This selection does not establish final technical validation or release approval.
 
 ## Checkpoint identities

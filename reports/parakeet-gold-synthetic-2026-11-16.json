@@ -1,0 +1,264 @@
+{
+  "observed_at": "2026-11-16T13:59:00.373229+00:00",
+  "launch.json": {
+    "jobs": {
+      "baseline": "38639106",
+      "smoke": "38639411",
+      "train": "38639412",
+      "evaluate": "38639413"
+    },
+    "status": "submitted",
+    "arm": "p_g2",
+    "prior_smoke": "38639109",
+    "prior_failure": "Sparse decoder parameter sample unchanged; replaced with full trainable-domain hashes and reran smoke from scratch.",
+    "baseline_gate": "Completed scores.json verified before new chain submission; finished job no longer retained for scheduler dependency",
+    "p_g3": "withheld due to parent selection overlap"
+  },
+  "runtime.json": {
+    "torch": "2.7.0a0+79aa17489c.nv25.04",
+    "nemo": "2.8.0rc0",
+    "lightning": "2.4.0",
+    "lhotse": "1.33.0",
+    "cuda": "12.9",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "nemo_commit": "2d8fcad824680d21cdc316e0b0a7dce119190a15",
+    "source_sha256": {
+      "examples/asr/speech_to_text_finetune.py": "8445d7f14cb3f791633936eaa63b0aca0cce0481ee0990ab32dcc5dc7a14ac65",
+      "examples/asr/speech_to_text_eval.py": "114c3b46e68ff152aa67b277df4aba025676603e52def6d4ac6ccb54fe18aec3",
+      "nemo/collections/common/data/lhotse/dataloader.py": "2943d6a7b231a8c7ddaa8bae278317c70855310c2cb828df68e371d2791af03c"
+    }
+  },
+  "augmentation-preflight.json": {
+    "speed_perturbation": false,
+    "reason": "Pinned Lhotse ignores legacy augmentor key; removed inactive key. Same effective smoke and training augmentation.",
+    "spec_augment": {
+      "freq_masks": 2,
+      "time_masks": 10,
+      "freq_width": 27,
+      "time_width": 0.05
+    },
+    "spec_augment_equal_to_base_config": true,
+    "effective_attribute": "spec_augmentation",
+    "smoke_passed": "38639411",
+    "post_smoke_cleanup": "Removed ignored keys and assigned identical SpecAugment configuration to the actual forward-path attribute."
+  },
+  "arms/p_g2/smoke/complete-20.json": {
+    "status": "passed",
+    "step": 20,
+    "world_size": 8,
+    "finite_gradient_steps": 20,
+    "checkpoint_saved": true,
+    "changed_parameter_domains": {
+      "encoder": true,
+      "decoder": true,
+      "joint": true
+    },
+    "validation_events": [
+      {
+        "step": 10,
+        "metrics": {
+          "val_wer": 0.7698555588722229
+        }
+      },
+      {
+        "step": 20,
+        "metrics": {
+          "val_wer": 0.7680506110191345
+        }
+      }
+    ],
+    "elapsed_seconds": 39.942966987000545,
+    "quality_claim": null
+  },
+  "arms/p_g2/smoke/complete-40.json": {
+    "status": "passed",
+    "step": 40,
+    "world_size": 8,
+    "finite_gradient_steps": 40,
+    "checkpoint_saved": true,
+    "changed_parameter_domains": {
+      "encoder": true,
+      "decoder": true,
+      "joint": true
+    },
+    "validation_events": [
+      {
+        "step": 10,
+        "metrics": {
+          "val_wer": 0.7698555588722229
+        }
+      },
+      {
+        "step": 20,
+        "metrics": {
+          "val_wer": 0.7680506110191345
+        }
+      },
+      {
+        "step": 20,
+        "metrics": {
+          "val_wer": 0.7680506110191345
+        }
+      },
+      {
+        "step": 30,
+        "metrics": {
+          "val_wer": 0.7978339195251465
+        }
+      },
+      {
+        "step": 40,
+        "metrics": {
+          "val_wer": 0.7987365126609802
+        }
+      }
+    ],
+    "elapsed_seconds": 42.536358081997605,
+    "quality_claim": null
+  },
+  "arms/p_g2/smoke/resume-20.json": {
+    "status": "passed",
+    "global_step": 20,
+    "world_size": 8,
+    "optimizer_states": 651
+  },
+  "evaluations/base/scores.json": {
+    "status": "complete",
+    "role": "base",
+    "step": null,
+    "model": "/lustre/fsw/portfolios/llmservice/projects/llmservice_nemo_mlops/users/fciannella/ATC_ELDA/asr-pilot/atc-ablation-v1/experiments/parakeet-tdt-v3-jacktol-transfer-v1/base-model/parakeet-tdt-0.6b-v3-no-fused.nemo",
+    "splits": {
+      "development": {
+        "examples": 100,
+        "reference_words": 1108,
+        "word_errors": 563,
+        "wer": 0.5081227436823105
+      },
+      "english_guard": {
+        "examples": 128,
+        "reference_words": 2645,
+        "word_errors": 69,
+        "wer": 0.02608695652173913
+      }
+    }
+  },
+  "scheduler": "38636736|CANCELLED by 41975|00:40:22|billing=8,cpu=64,gres/gpu=8,mem=768G,node=1\n38639040|COMPLETED|00:03:03|billing=1,cpu=16,gres/gpu=1,mem=96G,node=1\n38639106|COMPLETED|00:01:40|billing=1,cpu=16,gres/gpu=1,mem=96G,node=1\n38639109|FAILED|00:02:23|billing=8,cpu=64,gres/gpu=8,mem=600G,node=1\n38639411|COMPLETED|00:04:04|billing=8,cpu=64,gres/gpu=8,mem=600G,node=1\n38639412|RUNNING|00:03:41|billing=8,cpu=64,gres/gpu=8,mem=600G,node=1\n38639413|PENDING|00:00:00|\n",
+  "arms/p_g2/train/status.json": {
+    "phase": "training",
+    "job": "38639412",
+    "step": 250,
+    "target": 2000,
+    "world_size": 8,
+    "finite_gradient_steps": 250,
+    "mean_rank_loss": 2.5081841945648193,
+    "updated_at": "2026-11-16T13:58:53.359539+00:00"
+  },
+  "synthetic_preview": {
+    "status": "preview_only_not_training_eligible",
+    "freeform_attempt": "Rejected for phraseology defects and unhelpful category coverage; ten synthesized files quarantined.",
+    "text_generator": "Data Designer category samplers plus constrained command templates. No LLM paraphrasing in retained preview.",
+    "tts": "Magpie Multilingual stock voices",
+    "independent_qc_asr": "Whisper large v3",
+    "holdout_content_used": false,
+    "review_pending": [
+      "listening to verify spoken labels",
+      "aviation phraseology review",
+      "residual-development targeting after Gold baseline selection",
+      "larger corpus and matched-duration ablation"
+    ],
+    "arms": {
+      "generic": {
+        "clips": 10,
+        "minutes_clean": 0.7546531250000001,
+        "paired_radio_variants": 10,
+        "category_counts": {
+          "other": 3,
+          "number_terms": 2,
+          "atc_commands": 2,
+          "phonetic_alphabet": 2,
+          "callsign_related_terms": 1
+        },
+        "voices": {
+          "Magpie-Multilingual.EN-US.Mia": 1,
+          "Magpie-Multilingual.EN-US.Jason": 1,
+          "Magpie-Multilingual.EN-US.Aria": 1,
+          "Magpie-Multilingual.EN-US.Leo": 1,
+          "Magpie-Multilingual.EN-US.Sofia": 1,
+          "Magpie-Multilingual.EN-US.Ray": 1,
+          "Magpie-Multilingual.EN-US.Diego": 1,
+          "Magpie-Multilingual.EN-US.Pascal": 1,
+          "Magpie-Multilingual.EN-US.Isabela": 1,
+          "Magpie-Multilingual.EN-US.Louise": 1
+        },
+        "automatic_audio_checks_passed": 10,
+        "independent_asr_agreement": {
+          "primary_lexical": {
+            "reference_words": 105,
+            "word_errors": 53,
+            "wer": 0.5047619047619047
+          },
+          "numeric_format_diagnostic": {
+            "reference_words": 105,
+            "word_errors": 4,
+            "wer": 0.0380952380952381
+          }
+        },
+        "not_model_benchmark": true,
+        "provenance": {
+          "tts_function": "877104f7-e885-42b9-8de8-f6e4c6303969",
+          "tts_version": "b6e21f71-c31b-4bcb-993c-73590d9dd83d",
+          "qc_asr_function": "b702f636-f60c-4a3d-a6f4-f3568c13bd7d",
+          "qc_asr_version": "a37ce169-8352-48ab-b197-f7c5b02448ff"
+        },
+        "manifest_sha256": "f8df1008a2b42e61ca89af3d8d26e8cf4834159012cd441ebd793c56070ee3d7",
+        "input_parquet_sha256": "9ff486fae1910645ad889c9c45a2c02f7804024a86d09c5f1bc31135d4007337"
+      },
+      "targeted": {
+        "clips": 10,
+        "minutes_clean": 0.6548083333333333,
+        "paired_radio_variants": 10,
+        "category_counts": {
+          "number_terms": 5,
+          "atc_commands": 4,
+          "phonetic_alphabet": 1
+        },
+        "voices": {
+          "Magpie-Multilingual.EN-US.Mia": 1,
+          "Magpie-Multilingual.EN-US.Jason": 1,
+          "Magpie-Multilingual.EN-US.Aria": 1,
+          "Magpie-Multilingual.EN-US.Leo": 1,
+          "Magpie-Multilingual.EN-US.Sofia": 1,
+          "Magpie-Multilingual.EN-US.Ray": 1,
+          "Magpie-Multilingual.EN-US.Diego": 1,
+          "Magpie-Multilingual.EN-US.Pascal": 1,
+          "Magpie-Multilingual.EN-US.Isabela": 1,
+          "Magpie-Multilingual.EN-US.Louise": 1
+        },
+        "automatic_audio_checks_passed": 10,
+        "independent_asr_agreement": {
+          "primary_lexical": {
+            "reference_words": 102,
+            "word_errors": 57,
+            "wer": 0.5588235294117647
+          },
+          "numeric_format_diagnostic": {
+            "reference_words": 102,
+            "word_errors": 15,
+            "wer": 0.14705882352941177
+          }
+        },
+        "not_model_benchmark": true,
+        "provenance": {
+          "tts_function": "877104f7-e885-42b9-8de8-f6e4c6303969",
+          "tts_version": "b6e21f71-c31b-4bcb-993c-73590d9dd83d",
+          "qc_asr_function": "b702f636-f60c-4a3d-a6f4-f3568c13bd7d",
+          "qc_asr_version": "a37ce169-8352-48ab-b197-f7c5b02448ff"
+        },
+        "manifest_sha256": "6298030f39318bc502eabfc6588e9516f901e1b02e6fb92c50137cf0002c9fe8",
+        "input_parquet_sha256": "5fcfbe7d84a556599396f1d0f6acd66bed874ba282358ec7ea4bf601870618f2"
+      }
+    },
+    "numeric_format_diagnostic": "Supplementary QC only: expand decimal digits individually, decimal point between digits to decimal, and niner to nine. Does not correct homophones or change benchmark scoring; ASR agreement does not prove audio correctness."
+  },
+  "status": "p_g2_eight_gpu_training_running_synthetic_preview_only"
+}

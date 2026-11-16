@@ -1,0 +1,5 @@
+providers:
+- name: nvidia-atc
+  endpoint: https://integrate.api.nvidia.com/v1
+  provider_type: openai
+  api_key: NVIDIA_API_KEY

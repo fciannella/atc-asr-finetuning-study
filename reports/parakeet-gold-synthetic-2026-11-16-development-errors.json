@@ -1,0 +1,56 @@
+{
+  "scope": "development_only",
+  "examples": 100,
+  "lexical_wer": 0.5081227436823105,
+  "raw_wer": 0.7355595667870036,
+  "counts": {
+    "reference_words": 1108,
+    "word_errors": 563,
+    "I": 52,
+    "S": 410,
+    "rows_with_digit_format_difference": 13,
+    "D": 101
+  },
+  "category_counts": {
+    "other": {
+      "reference_words": 505,
+      "I": 49,
+      "attributed_errors": 284,
+      "S": 194,
+      "D": 41
+    },
+    "number_terms": {
+      "reference_words": 281,
+      "S": 73,
+      "attributed_errors": 94,
+      "D": 18,
+      "I": 3
+    },
+    "phonetic_alphabet": {
+      "reference_words": 140,
+      "D": 20,
+      "attributed_errors": 81,
+      "S": 61
+    },
+    "atc_commands": {
+      "reference_words": 161,
+      "S": 67,
+      "attributed_errors": 87,
+      "D": 20
+    },
+    "callsign_related_terms": {
+      "reference_words": 21,
+      "D": 2,
+      "attributed_errors": 17,
+      "S": 15
+    }
+  },
+  "generation_policy": "Use aggregate categories only. Do not copy development references, hypotheses, specific callsigns, numeric sequences or recordings into synthetic examples.",
+  "category_caveats": [
+    "Categories are heuristic token classes, not verified entity spans.",
+    "Calls sign terms do not measure full callsign accuracy.",
+    "Digit-format mismatches require review before treating numeric errors as acoustic failures.",
+    "Noise, accent, clipping and reference defects require audio review and cannot be inferred from token counts alone."
+  ],
+  "predictions_sha256": "330e09084949a4b512675c0be90aa5ab229872eb32e8ec519758c51fb149bcdd"
+}

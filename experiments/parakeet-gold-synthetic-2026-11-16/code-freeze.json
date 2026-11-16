@@ -1,0 +1,19 @@
+{
+  "analyze_errors.py": "daae65ccd5f856cc7ce147c76a74394a5b7c58de498f45049fa4a8761ffc61c4",
+  "prepare_inside.sh": "c3c66eae6e0c7a6eee74ae178e788c7a9fc0beb7f3621cc85c0261fe38fe6374",
+  "smoke.sbatch": "be5cd5354ee344998bdd2f60dce8ab345644ee8a019534886a1851d51bafe0c7",
+  "score_wer.py": "cc05898d6e8dc243d6a12995799b8bc042216e4e2bf0bccf42f2f1d67e146b96",
+  "train.sbatch": "a40c0bd862c7c244b9d6d4330ba45d399c2c3c4642634966143f108c313b43ac",
+  "evaluate.sbatch": "d637d4d8457427bbc6f802d7ae2e284ae676bb2a617d912c334a53c28252d3c3",
+  "export_generic_nemo_checkpoint.py": "350a81990b87a4538937cdd9ae8e8c2914b32d608568d449a1c00a10d8a4daf4",
+  "run_inside.sh": "8ee01b1e8dcfcb7bed46364b68233645a3a6bf25ecd9c947836f71ea82d44c19",
+  "runtime.py": "70e87d9369a364f8482defe0daa5bada5ceb78d6bbd21ed67349491bc83d8a6c",
+  "train.py": "13ead49dc0027e4b753083c07ec29a7214fd008b47c9fb2fd55de650138fc341",
+  "baseline.sbatch": "9c6fb9cecf903ef35d5b28e82429e5fd891926f80fe32b71564e84af6d13dfe2",
+  "evaluate.py": "f33d08a50e1e2534a0803101b0cbdddee075f2ef971eafcee8abcb983577697a",
+  "select.py": "efec41e74ca426e4c566839a2ab416bae4ff929c83695e6f51d9d567f9e451c1",
+  "verify.py": "0acee0f54450f193a4f4808747070972c9fa7f59ffd0407bae1f11157d1b24a0",
+  "prepare.py": "87f5c1c989e7ea0ab96974bb1c52b6b67ee459ba22acafcc31d87c947f9377d5",
+  "prepare.sbatch": "b7cb31d30c55635f7fd2b788bbf8d8b58a9aaf4601ad9c2f3184cd5072706c94",
+  "contract.json": "cb4df3416c7dda7b60309f51a7aeb4b17a95d8ffff079775e60cf40c7f11192d"
+}

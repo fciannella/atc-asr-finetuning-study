@@ -1,0 +1,107 @@
+{
+  "status": "preview_only_not_training_eligible",
+  "freeform_attempt": "Rejected for phraseology defects and unhelpful category coverage; ten synthesized files quarantined.",
+  "text_generator": "Data Designer category samplers plus constrained command templates. No LLM paraphrasing in retained preview.",
+  "tts": "Magpie Multilingual stock voices",
+  "independent_qc_asr": "Whisper large v3",
+  "holdout_content_used": false,
+  "review_pending": [
+    "listening to verify spoken labels",
+    "aviation phraseology review",
+    "residual-development targeting after Gold baseline selection",
+    "larger corpus and matched-duration ablation"
+  ],
+  "arms": {
+    "generic": {
+      "clips": 10,
+      "minutes_clean": 0.7546531250000001,
+      "paired_radio_variants": 10,
+      "category_counts": {
+        "other": 3,
+        "number_terms": 2,
+        "atc_commands": 2,
+        "phonetic_alphabet": 2,
+        "callsign_related_terms": 1
+      },
+      "voices": {
+        "Magpie-Multilingual.EN-US.Mia": 1,
+        "Magpie-Multilingual.EN-US.Jason": 1,
+        "Magpie-Multilingual.EN-US.Aria": 1,
+        "Magpie-Multilingual.EN-US.Leo": 1,
+        "Magpie-Multilingual.EN-US.Sofia": 1,
+        "Magpie-Multilingual.EN-US.Ray": 1,
+        "Magpie-Multilingual.EN-US.Diego": 1,
+        "Magpie-Multilingual.EN-US.Pascal": 1,
+        "Magpie-Multilingual.EN-US.Isabela": 1,
+        "Magpie-Multilingual.EN-US.Louise": 1
+      },
+      "automatic_audio_checks_passed": 10,
+      "independent_asr_agreement": {
+        "primary_lexical": {
+          "reference_words": 105,
+          "word_errors": 53,
+          "wer": 0.5047619047619047
+        },
+        "numeric_format_diagnostic": {
+          "reference_words": 105,
+          "word_errors": 4,
+          "wer": 0.0380952380952381
+        }
+      },
+      "not_model_benchmark": true,
+      "provenance": {
+        "tts_function": "877104f7-e885-42b9-8de8-f6e4c6303969",
+        "tts_version": "b6e21f71-c31b-4bcb-993c-73590d9dd83d",
+        "qc_asr_function": "b702f636-f60c-4a3d-a6f4-f3568c13bd7d",
+        "qc_asr_version": "a37ce169-8352-48ab-b197-f7c5b02448ff"
+      },
+      "manifest_sha256": "f8df1008a2b42e61ca89af3d8d26e8cf4834159012cd441ebd793c56070ee3d7",
+      "input_parquet_sha256": "9ff486fae1910645ad889c9c45a2c02f7804024a86d09c5f1bc31135d4007337"
+    },
+    "targeted": {
+      "clips": 10,
+      "minutes_clean": 0.6548083333333333,
+      "paired_radio_variants": 10,
+      "category_counts": {
+        "number_terms": 5,
+        "atc_commands": 4,
+        "phonetic_alphabet": 1
+      },
+      "voices": {
+        "Magpie-Multilingual.EN-US.Mia": 1,
+        "Magpie-Multilingual.EN-US.Jason": 1,
+        "Magpie-Multilingual.EN-US.Aria": 1,
+        "Magpie-Multilingual.EN-US.Leo": 1,
+        "Magpie-Multilingual.EN-US.Sofia": 1,
+        "Magpie-Multilingual.EN-US.Ray": 1,
+        "Magpie-Multilingual.EN-US.Diego": 1,
+        "Magpie-Multilingual.EN-US.Pascal": 1,
+        "Magpie-Multilingual.EN-US.Isabela": 1,
+        "Magpie-Multilingual.EN-US.Louise": 1
+      },
+      "automatic_audio_checks_passed": 10,
+      "independent_asr_agreement": {
+        "primary_lexical": {
+          "reference_words": 102,
+          "word_errors": 57,
+          "wer": 0.5588235294117647
+        },
+        "numeric_format_diagnostic": {
+          "reference_words": 102,
+          "word_errors": 15,
+          "wer": 0.14705882352941177
+        }
+      },
+      "not_model_benchmark": true,
+      "provenance": {
+        "tts_function": "877104f7-e885-42b9-8de8-f6e4c6303969",
+        "tts_version": "b6e21f71-c31b-4bcb-993c-73590d9dd83d",
+        "qc_asr_function": "b702f636-f60c-4a3d-a6f4-f3568c13bd7d",
+        "qc_asr_version": "a37ce169-8352-48ab-b197-f7c5b02448ff"
+      },
+      "manifest_sha256": "6298030f39318bc502eabfc6588e9516f901e1b02e6fb92c50137cf0002c9fe8",
+      "input_parquet_sha256": "5fcfbe7d84a556599396f1d0f6acd66bed874ba282358ec7ea4bf601870618f2"
+    }
+  },
+  "numeric_format_diagnostic": "Supplementary QC only: expand decimal digits individually, decimal point between digits to decimal, and niner to nine. Does not correct homophones or change benchmark scoring; ASR agreement does not prove audio correctness."
+}

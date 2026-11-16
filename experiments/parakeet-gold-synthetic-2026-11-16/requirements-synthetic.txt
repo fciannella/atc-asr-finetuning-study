@@ -1,0 +1,5 @@
+data-designer==0.10.0
+typer==0.20.0
+nvidia-riva-client==2.28.0
+soundfile==0.14.0
+scipy==1.18.0
