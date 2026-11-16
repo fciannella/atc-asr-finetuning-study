@@ -85,5 +85,18 @@
     "Exact-audio negatives do not establish independence from transformed or unknown upstream data.",
     "Reuse does not confer redistribution rights.",
     "Current training remains Silver-only; Gold is held."
-  ]
+  ],
+  "policy_amendment": {
+    "recorded_at": "2026-11-16T13:07:04.477455+00:00",
+    "user_decision": "Relax airport/date grouping",
+    "airport_date_exclusion_required": false,
+    "gold_group_key_exclusion_required": false,
+    "source_identity_and_audio_exclusions_required": true,
+    "protected_evaluation_clips": 1503,
+    "protected_development_clips": 100,
+    "candidate_clips": 798,
+    "candidate_minutes": 54.45796666666662,
+    "training_changed": false,
+    "gold_training_hold_lifted": false
+  }
 }
