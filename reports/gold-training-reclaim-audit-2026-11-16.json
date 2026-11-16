@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "checked_at": "2026-11-16T12:58:32.171594+00:00",
+  "protected_eval": {
+    "clips": 1503,
+    "minutes": 90.6411
+  },
+  "protected_development": {
+    "clips": 100,
+    "minutes": 6.001900000000002
+  },
+  "protected_eval_sha256": "cf675e16517aa1a8653833e54d6bc6e3f9612b681a8514885ef48358e32dfa8d",
+  "protected_development_sha256": "d3d02888afff5f552e1072ebee3fe72ffb41e318058ebc071f37bbda7d799300",
+  "pools": {
+    "excluded_original_test": {
+      "candidates": {
+        "clips": 639,
+        "minutes": 44.264999999999915
+      },
+      "source_and_exact_audio_disjoint_before_group_filter": {
+        "clips": 639,
+        "minutes": 44.264999999999915
+      },
+      "excluded": {
+        "clips": 605,
+        "minutes": 41.9457666666666
+      },
+      "retained_under_current_group_rule": {
+        "clips": 34,
+        "minutes": 2.3192333333333326
+      },
+      "exclusion_reasons": {
+        "airport_date": 605,
+        "gold_recording_group": 605
+      },
+      "source_manifest_sha256": "4af85f51d32051ee84c841c92c8e5e1eb69ee07201149197f905a7edc9c13082",
+      "retained_ids_sha256": "2ed4838497c94f15e7e40fe93832d6b5d9ee2ac3a3493f20165628b00c101ce9"
+    },
+    "excluded_previous_gold": {
+      "candidates": {
+        "clips": 159,
+        "minutes": 10.192966666666669
+      },
+      "source_and_exact_audio_disjoint_before_group_filter": {
+        "clips": 159,
+        "minutes": 10.192966666666669
+      },
+      "excluded": {
+        "clips": 112,
+        "minutes": 7.470333333333332
+      },
+      "retained_under_current_group_rule": {
+        "clips": 47,
+        "minutes": 2.722633333333334
+      },
+      "exclusion_reasons": {
+        "airport_date": 112,
+        "gold_recording_group": 112
+      },
+      "source_manifest_sha256": "e73737113cea302971ac1e5f46e7800b5863d9e4cf9d3a109b8cf6730408c106",
+      "retained_ids_sha256": "cb300a6dbedd92ae644863f0ca5853bc424831dda32af49a5b0d514463bcc2fb"
+    }
+  },
+  "total_candidates": {
+    "clips": 798,
+    "minutes": 54.45796666666662
+  },
+  "total_retained_under_current_group_rule": {
+    "clips": 81,
+    "minutes": 5.0418666666666665
+  },
+  "retained_unique_pcm_count": 81,
+  "checks": [
+    "IDs",
+    "resolved source paths and basenames",
+    "complete source-file SHA256",
+    "exact 16-kHz mono signed-int16 crop PCM SHA256",
+    "airport/date groups",
+    "Gold recording groups",
+    "retained-candidate PCM deduplication"
+  ],
+  "training_changed": false,
+  "limitations": [
+    "Same airport/date or Gold group is a conservative exclusion, not proof of identical audio.",
+    "Exact-audio negatives do not establish independence from transformed or unknown upstream data.",
+    "Reuse does not confer redistribution rights.",
+    "Current training remains Silver-only; Gold is held."
+  ]
+}
