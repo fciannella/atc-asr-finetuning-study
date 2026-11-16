@@ -1,0 +1,215 @@
+[
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 9000,
+    "end": 9020
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 9020,
+    "end": 9040
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 9040,
+    "end": 9500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 9500,
+    "end": 10000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 10000,
+    "end": 10500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 10500,
+    "end": 11000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 11000,
+    "end": 11500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 11500,
+    "end": 12000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 12000,
+    "end": 12500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 12500,
+    "end": 13000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 13000,
+    "end": 13500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 13500,
+    "end": 14000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 14000,
+    "end": 14500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 14500,
+    "end": 15000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 15000,
+    "end": 15500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 15500,
+    "end": 16000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 16000,
+    "end": 16500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 16500,
+    "end": 17000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 17000,
+    "end": 17500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 17500,
+    "end": 18000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 18000,
+    "end": 18500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 18500,
+    "end": 19000
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 19000,
+    "end": 19500
+  },
+  {
+    "stage": "silver",
+    "phase": "train",
+    "gpus": 8,
+    "start": 19500,
+    "end": 20000
+  },
+  {
+    "stage": "silver",
+    "phase": "export-9000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "candidate-9000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "export-15000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "candidate-15000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "export-20000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "candidate-20000",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "lock-selection",
+    "gpus": 0
+  },
+  {
+    "stage": "silver",
+    "phase": "base-test",
+    "gpus": 1
+  },
+  {
+    "stage": "silver",
+    "phase": "selected-test",
+    "gpus": 1
+  }
+]

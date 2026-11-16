@@ -1,7 +1,7 @@
 {
   "experiment": "nemotron-transcribe-p4-curriculum-2026-11-07-r2",
-  "status": "silver_recovery_retry_running",
-  "observed_at": "2026-11-10T13:23:01.236623+00:00",
+  "status": "silver_eight_gpu_recovery_running_gold_held",
+  "observed_at": "2026-11-16T12:42:25.943014+00:00",
   "base": {
     "model": "nvidia/Nemotron-3.5-Transcribe-30B-A4B",
     "revision": "d64e69ed50d55926815cbac332d1f3017ab105d4",
@@ -307,7 +307,7 @@
   },
   "recovery": {
     "experiment": "nemotron-transcribe-p4-recovery-2026-11-09",
-    "status": "retry_from_7040_running_data_loader_setup",
+    "status": "superseded_by_2026_11_16_recovery_after_step_9000_timeout",
     "sampler_audit_job": "38273475",
     "training_gpus": 8,
     "resume_step": 7000,
@@ -693,5 +693,330 @@
       "cause": "Not established; startup or node-access failure suspected"
     }
   },
-  "original_chunk_updates": 1000
+  "original_chunk_updates": 1000,
+  "last_verified_checkpoint": {
+    "stage": "silver",
+    "step": 9000,
+    "target": 20000,
+    "world_size": 8,
+    "finite_gradient_steps": 9000,
+    "all_shards_present": true,
+    "optimizer_states_restored": 733,
+    "scheduler_states_restored": 1,
+    "last_unsaved_step": 9006,
+    "last_job": "38345332",
+    "last_job_state": "TIMEOUT",
+    "last_job_elapsed": "03:45:04"
+  },
+  "gold_status": "held_by_user_pending_more_separate_human_labeled_data",
+  "recovery_2026_11_16": {
+    "experiment": "nemotron-transcribe-p4-recovery-2026-11-16",
+    "scope": {
+      "authorized_scope": "Finish Silver and evaluate; hold Gold pending more separate human-labeled data",
+      "user_decision_date": "2026-11-16",
+      "silver_steps": 20000,
+      "gold_jobs_authorized": false,
+      "gold_retained_recording_group_disjoint_clips": 47,
+      "gold_retained_minutes": 2.722633333333333,
+      "test_clips": 1269,
+      "test_words": 13851,
+      "protected_release_clips": 1503
+    },
+    "code_sha256": {
+      "packing_cache.py": "7d19682f0fdb521720e4780020b32c7ceebbfe5d82237c1e6add46b29cfee7a3",
+      "packing_fast.py": "33fc22b47cd04a74ae6882cf327ac35164abc5720311500b31c9be5cb5a4daca",
+      "sampler_restore.py": "99af8e03bf24537cf6b5b9a2ea6776a173e4a4ade6434c25432580e35695119f",
+      "audit_restore.py": "f5a6ad639826fa1d3640a7c8b001a1a0ae8be5e225357c12e09ac69139e4e07b",
+      "audit_all.py": "f7e1bc0245f62cdbdbcdb958f15fea7f2d39850b3fea5afb88de26c2d88e1121",
+      "train_recovery.py": "8660e498862efde507c7bd49a5ee7896bff3476c8344678771dad29d20feee13",
+      "pipeline.py": "76f8ad9149c7c26dd931da9888e21dc7e1743fe64a8e46db5b3e1c323d57c3d7",
+      "dispatch.py": "6c0b553197feca573f929575818d05377e78d6f06f51d4463089e753a00b04fc",
+      "chain.json": "9286be95e6096ee6a8163d83780df78e02478223276a5cde06251f72ac7cd7bb",
+      "submit_next.py": "40c5429c31a8be737013ec574ec7484ef24f04d41863c8c22d97bf8203d0ee7d",
+      "inside.sh": "894575256295f68f2edfb23e063d2523f5cf250505e2f9dcc000bc3ecd5ce314",
+      "job.sbatch": "f7b236f8d25bd3a0edd1c6ee0302c5793fd566faa5ff5afab691644de3118212",
+      "verify_recovery.py": "23866b6a837cba93f263b404f229b695a475bc4bf5b26992a3fd4353b1d0343a",
+      "prepare_protected_gold.py": "b4bfde06fd0d2ff6bc4732c2d1858519e644b7fa626c0edf6086b3354d69fe23",
+      "report_silver.py": "3601ac337cba06a03b42c7fb750e9fd4ef397e6a08d3d8c91ebc5c2773fe4a59",
+      "scope.json": "178c971cbdf73dcf4e10a2f3a80778b79bbaf8c05ae503de95de8f666358d7ca"
+    },
+    "phase_count": 33,
+    "audit_job": "38636295",
+    "restore_fix": "Guarded single deserialization when a Lhotse sampler and its iterator alias the same object and their serialized states match",
+    "initial_resume_steps": [
+      9000,
+      9020,
+      9040
+    ],
+    "second_resume_gate_seconds": 3600,
+    "walltime_per_job": "03:45:00",
+    "gold_jobs": 0,
+    "evaluation_protection": {
+      "status": "passed",
+      "protected_count": 1503,
+      "protected_manifest_sha256": "cf675e16517aa1a8653833e54d6bc6e3f9612b681a8514885ef48358e32dfa8d",
+      "protected_source_files": 915,
+      "protected_minutes": 90.6411,
+      "checks": [
+        "source basename",
+        "resolved path",
+        "original source ID",
+        "source file SHA256",
+        "cropped PCM SHA256",
+        "airport/date when present",
+        "Gold recording group when present"
+      ],
+      "splits": {
+        "silver": {
+          "input_count": 377400,
+          "overlap_count": 0,
+          "overlap_minutes": 0.0,
+          "retained_count": 377400,
+          "retained_minutes": 17420.49816666729,
+          "match_reasons": {},
+          "input_sha256": "94056b6a7ecf2bd5c8d0bf2b554f1cacb5dd426fdce82073a137cd3ea568907b"
+        },
+        "english": {
+          "input_count": 90069,
+          "overlap_count": 0,
+          "overlap_minutes": 0.0,
+          "retained_count": 90069,
+          "retained_minutes": 18883.060931250282,
+          "match_reasons": {},
+          "input_sha256": "1653fa8d7ae2e3bca57e3ff943a9fc012aef9c94f3ee8dc8feb6b725e32ab737"
+        },
+        "gold": {
+          "input_count": 393,
+          "overlap_count": 346,
+          "overlap_minutes": 22.34996666666666,
+          "retained_count": 47,
+          "retained_minutes": 2.722633333333333,
+          "match_reasons": {
+            "airport_date": 346,
+            "gold_recording_group": 346,
+            "source_basename": 234,
+            "source_path": 234,
+            "source_id": 234,
+            "source_bytes": 234,
+            "crop_pcm": 234
+          },
+          "input_sha256": "03f1dc636b077aca38a2b36849fee9eda4efea941576edc8860f497a4513c3e6"
+        }
+      },
+      "original_data_freeze_sha256": "5199cd85f54917f0b0519214e2a4e37442760adb58c14c85e980a62908d51ace",
+      "limitations": [
+        "Known-source checks do not establish unknown base-model pretraining ancestry or detect all transformed copies.",
+        "Original 1269-row final test remains frozen; 234-row extension is protected from future adaptation and not used for selection."
+      ],
+      "revised_gold_sha256": "fe261cc1bdb5b83c5f95f5cd40063e33c029f7a046d21c6362d220a7331c280c",
+      "revised_data_freeze_sha256": "5d7abcd6ab24193b5d9e621207541e56ef57025610e21b6fb47df161cd304a82",
+      "revised_run": "nemotron-transcribe-p4-eval-protected-2026-11-16"
+    },
+    "status": "running_startup",
+    "sampler_audit": [
+      {
+        "status": "passed",
+        "rank": 0,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "f5273b6f50bf96f31d20600e2d2fd7aea33861d233c895c76a7fccb5bc5a3042"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "09da6e2cf1471ee111a77e4ea3323066820cb23fd72bd3c2268edd9f43c630e0"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 1,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "53ee254335d4673d5690216a2d64fad4ff8ca988d3b3d305dcd3221aa962c445"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "a8caf7aae5166f97ee12d1d5ccdea3c47a21e5d04106d2c09b365e9cd71437e3"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 2,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "71a284a8204c9374c1fd24db4b546908b4e080e39a27a30b9e72053dae4b7563"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "665faa5b0b1ff15062f3b03c3730852bd779e0124cc2c8fd5b74ee7774bd3cc9"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 3,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "c75760f198861acdc5d0f2f70657f3591c62628861102aecf61b10af81b7e518"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "127d5ec2ee9348033c4afb92abda07797f1f3980eedd14f968b807d5fdcf2372"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 4,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "6a2c7bc5bbfb2e358dc688fb77fa2858f7cbd083c3c4e01a07474778dd85aa8a"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "f1e43b140022534c03026bc788c7bb07f556a3afbef72894273a6e2528625cee"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 5,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "3b09c924efc700111a767e9f03dc297b798f111dbe9e11f1ba4714fe67984814"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "c2c1ecb69b7627b92e61f1852c7212006283a8a4b38da4d917e744dc4d4010ae"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 6,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "900253c4e5f80ab2a433234fa50add35ff87031302d243170a98e2cc67e071fc"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "d8b5422a166b551b4d1c039c394d1f2bc5f9d34c149059191b8bd83980fa18d6"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      },
+      {
+        "status": "passed",
+        "rank": 7,
+        "world_size": 8,
+        "bug_reproduced": true,
+        "packed_and_unpacked": [
+          {
+            "packed": true,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "750e97ccd174a1dcc6829022ad15748c4837b188934d0d018acf754822eda0bc"
+          },
+          {
+            "packed": false,
+            "exact_continuation_batches": 20,
+            "restore_count": 1,
+            "epoch_transition_replays": 0,
+            "prefix_sha256": "0437f111a9d75cb47bacab8a8f2c91dcc5eba99ccce76bac477692c1a0409725"
+          }
+        ],
+        "distinct_iterator_regression": "passed",
+        "unequal_state_guard": "passed"
+      }
+    ],
+    "job": "38636736",
+    "audit_job_status": "COMPLETED",
+    "allocated_gpus": 8,
+    "node": "batch-block7-03555",
+    "runtime_checks": {
+      "frozen_code_and_manifests": "passed",
+      "container_sha256": "passed",
+      "eight_rank_sampler_tests": "passed",
+      "new_checkpoint_saved": false
+    }
+  },
+  "actual_retained_pools_note": "Original November 7 audit. Gold was not trained; the November 16 preparation retains 47 rows after protecting the new evaluation release and recording groups, and is held by user decision."
 }

@@ -1,0 +1,11 @@
+{
+  "authorized_scope": "Finish Silver and evaluate; hold Gold pending more separate human-labeled data",
+  "user_decision_date": "2026-11-16",
+  "silver_steps": 20000,
+  "gold_jobs_authorized": false,
+  "gold_retained_recording_group_disjoint_clips": 47,
+  "gold_retained_minutes": 2.722633333333333,
+  "test_clips": 1269,
+  "test_words": 13851,
+  "protected_release_clips": 1503
+}
